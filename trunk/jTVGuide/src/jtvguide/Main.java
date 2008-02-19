@@ -15,7 +15,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("foo");
+    	  String OS = System.getProperty("os.name").toLowerCase();
+    	  System.out.println(OS);
     }
 
 }
