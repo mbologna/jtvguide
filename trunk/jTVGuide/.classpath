@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="data/Channel.java|data/Program.java|data/Schedule.java|data/UserPreferences.java|xmltv/XMLTVConfigurator.java|xmltv/XMLTVGrabber.java|xmltv/XMLTVGrabbers.java|xmltv/XMLTVHelper.java|xmltv/XMLTVParser.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/buildclasses"/>
 </classpath>
