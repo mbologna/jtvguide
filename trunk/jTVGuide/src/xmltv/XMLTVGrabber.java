@@ -1,44 +1,59 @@
+package xmltv;
+
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import util.RunExternalCommand;
 
 public class XMLTVGrabber implements XMLTVHelper {
 
-	private XMLTVParser mXMLTVParser;
+	// private XMLTVParser mXMLTVParser;
 
 	public XMLTVGrabber () {
 	}
 
-	public boolean grabSchedule (XMLTVHelper options) {
+	public boolean grabSchedule () {
 		/* devo richiamare il grabber di xmltv */
 		String OS = System.getProperty("os.name").toLowerCase();
+		String command;
 		if (OS.indexOf("windows") > -1) {
 			/* siamo in Windows */
-			String command = "xmltv.exe " + mXMLTVGrabbers.getGrabber(mUserPreferences.getLocation());
+			command = "xmltv.exe tv_grab_it" /*
+			 * +
+			 * mXMLTVGrabbers.getGrabber(mUserPreferences.getLocation())
+			 */;
 		}
 		else {
 			/* UNIX e derivati */
-			String command = mXMLTVGrabbers.getGrabber(mUserPreferences.getLocation());
+			command = "tv_grab_it"/* mXMLTVGrabbers.getGrabber(mUserPreferences.getLocation()) */;
 		}
 
-		String parameters = userPreferences.getOptions();
-		
-		Process p = Runtime.getRuntime().exec(command + " " + parameters);
-        BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-        p.waitFor();
-        status = p.exitValue();
-		return (status == 0) ? true : false;
-		mXMLTVParser.parse(xmltvOutput);
+		UserPreferences mUserPreferences = new UserPreferences();
+		mUserPreferences.setDays(3);
+		mUserPreferences.setXmltvConfigFile(new File("tv_grab_it.conf"));
+		mUserPreferences.setXmltvOutputFile(new File("tv_grab_it.xml"));
+		String parameters = mUserPreferences.getOptions();
+		RunExternalCommand rec = new RunExternalCommand();
+		try {
+			rec.runCommand(command + " " + parameters);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+
+		// mXMLTVParser.parse(xmltvOutput);
 	}
 
-	public XMLTVParser getXMLTVParser () {
-		return mXMLTVParser;
-	}
-
-	public void setXMLTVParser (XMLTVParser val) {
-		this.mXMLTVParser = val;
-	}
+	/*
+	 * public XMLTVParser getXMLTVParser () { return mXMLTVParser; }
+	 * 
+	 * public void setXMLTVParser (XMLTVParser val) { this.mXMLTVParser = val; }
+	 */
 
 }
+
 
