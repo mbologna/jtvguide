@@ -1,3 +1,7 @@
+package xmltv;
+
+
+import java.io.File;
 
 public interface XMLTVHelper {
 
@@ -7,7 +11,7 @@ public interface XMLTVHelper {
 
     public static final File xmltvOutput = null;
 
-    public static final XMLTVGrabbers mXMLTVGrabbers = null;
+    //public static final XMLTVGrabbers mXMLTVGrabbers = null;
 
     public static final UserPreferences mUserPreferences = null;
 
