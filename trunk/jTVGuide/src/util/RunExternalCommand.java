@@ -14,90 +14,13 @@ import java.io.InputStreamReader;
  */
 public class RunExternalCommand {
 
-	private String command = null;
-	private StringBuffer input = new StringBuffer();
-	private StringBuffer error = new StringBuffer();
-
-	/**
-	 * Creates a new <code>ExternalCommand</code> instance with given String command.
-	 *
-	 * @param command A string representing external command to execute
-	 */
-	public RunExternalCommand(String command) {
-		this.command = command;
-	}
-
-	/**
-	 * Creates a new <code>ExternalCommand</code> instance with given String command.
-	 */
-	public RunExternalCommand() {
-	}
-
-	/**
-	 * Returns input of external command
-	 *
-	 * @return <code>String</code>
-	 */
-	public String getInput() {
-		return input.toString();
-	}
-
-	/**
-	 * Returns error of external command
-	 *
-	 * @return <code>String</code>
-	 */
-	public String getError() {
-		return error.toString();
-	}
-
-	/**
-	 * Runs external command
-	 *
-	 * @throws IOException
-	 */
-	public void runCommand() throws IOException {
-		input.setLength(0); //erase input StringBuffer
-		error.setLength(0); //erase error StringBuffer
-		String s;
-		if (command != null) {
-			Runtime a = Runtime.getRuntime();
-			java.lang.Process p = a.exec(command);
-
-			BufferedReader stdInput = new BufferedReader(new InputStreamReader(
-					p.getInputStream()));
-
-			BufferedReader stdError = new BufferedReader(new InputStreamReader(
-					p.getErrorStream()));
-
-			// read the output from the command
-
-			//System.out.println("Here is the standard output of the command:\n");
-			while ((s = stdInput.readLine()) != null) {
-				input.append(s);
-			}
-
-			// read any errors from the attempted command
-
-			//System.out.println("Here is the standard error of the command (if any):\n");
-			while ((s = stdError.readLine()) != null) {
-				error.append(s);
-			}
-		} else {
-			throw new NullPointerException();
-		}
-	}
-
 	/**
 	 * Runs external command
 	 *
 	 * @param command A string representing external command to execut
 	 * @throws IOException
 	 */
-	public void runCommand(String command) throws IOException {
-		input.setLength(0); //erase input StringBuffer
-		error.setLength(0); //erase error StringBuffer
-
+	public static void runCommand(String command) throws IOException {
 		Process p = null;
 
 		try {
