@@ -16,7 +16,7 @@ public class jTVGuide {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-    	System.out.println("jTVGuide version: $Revision$");
+    	System.out.println("jTVGuide version: $Rev$ - $Revision$");
     	//XMLTVGrabber.grabSchedule();
     	//XMLTVParser.parse();
     }
