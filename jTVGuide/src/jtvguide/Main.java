@@ -5,9 +5,6 @@
 
 package jtvguide;
 
-import java.io.File;
-
-import xmltv.UserPreferences;
 import xmltv.XMLTVGrabber;
 
 /**
@@ -20,9 +17,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-  
-    	XMLTVGrabber xmltvg = new XMLTVGrabber();
-    	xmltvg.grabSchedule();
+    	XMLTVGrabber.grabSchedule();
     }
 
 }

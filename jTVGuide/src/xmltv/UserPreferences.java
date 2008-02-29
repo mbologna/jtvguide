@@ -8,33 +8,33 @@ import java.io.File;
  *
  */
 public class UserPreferences {
-	private int days = 1;
-	private boolean withCache = false;
-	private boolean withSlow = false;
-	private boolean withCacheSlow = false;
-	private boolean verbose = true;
-	private boolean quiet = false;
-	private File xmltvConfigFile = null;
-	private File xmltvOutputFile = null;
+	private static int days = 1;
+	private static boolean withCache = false;
+	private static boolean withSlow = false;
+	private static boolean withCacheSlow = false;
+	private static boolean verbose = true;
+	private static boolean quiet = false;
+	private static File xmltvConfigFile = null;
+	private static File xmltvOutputFile = null;
 	
-	public String getOptions() {
+	public static String getOptions() {
 		String options = new String();
-		options += "--days " + this.getDays();
-		options += " --config-file " + this.getXmltvConfigFile();
-		options += " --output " + this.getXmltvOutputFile();
-		if (this.isWithCache()) {
+		options += "--days " + getDays();
+		options += " --config-file " + getXmltvConfigFile();
+		options += " --output " + getXmltvOutputFile();
+		if (isWithCache()) {
 			options += " --cache";
 		}
-		if (this.isWithSlow()) {
+		if (isWithSlow()) {
 			options += " --slow";
 		}
-		if (this.isWithCacheSlow()) {
+		if (isWithCacheSlow()) {
 			options += " --cache-slow";
 		}
-		if (this.isVerbose()) {
+		if (isVerbose()) {
 			options += " --verbose";
 		}
-		if (this.isQuiet()) {
+		if (isQuiet()) {
 			options += " --quiet";
 		}
 		return options;
@@ -43,99 +43,99 @@ public class UserPreferences {
 	/**
 	 * @return the days
 	 */
-	public int getDays() {
+	public static int getDays() {
 		return days;
 	}
 	/**
 	 * @param days the days to set
 	 */
-	public void setDays(int days) {
-		this.days = days;
+	public static void setDays(int d) {
+		days = d;
 	}
 	/**
 	 * @return the withCache
 	 */
-	public boolean isWithCache() {
+	public static boolean isWithCache() {
 		return withCache;
 	}
 	/**
 	 * @param withCache the withCache to set
 	 */
-	public void setWithCache(boolean withCache) {
-		this.withCache = withCache;
+	public static void setWithCache(boolean wC) {
+		withCache = wC;
 	}
 	/**
 	 * @return the withSlow
 	 */
-	public boolean isWithSlow() {
+	public static boolean isWithSlow() {
 		return withSlow;
 	}
 	/**
 	 * @param withSlow the withSlow to set
 	 */
-	public void setWithSlow(boolean withSlow) {
-		this.withSlow = withSlow;
+	public static void setWithSlow(boolean wS) {
+		withSlow = wS;
 	}
 	/**
 	 * @return the withCacheSlow
 	 */
-	public boolean isWithCacheSlow() {
+	public static boolean isWithCacheSlow() {
 		return withCacheSlow;
 	}
 	/**
 	 * @param withCacheSlow the withCacheSlow to set
 	 */
-	public void setWithCacheSlow(boolean withCacheSlow) {
-		this.withCacheSlow = withCacheSlow;
+	public static void setWithCacheSlow(boolean wCS) {
+		withCacheSlow = wCS;
 	}
 	/**
 	 * @return the verbose
 	 */
-	public boolean isVerbose() {
+	public static boolean isVerbose() {
 		return verbose;
 	}
 	/**
 	 * @param verbose the verbose to set
 	 */
-	public void setVerbose(boolean verbose) {
-		this.verbose = verbose;
+	public static void setVerbose(boolean v) {
+		verbose = v;
 	}
 	/**
 	 * @return the quiet
 	 */
-	public boolean isQuiet() {
+	public static boolean isQuiet() {
 		return quiet;
 	}
 	/**
 	 * @param quiet the quiet to set
 	 */
-	public void setQuiet(boolean quiet) {
-		this.quiet = quiet;
+	public static void setQuiet(boolean q) {
+		quiet = q;
 	}
 	
 	/**
 	 * @return the xmltvConfigFile
 	 */
-	public File getXmltvConfigFile() {
+	public static File getXmltvConfigFile() {
 		return xmltvConfigFile;
 	}
 	/**
 	 * @param xmltvConfigFile the xmltvConfigFile to set
 	 */
-	public void setXmltvConfigFile(File xmltvConfigFile) {
-		this.xmltvConfigFile = xmltvConfigFile;
+	public static void setXmltvConfigFile(File xmltvCF) {
+		xmltvConfigFile = xmltvCF;
 	}
 	/**
 	 * @return the xmltvOutputFile
 	 */
-	public File getXmltvOutputFile() {
+	public static File getXmltvOutputFile() {
 		return xmltvOutputFile;
 	}
 	/**
 	 * @param xmltvOutputFile the xmltvOutputFile to set
 	 */
-	public void setXmltvOutputFile(File xmltvOutputFile) {
-		this.xmltvOutputFile = xmltvOutputFile;
+	public static void setXmltvOutputFile(File xmltvOF) {
+		xmltvOutputFile = xmltvOF;
 	}
 	
 }

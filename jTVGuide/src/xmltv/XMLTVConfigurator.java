@@ -3,14 +3,14 @@ package xmltv;
 import java.io.*;
 import java.util.Vector;
 
-public class XMLTVConfigurator implements XMLTVHelper {
+public class XMLTVConfigurator /*implements XMLTVHelper*/ {
 
     public XMLTVConfigurator () {
     }
 
     public void config () {
 
-    	File xmltvConfig = mUserPreferences.getXmltvConfigFile();
+    	File xmltvConfig = UserPreferences.getXmltvConfigFile();
     	Vector<String> channelVector = new Vector<String>();
     	Vector<Boolean> channelSelected = new Vector<Boolean>();
     	try {

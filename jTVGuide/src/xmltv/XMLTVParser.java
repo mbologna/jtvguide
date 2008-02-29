@@ -1,24 +1,33 @@
 package xmltv;
 
+import java.io.File;
 
-public class XMLTVParser implements XMLTVHelper {
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
-    //private Schedule mSchedule;
+import org.jdom.Document;
 
-    public XMLTVParser () {
-    }
+public class XMLTVParser /* implements XMLTVHelper */{
 
-    public boolean parse () {
-        return true;
-    }
+	// private Schedule mSchedule;
 
-    /*public Schedule getSchedule () {
-        return mSchedule;
-    }
+	public XMLTVParser() {
+	}
 
-    public void setSchedule (Schedule val) {
-        this.mSchedule = val;
-    }*/
+	public boolean parse() {
+		/*DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setValidating(true);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document doc = builder.parse(new File(UserPreferences.getXmltvOutputFile()));*/
+		
+		
+		return true;
+	}
+
+	/*
+	 * public Schedule getSchedule () { return mSchedule; }
+	 * 
+	 * public void setSchedule (Schedule val) { this.mSchedule = val; }
+	 */
 
 }
-
