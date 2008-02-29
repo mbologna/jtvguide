@@ -14,12 +14,12 @@ import xmltv.XMLTVParser;
  */
 public class jTVGuide {
 
-    /**
+	/**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
     	//XMLTVGrabber.grabSchedule();
-    	System.out.println("jTVGuide v" + $LastChangedRevision$);
+    	//System.out.println("jTVGuide v" + $LastChangedRevision$);
     	XMLTVParser.parse();
     }
 
