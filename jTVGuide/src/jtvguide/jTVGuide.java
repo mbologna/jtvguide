@@ -5,8 +5,6 @@
 
 package jtvguide;
 
-import xmltv.XMLTVGrabber;
-import xmltv.XMLTVParser;
 
 /**
  *
@@ -18,8 +16,8 @@ public class jTVGuide {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+    	System.out.println("jTVGuide "+ "$ID$");
     	//XMLTVGrabber.grabSchedule();
-    	System.out.println("sw v $Revision$");
     	//XMLTVParser.parse();
     }
 
