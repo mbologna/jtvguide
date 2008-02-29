@@ -1,16 +1,14 @@
 package xmltv;
 
-import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import util.RunExternalCommand;
 
 public class XMLTVGrabber implements XMLTVHelper {
 
-	// private XMLTVParser mXMLTVParser;
+	private XMLTVParser mXMLTVParser;
 
 	public XMLTVGrabber () {
 	}
@@ -43,9 +41,10 @@ public class XMLTVGrabber implements XMLTVHelper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		mXMLTVParser.parse(/*xmltvOutput*/);
 		return true;
-
-		// mXMLTVParser.parse(xmltvOutput);
+		
 	}
 
 	/*
