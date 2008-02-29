@@ -19,6 +19,7 @@ public class jTVGuide {
      */
     public static void main(String[] args) {
     	//XMLTVGrabber.grabSchedule();
+    	System.out.println("jTVGuide v" + $LastChangedRevision$);
     	XMLTVParser.parse();
     }
 
