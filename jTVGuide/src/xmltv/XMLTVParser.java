@@ -1,22 +1,24 @@
+package xmltv;
+
 
 public class XMLTVParser implements XMLTVHelper {
 
-    private Schedule mSchedule;
+    //private Schedule mSchedule;
 
     public XMLTVParser () {
     }
 
-    public boolean parseXML () {
+    public boolean parse () {
         return true;
     }
 
-    public Schedule getSchedule () {
+    /*public Schedule getSchedule () {
         return mSchedule;
     }
 
     public void setSchedule (Schedule val) {
         this.mSchedule = val;
-    }
+    }*/
 
 }
 
