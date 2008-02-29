@@ -6,18 +6,20 @@
 package jtvguide;
 
 import xmltv.XMLTVGrabber;
+import xmltv.XMLTVParser;
 
 /**
  *
  * @author Michele
  */
-public class Main {
+public class jTVGuide {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-    	XMLTVGrabber.grabSchedule();
+    	//XMLTVGrabber.grabSchedule();
+    	XMLTVParser.parse();
     }
 
 }
