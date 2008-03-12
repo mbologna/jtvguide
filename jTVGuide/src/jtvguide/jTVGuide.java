@@ -5,6 +5,8 @@
 
 package jtvguide;
 
+import xmltv.XMLTVParser;
+
 
 /**
  *
@@ -18,7 +20,7 @@ public class jTVGuide {
     public static void main(String[] args) {
     	System.out.println("jTVGuide version: $Rev$");
     	//XMLTVGrabber.grabSchedule();
-    	//XMLTVParser.parse();
+    	XMLTVParser.parse();
     }
 
 }
