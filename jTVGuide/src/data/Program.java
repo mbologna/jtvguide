@@ -1,25 +1,20 @@
+package data;
+import java.util.Date;
+
+
 
 public class Program {
 
     private String title;
-
-    private String description;
-
     private Date startDate;
-
     private Date stopDate;
-
     private Channel mChannel;
 
-    public Program () {
-    }
-
-    public String getDescription () {
-        return description;
-    }
-
-    public void setDescription (String val) {
-        this.description = val;
+    public Program (Date startDate, Date stopDate, Channel c, String title) {
+    	this.startDate = startDate;
+    	this.stopDate = stopDate;
+    	this.mChannel = c;
+    	this.title = title;
     }
 
     public Channel getChannel () {
