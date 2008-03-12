@@ -1,7 +1,9 @@
 package xmltv;
 
-import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,6 +11,8 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+
+import data.Channel;
 
 public class XMLTVParser /* implements XMLTVHelper */{
 
@@ -19,41 +23,71 @@ public class XMLTVParser /* implements XMLTVHelper */{
 
 	public static boolean parse() {
 		SAXBuilder builder = new SAXBuilder();
-		// Create the document
 		Document doc;
 		try {
-			doc = builder.build(new File("tv_grab_it.xml"));
-			Element root = doc.getRootElement();
-			List channels = root.getChildren("channel");
+			//doc = builder.build(UserPreferences.getXmltvOutputFile());
+			doc = builder.build("tv_grab_it.xml");
+			List channels = doc.getRootElement().getChildren("channel");
 			Iterator channelsIterator = channels.iterator();
+			
+			/* 
+			 * abbiamo a disposizione i display-name, controllare sul DTD quanti ce ne possono essere 
+			 * 
+			 * Parsing dei canali
+			 */
+		
+			String id;
+			String displayName = "foo";
+			String icon = "bar";
+			
 			while (channelsIterator.hasNext()) {
 				Element channel = (Element) channelsIterator.next();
-				List displayNames = channel.getChildren();
+				id = channel.getAttributeValue("id");
+				List displayNames = channel.getChildren("display-name");
 				Iterator displayNamesIterator = displayNames.iterator();
 				while (displayNamesIterator.hasNext()) {
-					Element displayName = (Element) displayNamesIterator.next();
-					System.out.println(displayName.getValue() + " " + channel.getAttribute("id").getValue());	
+					Element name = (Element) displayNamesIterator.next();				
+					displayName = name.getValue();
 				}
+				if (channel.getChild("icon") != null) {
+					/* icon può essere vuota */
+					icon = channel.getChild("icon").getAttributeValue("src");
+				}
+				System.out.println(id + "," + displayName + "," + icon);
+				
+				/* Creare un nuovo canale e aggiungerlo alla lista dei canali */
 			}
-			List shows = root.getChildren("programme");
+			
+			/*
+			 * Parsing degli show
+			 */
+					
+			List shows = doc.getRootElement().getChildren("programme");
 			Iterator showsIterator = shows.iterator();
+			Date startDate, stopDate;
+			String channel; /* ------------------------------------- da cambiare */
+			String title, desc;
 			while (showsIterator.hasNext()) {
 				Element show = (Element) showsIterator.next();
 				String start = show.getAttributeValue("start");
-				start = start.substring(0,start.indexOf(" "));
-				start = start.substring(0,8)+" "+start.substring(8,10)+":"+start.substring(10,12);
-				String stop = show.getAttributeValue("start");
-				stop = stop.substring(0,stop.indexOf(" "));
-				stop = stop.substring(0,8)+" "+stop.substring(8,10)+":"+stop.substring(10,12);
-				String channel = show.getAttributeValue("channel");
-				String title = show.getChildText("title");
-				String desc = show.getChildText("desc");
-				System.out.println(start + "-" + stop + " - " + channel + " --> " + title + " ~ " + desc);
+				SimpleDateFormat dateParser = new SimpleDateFormat("yyyyMMddHHmmss ZZZZZ");
+				startDate = dateParser.parse(start);
+				String stop = show.getAttributeValue("stop");
+				stopDate = dateParser.parse(stop);
+				channel = show.getAttributeValue("channel");
+				title = show.getChildText("title");
+				desc = show.getChildText("desc");	
+				SimpleDateFormat dateFormatter = new SimpleDateFormat("(dd/MM) [HH:mm]");
+				System.out.println(dateFormatter.format(startDate)+","+dateFormatter.format(stopDate)+ ","+channel+","+title+","+desc);
+				/* Creare un nuovo show e aggiungerlo alla lista gli show */
 			}			
 		} catch (JDOMException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

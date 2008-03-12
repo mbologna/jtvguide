@@ -1,48 +1,71 @@
+package data;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class Channel {
 
-    private String name;
+	private String name;
+	private int channelNumber;
+	private URL id;
+	private Icon icon;
 
-    private Logo logo;
+	public Channel(String displayName, int number, String idURL, String iconURL) {
+		this.name = displayName;
+		this.channelNumber = number;
+		try {
+			this.id = new URL("http://" + idURL);
+			this.icon = new ImageIcon(new URL(iconURL));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Channel(String displayName, String idURL) {
+		this.name = displayName;
+		this.channelNumber = 0;
+		try {
+			this.id = new URL("http://" + idURL);
+			this.icon = null /* mettere un quadrato vuoto ? */;
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-    private URL url;
+	public String getName() {
+		return name;
+	}
 
-    private int channelNumber;
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Channel () {
-    }
+	public int getChannelNumber() {
+		return channelNumber;
+	}
 
-    public int getChannelNumber () {
-        return channelNumber;
-    }
+	public void setChannelNumber(int channelNumber) {
+		this.channelNumber = channelNumber;
+	}
 
-    public void setChannelNumber (int val) {
-        this.channelNumber = val;
-    }
+	public URL getId() {
+		return id;
+	}
 
-    public Logo getLogo () {
-        return logo;
-    }
+	public void setId(URL id) {
+		this.id = id;
+	}
 
-    public void setLogo (Logo val) {
-        this.logo = val;
-    }
+	public Icon getIcon() {
+		return icon;
+	}
 
-    public String getName () {
-        return name;
-    }
-
-    public void setName (String val) {
-        this.name = val;
-    }
-
-    public URL getUrl () {
-        return url;
-    }
-
-    public void setUrl (URL val) {
-        this.url = val;
-    }
-
+	public void setIcon(Icon icon) {
+		this.icon = icon;
+	}
 }
-

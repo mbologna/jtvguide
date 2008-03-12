@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="data/Channel.java|data/Program.java|data/Schedule.java|data/UserPreferences.java|xmltv/XMLTVGrabbers.java" kind="src" path="src"/>
+	<classpathentry excluding="data/Program.java|data/Schedule.java|data/UserPreferences.java|xmltv/XMLTVGrabbers.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Documents and Settings/Michele/workspace/jTVGuide/lib/jdom.jar"/>
 	<classpathentry kind="output" path="build/buildclasses"/>
