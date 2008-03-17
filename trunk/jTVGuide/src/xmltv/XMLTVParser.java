@@ -21,14 +21,14 @@ import data.Program;
 public class XMLTVParser /* implements XMLTVHelper */{
 
 	// private Schedule mSchedule;
+	private ChannelMap cm;
 
 	public XMLTVParser() {
 	}
 
-	public static boolean parse() {
+	public boolean parse() {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = null;
-		ChannelMap cm = null;
 
 		try {
 			// doc = builder.build(UserPreferences.getXmltvOutputFile());
@@ -71,7 +71,7 @@ public class XMLTVParser /* implements XMLTVHelper */{
 					/* icon può essere vuota */
 					icon = channel.getChild("icon").getAttributeValue("src");
 				}
-				//System.out.println(id + "," + displayName + "," + icon);
+				/* Creare un nuovo canale e aggiungerlo alla lista dei canali */
 				Channel c = new Channel(displayName, id);
 				try {
 					cm.add(id, c);
@@ -79,7 +79,6 @@ public class XMLTVParser /* implements XMLTVHelper */{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				/* Creare un nuovo canale e aggiungerlo alla lista dei canali */
 			}
 
 			/*
@@ -89,7 +88,7 @@ public class XMLTVParser /* implements XMLTVHelper */{
 			List<Element> shows = doc.getRootElement().getChildren("programme");
 			Iterator<Element> showsIterator = shows.iterator();
 			Date startDate = null, stopDate = null;
-			String channel; /* ------------------------------------- da cambiare */
+			String channelID;
 			String title, desc;
 			while (showsIterator.hasNext()) {
 				Element show = (Element) showsIterator.next();
@@ -109,23 +108,19 @@ public class XMLTVParser /* implements XMLTVHelper */{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				channel = show.getAttributeValue("channel");
+				channelID = show.getAttributeValue("channel");
 				try {
-					if (cm.testIfPresent(channel)) {
+					if (cm.testIfPresent(channelID)) {
 						title = show.getChildText("title");
 						desc = show.getChildText("desc");
 						SimpleDateFormat dateFormatter = new SimpleDateFormat(
 								"(dd/MM) [HH:mm]");
 						if (startDate != null && stopDate != null) {
-							/*System.out.println(dateFormatter.format(startDate)
-									+ "," + dateFormatter.format(stopDate)
-									+ "," + channel + "," + title + "," + desc);
-									*/
 							/*
 							 * Creare un nuovo show e aggiungerlo alla lista gli
 							 * show
 							 */
-							Program p = new Program(startDate,stopDate,cm.get(channel),title);
+							Program p = new Program(startDate,stopDate,cm.get(channelID),title);
 						}
 					}
 				} catch (MalformedURLException e) {
@@ -144,5 +139,9 @@ public class XMLTVParser /* implements XMLTVHelper */{
 	 * 
 	 * public void setSchedule (Schedule val) { this.mSchedule = val; }
 	 */
+
+	public ChannelMap getCm() {
+		return cm;
+	}
 
 }
