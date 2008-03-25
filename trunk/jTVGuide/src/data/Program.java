@@ -1,6 +1,8 @@
 package data;
 import java.util.Date;
 
+import util.DateFormatter;
+
 
 
 public class Program {
@@ -47,6 +49,13 @@ public class Program {
 
     public void setTitle (String val) {
         this.title = val;
+    }
+    
+    public String toString() {
+    	return  DateFormatter.formatDate(startDate) + "-" +
+    			DateFormatter.formatDate(stopDate) + "\t\t" +
+    			title + "\t\t[" +
+    			mChannel.getName() + "]";
     }
 
 }
