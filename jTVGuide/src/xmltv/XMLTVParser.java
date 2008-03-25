@@ -1,9 +1,8 @@
 package xmltv;
 
+
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -13,14 +12,15 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
+import util.DateFormatter;
 import collection.ChannelMap;
-
+import collection.Schedule;
 import data.Channel;
 import data.Program;
 
 public class XMLTVParser /* implements XMLTVHelper */{
 
-	// private Schedule mSchedule;
+	private Schedule mSchedule;
 	private ChannelMap cm;
 
 	public XMLTVParser() {
@@ -42,8 +42,7 @@ public class XMLTVParser /* implements XMLTVHelper */{
 		}
 
 		if (doc != null) {
-			List<Element> channels = doc.getRootElement()
-					.getChildren("channel");
+			List<Element> channels = doc.getRootElement().getChildren("channel");
 			Iterator<Element> channelsIterator = channels.iterator();
 			cm = new ChannelMap();
 
@@ -59,13 +58,14 @@ public class XMLTVParser /* implements XMLTVHelper */{
 			String icon = "bar";
 
 			while (channelsIterator.hasNext()) {
-				Element channel = (Element) channelsIterator.next();
+				Element channel = channelsIterator.next();
 				id = channel.getAttributeValue("id");
-				List displayNames = channel.getChildren("display-name");
-				Iterator displayNamesIterator = displayNames.iterator();
+				List<Element> displayNames = channel.getChildren("display-name");
+				Iterator<Element> displayNamesIterator = displayNames.iterator();
 				while (displayNamesIterator.hasNext()) {
-					Element name = (Element) displayNamesIterator.next();
+					Element name = displayNamesIterator.next();
 					displayName = name.getValue();
+					break;  // CONTROLLARE
 				}
 				if (channel.getChild("icon") != null) {
 					/* icon può essere vuota */
@@ -75,10 +75,11 @@ public class XMLTVParser /* implements XMLTVHelper */{
 				Channel c = new Channel(displayName, id);
 				try {
 					cm.add(id, c);
-				} catch (MalformedURLException e) {
+				} catch (URISyntaxException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
 			}
 
 			/*
@@ -90,58 +91,49 @@ public class XMLTVParser /* implements XMLTVHelper */{
 			Date startDate = null, stopDate = null;
 			String channelID;
 			String title, desc;
+			Program p;
+			mSchedule = new Schedule();
+			
 			while (showsIterator.hasNext()) {
-				Element show = (Element) showsIterator.next();
+				Element show = showsIterator.next();
 				String start = show.getAttributeValue("start");
-				SimpleDateFormat dateParser = new SimpleDateFormat(
-						"yyyyMMddHHmmss ZZZZZ");
-				try {
-					startDate = dateParser.parse(start);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				startDate = DateFormatter.formatString(start);
 				String stop = show.getAttributeValue("stop");
-				try {
-					stopDate = dateParser.parse(stop);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				stopDate = DateFormatter.formatString(stop);
 				channelID = show.getAttributeValue("channel");
 				try {
 					if (cm.testIfPresent(channelID)) {
 						title = show.getChildText("title");
 						desc = show.getChildText("desc");
-						SimpleDateFormat dateFormatter = new SimpleDateFormat(
-								"(dd/MM) [HH:mm]");
 						if (startDate != null && stopDate != null) {
 							/*
 							 * Creare un nuovo show e aggiungerlo alla lista gli
 							 * show
 							 */
-							Program p = new Program(startDate,stopDate,cm.get(channelID),title);
+							p = new Program(startDate,stopDate,cm.get(channelID),title);
+							mSchedule.add(p);
 						}
 					}
-				} catch (MalformedURLException e) {
+				} catch (URISyntaxException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
 			}
 		}
 		return true;
 	}
-	/*
-	 * public Schedule getSchedule () { return mSchedule; }
-	 * 
-	 * public void setSchedule (Schedule val) { this.mSchedule = val; }
-	 */
+	
 
 	public ChannelMap getCm() {
 		return cm;
+	}
+
+	public Schedule getMSchedule() {
+		return mSchedule;
 	}
 
 }
