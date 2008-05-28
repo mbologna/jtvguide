@@ -56,7 +56,7 @@ public class Program {
     	return  DateFormatter.formatDate(startDate) + "-" +
     			DateFormatter.formatDate(stopDate) + "\t\t" +
     			title + "\t\t[" +
-    			mChannel.getName() + "]";
+    			mChannel.getDisplayName() + "]";
     }
 
 }

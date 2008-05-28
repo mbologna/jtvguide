@@ -1,6 +1,8 @@
 package it.unibg.cs.jtvguide.collection;
 
 import it.unibg.cs.jtvguide.data.Program;
+import it.unibg.cs.jtvguide.xmltv.XMLTVGrabber;
+import it.unibg.cs.jtvguide.xmltv.XMLTVParser;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -12,8 +14,6 @@ public class Schedule {
 
 	private List<Program> scheduleList;
 
-	// private XMLTVGrabber mXMLTVGrabber;
-
 	public Schedule() {
 		scheduleList = new LinkedList<Program>();
 	}
@@ -22,37 +22,13 @@ public class Schedule {
 		scheduleList.add(p);
 	}
 
-	/*public boolean isUpToDate() {
-		Program p;
-		*//*****************************************//*
-		 Non c'è un modo migliore per farlo? 
-		int todayDay, todayMonth, todayYear;
-		int startDay, startMonth, startYear;
-		Calendar day = new GregorianCalendar();
-		todayDay = day.get(Calendar.DAY_OF_MONTH);
-		todayMonth = day.get(Calendar.MONTH);
-		todayYear = day.get(Calendar.YEAR);
-		*//*********************************************//*
+	private boolean isUpToDate() {
+		List<Program> result = this.getOnAirPrograms(new Date());
+		return !result.isEmpty();
 		
-		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
-			p = (Program) iterator.next();
-			day.setTime(p.getStartDate());
-			startDay = day.get(Calendar.DAY_OF_MONTH);
-			startMonth = day.get(Calendar.MONTH);
-			startYear = day.get(Calendar.YEAR);
-			if (todayDay == startDay && todayMonth == startMonth && todayYear == startYear) {
-				return true;
-			}
-		}
-		return false;
-	}*/
-
-	public boolean update() {
-		/* richiamare il grabber */
-		return true;
 	}
 
-	public List<Program> getPrograms(Date now) {
+	public List<Program> getOnAirPrograms(Date now) {
 		List<Program> programList = new LinkedList<Program>();
 		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
 			Program p = (Program) iterator.next();
@@ -63,12 +39,13 @@ public class Schedule {
 		}
 		return programList;
 	}
-
-	/*
-	 * public XMLTVGrabber getXMLTVGrabber () { return mXMLTVGrabber; }
-	 * 
-	 * public void setXMLTVGrabber (XMLTVGrabber val) { this.mXMLTVGrabber =
-	 * val; }
-	 */
-
+	
+	public void update() {
+		XMLTVParser xmltvp = new XMLTVParser();
+    	xmltvp.parse(this);
+		if (!this.isUpToDate()) {
+			XMLTVGrabber.grabSchedule();
+			xmltvp.parse(this);
+		}  	
+	}
 }
