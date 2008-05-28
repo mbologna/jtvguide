@@ -46,24 +46,41 @@ public class ChannelMap {
 		this.channelMap.put(id, e);
 	}
 
-	public void add(String id, Channel e) throws URISyntaxException {
-		this.channelMap.put(new URI("http://" + id), e);
+	public void add(String id, Channel e) {
+		try {
+			this.channelMap.put(new URI("http://" + id), e);
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
-	public boolean testIfPresent(URI id) {
+	public boolean contains(URI id) {
 		return this.channelMap.containsKey(id);
 	}
 
-	public boolean testIfPresent(String id) throws URISyntaxException {
-		return this.channelMap.containsKey(new URI("http://" + id));
+	public boolean contains(String id) {
+		try {
+			return this.channelMap.containsKey(new URI("http://" + id));
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public Channel get(URI id) {
 		return this.channelMap.get(id);
 	}
 
-	public Channel get(String id) throws URISyntaxException {
-		return this.channelMap.get(new URI("http://" + id));
+	public Channel get(String id) {
+		try {
+			return this.channelMap.get(new URI("http://" + id));
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

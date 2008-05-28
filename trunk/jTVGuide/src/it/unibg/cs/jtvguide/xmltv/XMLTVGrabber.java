@@ -14,10 +14,15 @@ public class XMLTVGrabber /*implements XMLTVHelper*/ {
 
 	public XMLTVGrabber () {
 	}
+	
+	/*
+	 * Il metodo richiama il comando di xmltv appropriato (in base 
+	 * alla piattaforma) per effettuare il download dei palinsesti
+	 * secondo le opzioni specificate dall'utente.
+	 */
 
 	public static boolean grabSchedule () {
-		/* devo richiamare il grabber di xmltv, il comando dipende
-		 * dall'OS su cui mi trovo */
+		
 		String command;
 		if (OSType.getOS().equals("windows")) {
 			command = "xmltv.exe tv_grab_it";
