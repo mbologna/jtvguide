@@ -1,18 +1,21 @@
 package it.unibg.cs.jtvguide.xmltv;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.PrintStream;
 import java.util.Vector;
 
 public class XMLTVConfigurator /*implements XMLTVHelper*/ {
 
-	private Vector<String> channelNameVector = new Vector<String>();;
-	private Vector<Boolean> channelSelectedVector = new Vector<Boolean>();
-
+	private static Vector<String> channelNameVector = new Vector<String>();
+	private static Vector<Boolean> channelSelectedVector = new Vector<Boolean>();
 
     public XMLTVConfigurator () {
     }
 
-    public void config () {
+    public static void config () {
 
     	File xmltvConfig = UserPreferences.getXmltvConfigFile();
 
@@ -53,21 +56,36 @@ public class XMLTVConfigurator /*implements XMLTVHelper*/ {
 		}
     }
 
-    public void chargeVectors(){
+    public static void chargeFile(Vector<String> channelName, Vector<Boolean> channelSelected){
+    	channelNameVector.removeAllElements();
+    	channelSelectedVector.removeAllElements();
+    	for(int i=0;i<channelName.size();i++){
+    		channelNameVector.add(channelName.get(i));;
+    		channelSelectedVector.add(channelSelected.get(i));
+    	}
+    	XMLTVConfigurator.config();
+    }
+
+    public static void chargeVectors(){
 
 		File xmltvConfig = UserPreferences.getXmltvConfigFile();
+
+		channelNameVector.removeAllElements();
+    	channelSelectedVector.removeAllElements();
 
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(xmltvConfig));
 			String line = null;
 
 			while ((line = reader.readLine()) != null) {
+				if(line.startsWith("#"))
+					channelSelectedVector.add(false);
+				else channelSelectedVector.add(true);
+
 				channelNameVector.add(line.substring(line.lastIndexOf("#")+2));
-				channelSelectedVector.add(false);
 
 				/* in channelNameVector ho la lista dei canali,
 				 * channelSelectedVector ha le stesse dimensioni di channelVector,
-				 * di default nessun canale è selezionato dal configuratore
 				 */
 	        }
 		} catch (Exception e) {
@@ -76,19 +94,19 @@ public class XMLTVConfigurator /*implements XMLTVHelper*/ {
 		}
 	}
 
-    public void selectChannel(String channelName){
+    public static void selectChannel(String channelName){
 		channelSelectedVector.setElementAt(true,(channelNameVector.indexOf(channelName)));
     }
 
-    public void notSelectChannel(String channelName){
+    public static void notSelectChannel(String channelName){
     	channelSelectedVector.setElementAt(false,(channelNameVector.indexOf(channelName)));
     }
 
-    public Vector<String> getChannelNameVector(){
+    public static Vector<String> getChannelNameVector(){
     	return channelNameVector;
     }
 
-    public Vector<Boolean> getChannelSelectedVector(){
+    public static Vector<Boolean> getChannelSelectedVector(){
     	 return channelSelectedVector;
     }
 
