@@ -16,7 +16,7 @@ public class UserPreferences {
 	private static boolean quiet = false;
 	private static File xmltvConfigFile = null;
 	private static File xmltvOutputFile = null;
-	
+
 	public static String getOptions() {
 		String options = new String();
 		options += "--days " + getDays();
@@ -39,7 +39,7 @@ public class UserPreferences {
 		}
 		return options;
 	}
-	
+
 	/**
 	 * @return the days
 	 */
@@ -112,7 +112,7 @@ public class UserPreferences {
 	public static void setQuiet(boolean q) {
 		quiet = q;
 	}
-	
+
 	/**
 	 * @return the xmltvConfigFile
 	 */
@@ -137,5 +137,5 @@ public class UserPreferences {
 	public static void setXmltvOutputFile(File xmltvOF) {
 		xmltvOutputFile = xmltvOF;
 	}
-	
+
 }

@@ -7,7 +7,7 @@ package it.unibg.cs.jtvguide.util;
  * @author Michele
  *
  */
-public class OSType {
+public class OSType{
 	
 	/* magari il tipo ritornato è un Enum? */
 	public static String getOS() {
@@ -21,4 +21,5 @@ public class OSType {
 			return "other";
 		}
 	}
+	
 }

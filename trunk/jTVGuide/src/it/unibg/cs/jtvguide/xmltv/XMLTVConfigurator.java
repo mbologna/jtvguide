@@ -11,13 +11,12 @@ public class XMLTVConfigurator /*implements XMLTVHelper*/ {
 
 	private static Vector<String> channelNameVector = new Vector<String>();
 	private static Vector<Boolean> channelSelectedVector = new Vector<Boolean>();
+	private static File xmltvConfig = UserPreferences.getXmltvConfigFile();
 
     public XMLTVConfigurator () {
     }
 
     public static void config () {
-
-    	File xmltvConfig = UserPreferences.getXmltvConfigFile();
 
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(xmltvConfig));
@@ -47,6 +46,9 @@ public class XMLTVConfigurator /*implements XMLTVHelper*/ {
 				System.out.println(lineWritten.get(i));
 			}
 
+			reader.close();
+			ps.close();
+
 			// scrivo il file di configurazione
 
 
@@ -68,8 +70,6 @@ public class XMLTVConfigurator /*implements XMLTVHelper*/ {
 
     public static void chargeVectors(){
 
-		File xmltvConfig = UserPreferences.getXmltvConfigFile();
-
 		channelNameVector.removeAllElements();
     	channelSelectedVector.removeAllElements();
 
@@ -85,9 +85,11 @@ public class XMLTVConfigurator /*implements XMLTVHelper*/ {
 				channelNameVector.add(line.substring(line.lastIndexOf("#")+2));
 
 				/* in channelNameVector ho la lista dei canali,
-				 * channelSelectedVector ha le stesse dimensioni di channelVector,
+				 * channelSelectedVector ha le stesse dimensioni di channelVector
 				 */
 	        }
+			reader.close();
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -108,6 +110,15 @@ public class XMLTVConfigurator /*implements XMLTVHelper*/ {
 
     public static Vector<Boolean> getChannelSelectedVector(){
     	 return channelSelectedVector;
+    }
+
+    public static Vector<String> getSelectedChannelNameVector(){
+    	Vector<String> selectedChannelNameVector = new Vector<String>();
+    	for(int i=0;i<channelSelectedVector.size();i++){
+    		if(channelSelectedVector.get(i).equals(true))
+    			selectedChannelNameVector.add(channelNameVector.get(i));
+    	}
+    	return selectedChannelNameVector;
     }
 
 
