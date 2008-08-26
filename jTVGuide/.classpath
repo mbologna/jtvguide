@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry excluding="data/UserPreferences.java|xmltv/XMLTVGrabbers.java|collection/|data/|jtvguide/|util/|xmltv/" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/Michele/workspace/jTVGuide/lib/jdom.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/Seba/workspace/jTVGuide/lib/jdom.jar"/>
 	<classpathentry kind="output" path="build/buildclasses"/>
 </classpath>

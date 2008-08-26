@@ -7,9 +7,11 @@ package it.unibg.cs.jtvguide;
 
 import it.unibg.cs.jtvguide.collection.Schedule;
 import it.unibg.cs.jtvguide.data.Program;
+import it.unibg.cs.jtvguide.xmltv.UserPreferences;
+import it.unibg.cs.jtvguide.xmltv.XMLTVConfigurator;
 import it.unibg.cs.jtvguide.xmltv.XMLTVGrabber;
-import it.unibg.cs.jtvguide.xmltv.XMLTVParser;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Date;
@@ -26,15 +28,21 @@ public class jTVGuide {
 
 	/**
      * @param args the command line arguments
-	 * @throws MalformedURLException 
-	 * @throws URISyntaxException 
+	 * @throws MalformedURLException
+	 * @throws URISyntaxException
      */
-	
-	
+
     public static void main(String[] args) throws MalformedURLException, URISyntaxException {
     	System.out.println("jTVGuide version: $Rev$");
     	Schedule s = new Schedule();
     	s.update();
+    	UserPreferences.setDays(1);
+    	UserPreferences.setXmltvConfigFile(new File("tv_grab_it.conf"));
+    	XMLTVConfigurator.chargeVectors();
+    	if((!s.isAdequate(XMLTVConfigurator.getSelectedChannelNameVector(), UserPreferences.getDays()))||(!s.isUpToDate())){
+            XMLTVGrabber.grabSchedule();
+            s.update();
+        }
     	List<Program> lk = s.getOnAirPrograms(new Date());
     	for (Iterator<Program> iterator = lk.iterator(); iterator.hasNext();) {
 			Program p = (Program) iterator.next();
