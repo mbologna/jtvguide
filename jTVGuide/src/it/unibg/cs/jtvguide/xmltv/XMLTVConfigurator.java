@@ -1,9 +1,11 @@
 package it.unibg.cs.jtvguide.xmltv;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.PrintStream;
 import java.util.Vector;
 
@@ -39,15 +41,21 @@ public class XMLTVConfigurator /*implements XMLTVHelper*/ {
 			 * in base ai canali selezionati dall'utente
 			 */
 
-			PrintStream ps = new PrintStream(new FileOutputStream(xmltvConfig));
+			//PrintStream ps = new PrintStream(new FileOutputStream(xmltvConfig));
+			FileWriter fstream = new FileWriter(xmltvConfig);
+		    BufferedWriter out = new BufferedWriter(fstream);
 
 			for(int i=0;i<lineWritten.size();i++){
-				System.setOut(ps);
-				System.out.println(lineWritten.get(i));
+				/*System.setOut(ps);
+				System.out.println(lineWritten.get(i));*/
+				
+			    out.write(lineWritten.get(i)+'\n');
+			    
 			}
 
-			reader.close();
-			ps.close();
+			/*reader.close();
+			ps.close();*/
+			out.close();
 
 			// scrivo il file di configurazione
 
@@ -74,10 +82,13 @@ public class XMLTVConfigurator /*implements XMLTVHelper*/ {
     	channelSelectedVector.removeAllElements();
 
 		try {
+			xmltvConfig = UserPreferences.getXmltvConfigFile();
 			BufferedReader reader = new BufferedReader(new FileReader(xmltvConfig));
+			System.out.println(xmltvConfig);
 			String line = null;
 
 			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
 				if(line.startsWith("#"))
 					channelSelectedVector.add(false);
 				else channelSelectedVector.add(true);
