@@ -9,15 +9,16 @@ import java.util.Map;
 
 
 /*
- * Attenzione: usare URI perché l'hashCode di un URL è basato sugli IP, e 
+ * Attenzione: usare URI perchï¿½ l'hashCode di un URL ï¿½ basato sugli IP, e 
  * non sulla stringa. Quindi, nel caso di URL con lo stesso IP, avremo un
  * hash uguale (collisione non riportata da Java):
- * Nome:    www.rete4.com
- * Address:  213.215.144.113
- * Nome:    www.italia1.com
- * Address:  213.215.144.113
+ * michele@michele-desktop:~$ host www.rete4.com
+ * www.rete4.com has address 213.215.144.113
+ * michele@michele-desktop:~$ host www.italia1.com
+ * www.italia1.com has address 213.215.144.113
+ * michele@michele-desktop:~$ host www.la7.it
+ * www.la7.it has address 83.221.117.94
 
- * java.net.URL a = new java.net.URL("http://www.canale5.com/");
  * java.net.URL b = new java.net.URL("http://www.rete4.com/");
  * java.net.URL c = new java.net.URL("http://www.italia1.com/");
  * java.net.URL d = new java.net.URL("http://www.la7.it");
