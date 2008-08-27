@@ -16,7 +16,32 @@ public class UserPreferences {
 	private static boolean quiet = false;
 	private static File xmltvConfigFile = null;
 	private static File xmltvOutputFile = null;
+	private static String locale = null;
 
+	
+	public static void setCountry(String l) {
+		for (XMLTVGrabbersByCountry element : XMLTVGrabbersByCountry.values()) {
+			if (!element.getLOCALE().equals(l)) {
+				continue;
+			}
+			else {
+				locale = l;
+			}
+		}
+	}
+	
+	public static String getXMLTVCommandByCountry() {
+		for (XMLTVGrabbersByCountry element : XMLTVGrabbersByCountry.values()) {
+			if(element.getLOCALE().equals(locale)) {
+				return element.getCOMMAND();
+			}
+			else {
+				continue;
+			}
+		}
+		throw new RuntimeException("locale not found");
+	}
+	
 	public static String getOptions() {
 		String options = new String();
 		options += "--days " + getDays();
