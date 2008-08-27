@@ -9,20 +9,16 @@ public class DateFormatter {
 	
 	public static Date formatString(String date){
 		dateParser = new SimpleDateFormat("yyyyMMddHHmmss ZZZZZ");
-		// meglio applyPattern?
 		try {
 			return dateParser.parse(date);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Couldn't format date " + date);
 		}
-		return null; /* bad */
+		return null;
 	}
 	public static String formatDate(Date date) {
 		dateParser = new SimpleDateFormat("[HH:mm]");
-		// meglio applyPattern?
 		return dateParser.format(date);
-		
 	}
 	
 	public static Date convertDate(Date date) {
@@ -33,6 +29,6 @@ public class DateFormatter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null; /* bad */
+		return null;
 	}
 }

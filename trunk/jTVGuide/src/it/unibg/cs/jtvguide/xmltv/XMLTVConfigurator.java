@@ -84,11 +84,9 @@ public class XMLTVConfigurator /*implements XMLTVHelper*/ {
 		try {
 			xmltvConfig = UserPreferences.getXmltvConfigFile();
 			BufferedReader reader = new BufferedReader(new FileReader(xmltvConfig));
-			System.out.println(xmltvConfig);
 			String line = null;
 
 			while ((line = reader.readLine()) != null) {
-				System.out.println(line);
 				if(line.startsWith("#"))
 					channelSelectedVector.add(false);
 				else channelSelectedVector.add(true);

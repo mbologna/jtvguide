@@ -9,7 +9,8 @@ import it.unibg.cs.jtvguide.collection.Schedule;
 import it.unibg.cs.jtvguide.data.Program;
 import it.unibg.cs.jtvguide.xmltv.UserPreferences;
 import it.unibg.cs.jtvguide.xmltv.XMLTVConfigurator;
-import it.unibg.cs.jtvguide.xmltv.XMLTVGrabber;
+import it.unibg.cs.jtvguide.xmltv.XMLTVGrabbersByCountry;
+import it.unibg.cs.jtvguide.xmltv.XMLTVScheduleDownloader;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -40,7 +41,7 @@ public class jTVGuide {
     	UserPreferences.setXmltvConfigFile(new File("tv_grab_it.conf"));
     	XMLTVConfigurator.chargeVectors();
     	if((!s.isAdequate(XMLTVConfigurator.getSelectedChannelNameVector(), UserPreferences.getDays()))||(!s.isUpToDate())){
-            XMLTVGrabber.grabSchedule();
+            XMLTVScheduleDownloader.grabSchedule();
             s.update();
         }
     	List<Program> lk = s.getOnAirPrograms(new Date());

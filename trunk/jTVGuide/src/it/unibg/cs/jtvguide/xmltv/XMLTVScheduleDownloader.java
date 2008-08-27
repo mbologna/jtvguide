@@ -1,18 +1,18 @@
 package it.unibg.cs.jtvguide.xmltv;
 
 
-import it.unibg.cs.jtvguide.util.OSType;
+import it.unibg.cs.jtvguide.util.OSDetector;
 import it.unibg.cs.jtvguide.util.RunExternalCommand;
 
 import java.io.File;
 import java.io.IOException;
 
 
-public class XMLTVGrabber /*implements XMLTVHelper*/ {
+public class XMLTVScheduleDownloader {
 
 	//private XMLTVParser mXMLTVParser;
 
-	public XMLTVGrabber () {
+	public XMLTVScheduleDownloader () {
 	}
 
 	/*
@@ -24,11 +24,13 @@ public class XMLTVGrabber /*implements XMLTVHelper*/ {
 	public static boolean grabSchedule () {
 
 		String command;
-		if (OSType.getOS().equals("windows")) {
-			command = "xmltv.exe tv_grab_it";
+		XMLTVGrabbersByCountry xmltvgbc = XMLTVGrabbersByCountry.IT;
+		
+		if (OSDetector.getOS().equals("windows")) {
+			command = "xmltv.exe " + xmltvgbc.getGrabberByCountry();
 		}
 		else {
-			command = "tv_grab_it";
+			command = xmltvgbc.getGrabberByCountry();
 		}
 
 		//UserPreferences.setDays(3);
