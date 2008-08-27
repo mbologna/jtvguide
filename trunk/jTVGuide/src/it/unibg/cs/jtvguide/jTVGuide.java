@@ -7,6 +7,7 @@ package it.unibg.cs.jtvguide;
 
 import it.unibg.cs.jtvguide.collection.Schedule;
 import it.unibg.cs.jtvguide.data.Program;
+import it.unibg.cs.jtvguide.util.SystemProperties;
 import it.unibg.cs.jtvguide.xmltv.UserPreferences;
 import it.unibg.cs.jtvguide.xmltv.XMLTVConfigurator;
 import it.unibg.cs.jtvguide.xmltv.XMLTVGrabbersByCountry;
@@ -35,9 +36,11 @@ public class jTVGuide {
 
     public static void main(String[] args) throws MalformedURLException, URISyntaxException {
     	System.out.println("jTVGuide version: $Rev$");
+    	System.out.println("Using locale for " + SystemProperties.getSystemLanguage());
     	Schedule s = new Schedule();
     	s.update();
     	UserPreferences.setDays(1);
+    	UserPreferences.setCountry(SystemProperties.getSystemLanguage());
     	UserPreferences.setXmltvConfigFile(new File("tv_grab_it.conf"));
     	XMLTVConfigurator.chargeVectors();
     	if((!s.isAdequate(XMLTVConfigurator.getSelectedChannelNameVector(), UserPreferences.getDays()))||(!s.isUpToDate())){
