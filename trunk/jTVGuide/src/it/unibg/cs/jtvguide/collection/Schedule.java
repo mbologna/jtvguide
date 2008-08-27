@@ -3,6 +3,7 @@ package it.unibg.cs.jtvguide.collection;
 import it.unibg.cs.jtvguide.data.Program;
 import it.unibg.cs.jtvguide.xmltv.XMLTVParser;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ public class Schedule {
 	private List<Program> scheduleList;
 
 	public Schedule() {
-		scheduleList = new LinkedList<Program>();
+		scheduleList = new ArrayList<Program>();
 	}
 
 	public void add(Program p) {
@@ -31,7 +32,7 @@ public class Schedule {
 	}
 
 	public List<Program> getOnAirPrograms(Date now) {
-		List<Program> programList = new LinkedList<Program>();
+		List<Program> programList = new ArrayList<Program>();
 		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
 			Program p = (Program) iterator.next();
 			if (p.getStartDate().compareTo(now) <= 0
