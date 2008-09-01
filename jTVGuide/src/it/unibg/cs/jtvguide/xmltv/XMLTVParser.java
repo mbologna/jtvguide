@@ -30,8 +30,7 @@ public class XMLTVParser /* implements XMLTVHelper */{
 		Document doc = null;
 
 		try {
-			// doc = builder.build(UserPreferences.getXmltvOutputFile());
-			doc = builder.build("tv_grab_it.xml");
+			 doc = builder.build(UserPreferences.getXmltvOutputFile());
 		} catch (JDOMException e) {
 			return;
 		} catch (IOException e) {

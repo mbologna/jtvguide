@@ -1,5 +1,7 @@
 package it.unibg.cs.jtvguide.xmltv;
 
+import it.unibg.cs.jtvguide.util.SystemProperties;
+
 import java.io.File;
 
 
@@ -8,16 +10,22 @@ import java.io.File;
  *
  */
 public class UserPreferences {
+	/*
+	 * Defaults
+	 */
 	private static int days = 1;
 	private static boolean withCache = false;
 	private static boolean withSlow = false;
 	private static boolean withCacheSlow = false;
 	private static boolean verbose = false;
 	private static boolean quiet = false;
-	private static File xmltvConfigFile = null;
-	private static File xmltvOutputFile = null;
-	private static String locale = null;
-
+	
+	/*
+	 * XMLTV-related defaults
+	 */
+	private static File xmltvConfigFile = new File("tv_grab.conf");
+	private static File xmltvOutputFile = new File("tv_grab.xml");
+	private static String locale = SystemProperties.getSystemLanguage();
 	
 	public static void setCountry(String l) {
 		for (XMLTVGrabbersByCountry element : XMLTVGrabbersByCountry.values()) {
