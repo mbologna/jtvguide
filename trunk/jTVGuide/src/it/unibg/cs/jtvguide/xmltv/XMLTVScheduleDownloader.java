@@ -32,9 +32,6 @@ public class XMLTVScheduleDownloader {
 			command = UserPreferences.getXMLTVCommandByCountry();
 		}
 
-		//UserPreferences.setDays(3);
-		//UserPreferences.setXmltvConfigFile(new File("tv_grab_it.conf"));
-		UserPreferences.setXmltvOutputFile(new File("tv_grab_it.xml"));
 		String parameters = UserPreferences.getOptions();
 		try {
 			RunExternalCommand.runCommand(command + " " + parameters);
