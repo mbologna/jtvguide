@@ -17,6 +17,7 @@ public class RunExternalCommand {
 		Process p = null;
 
 		try {
+			System.out.println("DEBUG: running " + command);
 			p = Runtime.getRuntime().exec(command);
 			StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(),
 					"OUTPUT");
