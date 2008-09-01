@@ -12,7 +12,7 @@ public class UserPreferences {
 	private static boolean withCache = false;
 	private static boolean withSlow = false;
 	private static boolean withCacheSlow = false;
-	private static boolean verbose = true;
+	private static boolean verbose = false;
 	private static boolean quiet = false;
 	private static File xmltvConfigFile = null;
 	private static File xmltvOutputFile = null;
