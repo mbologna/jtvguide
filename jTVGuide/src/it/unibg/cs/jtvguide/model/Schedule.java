@@ -62,6 +62,17 @@ public class Schedule {
 		return programList;
 	}
 	
+	public List<Program> getProgramsByName(String pattern) {
+		List <Program> matchPrograms = new ArrayList<Program>();
+		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
+			Program program = (Program) iterator.next();
+			/* if title contains the pattern specified, ignore case (regexp) */
+			if (program.getTitle().matches("(?i).*"+pattern+".*"))
+				matchPrograms.add(program);
+		}
+		return matchPrograms;
+	}
+	
 
 	public boolean isAdequate(Vector<String> channelName, int days){
 		Boolean adequate = false;

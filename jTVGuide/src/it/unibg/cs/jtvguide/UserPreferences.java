@@ -7,12 +7,14 @@ import it.unibg.cs.jtvguide.xmltv.XMLTVGrabbersByCountry;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Calendar;
+import java.util.Date;
 
 import org.jdom.Attribute;
 import org.jdom.Comment;
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
 
@@ -44,16 +46,39 @@ public class UserPreferences implements JTVGuidePrefs {
 	 */
 	
 	public static boolean loadFromXMLFile() {
+		if (PREFERENCES_FILE.exists()) {
+			SAXBuilder builder = new SAXBuilder();
+			Document doc = null;
+
+			try {
+				 doc = builder.build(PREFERENCES_FILE);
+			} catch (JDOMException e) {
+				return false;
+			} catch (IOException e) {
+				return false;
+			}
+			if (doc != null) {
+				Element root = doc.getRootElement();
+				setDays(Integer.parseInt(root.getChildText("days")));
+				setWithCache(Boolean.parseBoolean(root.getChildText("withCache")));				setWithCache(Boolean.parseBoolean(root.getAttributeValue("withCache")));
+				setWithCacheSlow(Boolean.parseBoolean(root.getChildText("withCacheSlow")));
+				setWithSlow(Boolean.parseBoolean(root.getChildText("withSlow")));
+				setVerbose(Boolean.parseBoolean(root.getChildText("verbose")));
+				setQuiet(Boolean.parseBoolean(root.getChildText("quiet")));
+				setXmltvConfigFile(root.getChildText("xmltvConfigFile"));
+				setXmltvOutputFile(root.getChildText("xmltvOutputFile"));
+				return true;
+			}
+		}
 		return false;
 	}
 
 	public static boolean saveToXMLFile() {
 		if (PREFERENCES_FILE.exists()) PREFERENCES_FILE.delete();
-		if (!PREFERENCES_FILE.canWrite()) throw new RuntimeException("can't write on preferences file");
 		Element root = new Element("preferences");
+		root.addContent(new Comment("JTVGuide preferences file"));
 		Document mydoc = new Document(root);
-		Calendar c = Calendar.getInstance();
-		root.setAttribute(new Attribute("date-generated",c.toString()));
+		root.setAttribute(new Attribute("date-generated",new Date().toString()));
 		Element daysElem = new Element("days");
 		Element withCacheElem = new Element("withCache");
 		Element withSlowElem = new Element("withSlow");
@@ -78,7 +103,6 @@ public class UserPreferences implements JTVGuidePrefs {
 		root.addContent(quietElem);
 		root.addContent(xmltvConfigFileElem);
 		root.addContent(xmltvOutputFileElem);
-		root.addContent(new Comment("JTVGuide preferences file"));
 		XMLOutputter output = new XMLOutputter();
 		FileWriter fw;
 		try {
@@ -221,7 +245,8 @@ public class UserPreferences implements JTVGuidePrefs {
 	 * @param xmltvConfigFile the xmltvConfigFile to set
 	 */
 	public static void setXmltvConfigFile(String string) {
-		xmltvConfigFile = new File(string);
+		File f = new File(string);
+		xmltvConfigFile = f.exists() && f.canRead() ? f: xmltvConfigFile; 
 	}
 	/**
 	 * @return the xmltvOutputFile
@@ -233,7 +258,8 @@ public class UserPreferences implements JTVGuidePrefs {
 	 * @param xmltvOutputFile the xmltvOutputFile to set
 	 */
 	public static void setXmltvOutputFile(String xmltvOF) {
-		xmltvOutputFile = new File(xmltvOF);
+		File f = new File(xmltvOF);
+		xmltvOutputFile = f.exists() && f.canRead()? f: xmltvOutputFile;
 	}
 
 }
