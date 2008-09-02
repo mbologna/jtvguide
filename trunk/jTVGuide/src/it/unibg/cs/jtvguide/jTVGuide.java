@@ -28,13 +28,34 @@ public class jTVGuide {
     public static void main(String[] args) throws MalformedURLException, URISyntaxException {
     	System.out.println("jTVGuide version: $Rev$");
     	UserPreferences.setXmltvConfigFile("tv_grab_it.conf");
-    	System.out.println(new XMLTVScheduleInspector().isUpToDate());
-    	new XMLTVCommander().downloadSchedule();
+    	/*
+    	 * First run or file config not found
+    	 */
+    	if (!UserPreferences.loadFromXMLFile() || !UserPreferences.getXmltvConfigFile().exists()) {
+    		new XMLTVCommander().configureXMLTV();
+    	}
+    	
+    	/*
+    	 * Does the schedule contains today data?
+    	 */
+    	if (!new XMLTVScheduleInspector().isUpToDate()) {
+    		new XMLTVCommander().downloadSchedule();
+    	}
+    	
+    	/*
+    	 * Parse the downloaded schedule
+    	 */
     	Schedule s = new XMLTVParserImpl().parse();
     	List<Program> lk = s.getOnAirPrograms(new Date());
+    	List<Program> lp = s.getUpcomingPrograms(new Date());
     	for (Iterator<Program> iterator = lk.iterator(); iterator.hasNext();) {
 			Program p = (Program) iterator.next();
 			System.out.println(p);
+		}
+    	for (Iterator<Program> iterator = lp.iterator(); iterator.hasNext();) {
+			Program program = (Program) iterator.next();
+			System.out.println(program);
+			
 		}
     }
 

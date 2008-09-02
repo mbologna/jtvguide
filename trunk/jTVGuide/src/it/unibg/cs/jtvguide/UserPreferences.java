@@ -43,11 +43,13 @@ public class UserPreferences implements JTVGuidePrefs {
 	 * JTVGuide defaults
 	 */
 	
-	public void loadFromXMLFile(File preferencesFile) { }
-	
-	public void saveToXMLFile(File preferencesFile) {
-		if (preferencesFile.exists()) preferencesFile.delete();
-		if (!preferencesFile.canWrite()) throw new RuntimeException("can't write on preferences file");
+	public static boolean loadFromXMLFile() {
+		return false;
+	}
+
+	public static boolean saveToXMLFile() {
+		if (PREFERENCES_FILE.exists()) PREFERENCES_FILE.delete();
+		if (!PREFERENCES_FILE.canWrite()) throw new RuntimeException("can't write on preferences file");
 		Element root = new Element("preferences");
 		Document mydoc = new Document(root);
 		Calendar c = Calendar.getInstance();
@@ -80,12 +82,13 @@ public class UserPreferences implements JTVGuidePrefs {
 		XMLOutputter output = new XMLOutputter();
 		FileWriter fw;
 		try {
-			fw = new FileWriter(preferencesFile);
+			fw = new FileWriter(PREFERENCES_FILE);
 			output.output(mydoc, fw);
 			fw.close();
+			return true;
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			return false;
 		}
 	}
 	

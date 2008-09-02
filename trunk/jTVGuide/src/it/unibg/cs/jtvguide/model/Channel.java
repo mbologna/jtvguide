@@ -17,6 +17,14 @@ public class Channel {
 		this.displayName = displayName;
 	}
 	
+	public boolean equals(Object o) {
+		Channel c = (Channel) o;
+		if (c.getId() == this.id)
+			return true;
+		else
+			return false;
+	}
+	
 	public String getDisplayName() {
 		return displayName;
 	}
