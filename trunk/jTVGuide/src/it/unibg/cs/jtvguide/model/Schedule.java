@@ -1,7 +1,7 @@
-package it.unibg.cs.jtvguide.collection;
+package it.unibg.cs.jtvguide.model;
 
-import it.unibg.cs.jtvguide.data.Program;
-import it.unibg.cs.jtvguide.xmltv.XMLTVParser;
+import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVParser;
+import it.unibg.cs.jtvguide.xmltv.XMLTVCommander;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,12 +22,6 @@ public class Schedule {
 
 	public void add(Program p) {
 		scheduleList.add(p);
-	}
-
-	public boolean isUpToDate() {
-		List<Program> result = this.getOnAirPrograms(new Date());
-		return !result.isEmpty();
-
 	}
 
 	public List<Program> getOnAirPrograms(Date now) {
@@ -67,8 +61,7 @@ public class Schedule {
 	}
 
 	public void update() {
-		XMLTVParser xmltvp = new XMLTVParser();
-		xmltvp.parse(this);
+		new XMLTVCommander().downloadSchedule();
 	}
 
 }

@@ -1,5 +1,7 @@
 package it.unibg.cs.jtvguide.xmltv;
 
+import it.unibg.cs.jtvguide.UserPreferences;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
