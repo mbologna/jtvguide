@@ -1,8 +1,5 @@
 package it.unibg.cs.jtvguide.model;
 
-import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVParser;
-import it.unibg.cs.jtvguide.xmltv.XMLTVCommander;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -24,17 +21,47 @@ public class Schedule {
 		scheduleList.add(p);
 	}
 
-	public List<Program> getOnAirPrograms(Date now) {
+	public List<Program> getOnAirPrograms(Date d) {
 		List<Program> programList = new ArrayList<Program>();
 		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
 			Program p = (Program) iterator.next();
-			if (p.getStartDate().compareTo(now) <= 0
-					&& p.getStopDate().compareTo(now) >= 0) {
+			if (p.getStartDate().compareTo(d) <= 0
+					&& p.getStopDate().compareTo(d) >= 0) {
 				programList.add(p);
 			}
 		}
 		return programList;
 	}
+	
+	public List<Program> getUpcomingPrograms(Date d) {
+		List<Program> onAirPrograms = getOnAirPrograms(d);
+		List<Program> upComingPrograms = new ArrayList<Program>();
+		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
+			Program program = (Program) iterator.next();
+			for (Iterator<Program> iterator2 = onAirPrograms.iterator(); iterator2
+					.hasNext();) {
+				Program onAirProgram = (Program) iterator2.next();
+				if (onAirProgram.getChannel() == program.getChannel() &&
+						onAirProgram.getStopDate().compareTo(program.getStartDate()) == 0) {
+					upComingPrograms.add(program);
+				}
+				
+			}
+		}
+		return upComingPrograms;
+	}
+	
+	public List<Program> getProgramsByChannel(Channel c) {
+		List <Program> programList = new ArrayList<Program>();
+		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
+			Program p = (Program) iterator.next();
+			if (p.getChannel() == c) {
+				programList.add(p);
+			}
+		}
+		return programList;
+	}
+	
 
 	public boolean isAdequate(Vector<String> channelName, int days){
 		Boolean adequate = false;
@@ -59,10 +86,5 @@ public class Schedule {
 
 		return adequate;
 	}
-
-	public void update() {
-		new XMLTVCommander().downloadSchedule();
-	}
-
 }
 

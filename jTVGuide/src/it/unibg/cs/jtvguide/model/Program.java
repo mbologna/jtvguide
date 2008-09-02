@@ -66,12 +66,14 @@ public class Program {
     }
     
     public String toString() {
-
-    	return  DateFormatter.formatDate(startDate) + "-" +
-    			DateFormatter.formatDate(stopDate) + " (" +
-    			getCompletionPercentile() + "%)   " + 
-    			title + "   (" +
-    			mChannel.getDisplayName() + ")";
+    	StringBuffer sb = new StringBuffer();
+    	sb.append(DateFormatter.formatDate(startDate) + "-");
+    	sb.append(DateFormatter.formatDate(stopDate));
+    	if (getCompletionPercentile() >= 0)
+    		sb.append("   ("+getCompletionPercentile()+"%)");
+    	sb.append("   "+ title + "   (");
+    	sb.append(mChannel.getDisplayName() + ")");
+    	return sb.toString();
     }
 
 }
