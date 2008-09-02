@@ -1,7 +1,9 @@
-package it.unibg.cs.jtvguide.data;
+package it.unibg.cs.jtvguide.model;
 import it.unibg.cs.jtvguide.util.DateFormatter;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 
@@ -52,11 +54,24 @@ public class Program {
         this.title = val;
     }
     
+    public int getCompletionPercentile() {
+        Calendar start = new GregorianCalendar();
+    	Calendar stop = new GregorianCalendar();
+    	Calendar now = Calendar.getInstance();
+		stop.setTime(stopDate);
+		start.setTime(startDate);
+    	return (int) ((now.getTimeInMillis()-start.getTimeInMillis())
+    			*100/
+    			(stop.getTimeInMillis()-start.getTimeInMillis()));
+    }
+    
     public String toString() {
+
     	return  DateFormatter.formatDate(startDate) + "-" +
-    			DateFormatter.formatDate(stopDate) + "\t\t" +
-    			title + "\t\t[" +
-    			mChannel.getDisplayName() + "]";
+    			DateFormatter.formatDate(stopDate) + " (" +
+    			getCompletionPercentile() + "%)   " + 
+    			title + "   (" +
+    			mChannel.getDisplayName() + ")";
     }
 
 }

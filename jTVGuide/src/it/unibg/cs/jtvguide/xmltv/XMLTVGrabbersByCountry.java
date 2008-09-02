@@ -38,5 +38,14 @@ public enum XMLTVGrabbersByCountry {
 	public String getLOCALE() {
 		return LOCALE;
 	}
+	
+	public XMLTVGrabbersByCountry getXMLTVGrabbersByCountry(String locale) {
+		for (XMLTVGrabbersByCountry element : XMLTVGrabbersByCountry.values()) {
+			if(locale == element.getLOCALE()) {
+				return element;
+			}
+		}
+		return null;
+	}
 
 }

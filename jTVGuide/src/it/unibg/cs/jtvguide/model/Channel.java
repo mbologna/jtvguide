@@ -1,4 +1,4 @@
-package it.unibg.cs.jtvguide.data;
+package it.unibg.cs.jtvguide.model;
 
 import java.net.MalformedURLException;
 import java.net.URL;

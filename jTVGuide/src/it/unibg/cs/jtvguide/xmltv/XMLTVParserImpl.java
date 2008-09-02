@@ -1,9 +1,12 @@
 package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.collection.ChannelMap;
-import it.unibg.cs.jtvguide.collection.Schedule;
-import it.unibg.cs.jtvguide.data.Channel;
-import it.unibg.cs.jtvguide.data.Program;
+import it.unibg.cs.jtvguide.UserPreferences;
+import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVInspector;
+import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVParser;
+import it.unibg.cs.jtvguide.model.Channel;
+import it.unibg.cs.jtvguide.model.ChannelMap;
+import it.unibg.cs.jtvguide.model.Program;
+import it.unibg.cs.jtvguide.model.Schedule;
 import it.unibg.cs.jtvguide.util.DateFormatter;
 
 import java.io.IOException;
@@ -16,32 +19,34 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
-public class XMLTVParser /* implements XMLTVHelper */{
+public class XMLTVParserImpl implements XMLTVParser {
 
 	private Schedule mSchedule;
 	private ChannelMap cm;
-
-	public XMLTVParser() {
+	
+	public XMLTVParserImpl() {
+		mSchedule = new Schedule();
+		cm = new ChannelMap();
 	}
-
+	
 	@SuppressWarnings("unchecked")
-	public void parse(Schedule mSchedule) {
+	@Override
+	public Schedule parse() {
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = null;
 
 		try {
 			 doc = builder.build(UserPreferences.getXmltvOutputFile());
 		} catch (JDOMException e) {
-			return;
+			throw new RuntimeException(e);
 		} catch (IOException e) {
-			return;
+			throw new RuntimeException(e);
 		}
 
 		if (doc != null) {
 			List<Element> channels = doc.getRootElement()
 					.getChildren("channel");
 			Iterator<Element> channelsIterator = channels.iterator();
-			cm = new ChannelMap();
 
 			String id;
 			String displayName;
@@ -67,7 +72,6 @@ public class XMLTVParser /* implements XMLTVHelper */{
 			String channelID;
 			String title;
 			Program p;
-			//mSchedule = new Schedule();
 
 			while (showsIterator.hasNext()) {
 				Element show = showsIterator.next();
@@ -89,20 +93,11 @@ public class XMLTVParser /* implements XMLTVHelper */{
 						mSchedule.add(p);
 					}
 				}
-				/*else {
-					new Exception("Channel not found");
-				}*/
+				else {
+					throw new RuntimeException("Channel not found");
+				}
 			}
-			this.mSchedule = mSchedule;
 		}
-	}
-
-	public ChannelMap getCm() {
-		return cm;
-	}
-
-	public Schedule getMSchedule() {
 		return mSchedule;
 	}
-
 }

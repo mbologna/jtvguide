@@ -1,6 +1,5 @@
-package it.unibg.cs.jtvguide.collection;
+package it.unibg.cs.jtvguide.model;
 
-import it.unibg.cs.jtvguide.data.Channel;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,7 +8,7 @@ import java.util.Map;
 
 
 /*
- * Attenzione: usare URI perch� l'hashCode di un URL � basato sugli IP, e 
+ * Attenzione: usare URI perche' l'hashCode di un URL e' basato sugli IP, e 
  * non sulla stringa. Quindi, nel caso di URL con lo stesso IP, avremo un
  * hash uguale (collisione non riportata da Java):
  * michele@michele-desktop:~$ host www.rete4.com
@@ -51,7 +50,6 @@ public class ChannelMap {
 		try {
 			this.channelMap.put(new URI("http://" + id), e);
 		} catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -64,7 +62,6 @@ public class ChannelMap {
 		try {
 			return this.channelMap.containsKey(new URI("http://" + id));
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -78,7 +75,6 @@ public class ChannelMap {
 		try {
 			return this.channelMap.get(new URI("http://" + id));
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

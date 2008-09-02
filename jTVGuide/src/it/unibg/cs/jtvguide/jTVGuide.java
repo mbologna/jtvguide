@@ -5,15 +5,12 @@
 
 package it.unibg.cs.jtvguide;
 
-import it.unibg.cs.jtvguide.collection.Schedule;
-import it.unibg.cs.jtvguide.data.Program;
-import it.unibg.cs.jtvguide.util.SystemProperties;
-import it.unibg.cs.jtvguide.xmltv.UserPreferences;
-import it.unibg.cs.jtvguide.xmltv.XMLTVConfigurator;
-import it.unibg.cs.jtvguide.xmltv.XMLTVGrabbersByCountry;
-import it.unibg.cs.jtvguide.xmltv.XMLTVScheduleDownloader;
+import it.unibg.cs.jtvguide.model.Program;
+import it.unibg.cs.jtvguide.model.Schedule;
+import it.unibg.cs.jtvguide.model.XMLTVScheduleInspector;
+import it.unibg.cs.jtvguide.xmltv.XMLTVCommander;
+import it.unibg.cs.jtvguide.xmltv.XMLTVParserImpl;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Date;
@@ -28,25 +25,12 @@ import java.util.List;
  */
 public class jTVGuide {
 
-	/**
-     * @param args the command line arguments
-	 * @throws MalformedURLException
-	 * @throws URISyntaxException
-     */
-
     public static void main(String[] args) throws MalformedURLException, URISyntaxException {
     	System.out.println("jTVGuide version: $Rev$");
-    	System.out.println("Using locale for " + SystemProperties.getSystemLanguage());
-    	Schedule s = new Schedule();
-    	s.update();
-    	UserPreferences.setDays(1);
-    	UserPreferences.setCountry(SystemProperties.getSystemLanguage());
-    	UserPreferences.setXmltvConfigFile(new File("tv_grab_it.conf"));
-    	XMLTVConfigurator.chargeVectors();
-    	if((!s.isAdequate(XMLTVConfigurator.getSelectedChannelNameVector(), UserPreferences.getDays()))||(!s.isUpToDate())){
-            XMLTVScheduleDownloader.grabSchedule();
-            s.update();
-        }
+    	UserPreferences.setXmltvConfigFile("tv_grab_it.conf");
+    	System.out.println(new XMLTVScheduleInspector().isUpToDate());
+    	new XMLTVCommander().downloadSchedule();
+    	Schedule s = new XMLTVParserImpl().parse();
     	List<Program> lk = s.getOnAirPrograms(new Date());
     	for (Iterator<Program> iterator = lk.iterator(); iterator.hasNext();) {
 			Program p = (Program) iterator.next();

@@ -24,4 +24,12 @@ public class SystemProperties{
 		return System.getProperty("user.language");
 	}
 	
+	public static String getHomeDirectory() {
+		return System.getProperty("user.dir");
+	}
+	
+	public static String getFileSeparator() {
+		return System.getProperty("file.separator");
+	}
+	
 }
