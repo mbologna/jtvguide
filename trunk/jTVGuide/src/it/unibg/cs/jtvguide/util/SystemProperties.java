@@ -25,7 +25,7 @@ public class SystemProperties{
 	}
 	
 	public static String getHomeDirectory() {
-		return System.getProperty("user.dir");
+		return System.getProperty("user.home");
 	}
 	
 	public static String getFileSeparator() {
