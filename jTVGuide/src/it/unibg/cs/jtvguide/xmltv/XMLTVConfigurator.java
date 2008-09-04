@@ -5,10 +5,8 @@ import it.unibg.cs.jtvguide.UserPreferences;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.PrintStream;
 import java.util.Vector;
 
 public class XMLTVConfigurator /*implements XMLTVHelper*/ {

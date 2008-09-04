@@ -1,7 +1,6 @@
 package it.unibg.cs.jtvguide.xmltv;
 
 import it.unibg.cs.jtvguide.UserPreferences;
-import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVInspector;
 import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVParser;
 import it.unibg.cs.jtvguide.model.Channel;
 import it.unibg.cs.jtvguide.model.ChannelMap;
@@ -28,19 +27,26 @@ public class XMLTVParserImpl implements XMLTVParser {
 		mSchedule = new Schedule();
 		cm = new ChannelMap();
 	}
+
 	
+	public ChannelMap getChannelMap() {
+		return cm;
+	}
+
+
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Schedule parse() {
-		SAXBuilder builder = new SAXBuilder();
+		SAXBuilder builder = new SAXBuilder(true);
 		Document doc = null;
 
 		try {
 			 doc = builder.build(UserPreferences.getXmltvOutputFile());
 		} catch (JDOMException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("cannot parse xml file");
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			
 		}
 
 		if (doc != null) {
