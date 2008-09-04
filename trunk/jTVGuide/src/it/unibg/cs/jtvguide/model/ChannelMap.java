@@ -4,6 +4,7 @@ package it.unibg.cs.jtvguide.model;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 
@@ -80,4 +81,7 @@ public class ChannelMap {
 		return null;
 	}
 
+	public Iterator<URI> iterator() {
+		return this.channelMap.keySet().iterator();
+	}
 }

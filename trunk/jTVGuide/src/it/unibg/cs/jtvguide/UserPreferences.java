@@ -5,7 +5,8 @@ import it.unibg.cs.jtvguide.util.SystemProperties;
 import it.unibg.cs.jtvguide.xmltv.XMLTVGrabbersByCountry;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 
@@ -15,6 +16,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 
@@ -33,25 +35,25 @@ public class UserPreferences implements JTVGuidePrefs {
 	static boolean withCacheSlow = false;
 	static boolean verbose = false;
 	static boolean quiet = false;
-	
+
 	/*
 	 * XMLTV-related defaults
 	 */
 	static File xmltvConfigFile = new File("tv_grab.conf");
 	static File xmltvOutputFile = new File("tv_grab.xml");
 	static String locale = SystemProperties.getSystemLanguage();
-	
+
 	/*
 	 * JTVGuide defaults
 	 */
-	
+
 	public static boolean loadFromXMLFile() {
 		if (PREFERENCES_FILE.exists()) {
 			SAXBuilder builder = new SAXBuilder();
 			Document doc = null;
 
 			try {
-				 doc = builder.build(PREFERENCES_FILE);
+				doc = builder.build(PREFERENCES_FILE);
 			} catch (JDOMException e) {
 				return false;
 			} catch (IOException e) {
@@ -103,19 +105,21 @@ public class UserPreferences implements JTVGuidePrefs {
 		root.addContent(quietElem);
 		root.addContent(xmltvConfigFileElem);
 		root.addContent(xmltvOutputFileElem);
-		XMLOutputter output = new XMLOutputter();
-		FileWriter fw;
+		XMLOutputter xmlOutputter = new XMLOutputter();
+		xmlOutputter.setFormat(Format.getPrettyFormat());
+		FileOutputStream fileOutputStream;
 		try {
-			fw = new FileWriter(PREFERENCES_FILE);
-			output.output(mydoc, fw);
-			fw.close();
+			fileOutputStream = new FileOutputStream(PREFERENCES_FILE);
+			xmlOutputter.output(mydoc, fileOutputStream);
+			fileOutputStream.close();
 			return true;
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+		} catch (FileNotFoundException e) {
+			return false;
+		} catch (IOException e) {
 			return false;
 		}
 	}
-	
+
 	public static void setCountry(String l) {
 		for (XMLTVGrabbersByCountry element : XMLTVGrabbersByCountry.values()) {
 			if (!element.getLOCALE().equals(l)) {
@@ -126,7 +130,7 @@ public class UserPreferences implements JTVGuidePrefs {
 			}
 		}
 	}
-	
+
 	public static String getXMLTVCommandByCountry() {
 		for (XMLTVGrabbersByCountry element : XMLTVGrabbersByCountry.values()) {
 			if(element.getLOCALE().equals(locale)) {
@@ -138,7 +142,7 @@ public class UserPreferences implements JTVGuidePrefs {
 		}
 		throw new RuntimeException("locale not found");
 	}
-	
+
 	public static String getOptions() {
 		String options = new String();
 		options += "--days " + getDays();
@@ -258,8 +262,7 @@ public class UserPreferences implements JTVGuidePrefs {
 	 * @param xmltvOutputFile the xmltvOutputFile to set
 	 */
 	public static void setXmltvOutputFile(String xmltvOF) {
-		File f = new File(xmltvOF);
-		xmltvOutputFile = f.exists() && f.canRead()? f: xmltvOutputFile;
+		xmltvOutputFile = new File(xmltvOF);
 	}
 
 }
