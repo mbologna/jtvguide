@@ -29,7 +29,7 @@ public class UserPreferences implements JTVGuidePrefs {
 	/*
 	 * Defaults
 	 */
-	static int days = 1;
+	static int days = 2;
 	static boolean withCache = false;
 	static boolean withSlow = false;
 	static boolean withCacheSlow = false;

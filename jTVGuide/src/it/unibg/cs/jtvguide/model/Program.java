@@ -68,18 +68,24 @@ public class Program implements Comparable<Program> {
 		Calendar now = Calendar.getInstance();
 		return start.getTimeInMillis() - now.getTimeInMillis();
 	}
+	
+	public ProgramState getState() {
+		if (getCompletionPercentile() >= 0 && getCompletionPercentile() <= 100)
+			return ProgramState.ONAIR;
+		else if (getStartingTime() >= 0) 
+			return ProgramState.UPCOMING;
+		else
+			return ProgramState.FINISHED;
+	}
 
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(DateFormatter.formatDate2TimeWithDay(startDate) + "-");
 		sb.append(DateFormatter.formatDate2Time(stopDate));
-		if (getCompletionPercentile() >= 0 && getCompletionPercentile() <= 100)
-			sb.append("   (" + getCompletionPercentile() + "%)");
-		else if (getStartingTime() >= 0) {
-			sb.append("   (Starting in " + millisecs2Time(getStartingTime())
-					+ ")");
-		} else {
-			sb.append("   (Finished)");
+		switch (getState()) {
+		case ONAIR: sb.append("   (On Air: " + getCompletionPercentile() + "%)"); break; 
+		case UPCOMING: sb.append("   (Starting in " + millisecs2Time(getStartingTime())+ ")"); break;
+		case FINISHED: sb.append("   (Finished)"); break;
 		}
 		sb.append("   " + title + "   (");
 		sb.append(mChannel.getDisplayName() + ")");

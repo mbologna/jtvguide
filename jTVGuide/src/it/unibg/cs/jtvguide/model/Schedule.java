@@ -1,6 +1,7 @@
 package it.unibg.cs.jtvguide.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class Schedule {
 
-	private List<Program> scheduleList;
+	protected List<Program> scheduleList;
 
 	public Schedule() {
 		scheduleList = new ArrayList<Program>();
@@ -22,14 +23,34 @@ public class Schedule {
 		return getProgramsFromDateToDate(new Date(), new Date());
 	}
 	
-	public List<Program> getUpcomingPrograms(Date d) {
+	public List<Program> getPrograms(Date d) {
+		return getProgramsFromDateToDate(d,d);
+	}
+	
+	public List<Program> getProgramsFromNowOn() {
+		return getProgramsFromDateOn(new Date());
+	}
+	
+	public List<Program> getProgramsFromDateOn(Date d) {
+		List<Program> programList = new ArrayList<Program>();
+		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
+			Program p = (Program) iterator.next();
+			if (p.getStopDate().compareTo(d) >= 0){
+				programList.add(p);
+			}
+		}
+		Collections.sort(programList);
+		return programList;
+	}
+	
+	public List<Program> getUpcomingPrograms() {
 		List<Program> onAirPrograms = getOnAirPrograms();
 		List<Program> upComingPrograms = new ArrayList<Program>();
 		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
-			Program program = (Program) iterator.next();
+			Program program = iterator.next();
 			for (Iterator<Program> iterator2 = onAirPrograms.iterator(); iterator2
 					.hasNext();) {
-				Program onAirProgram = (Program) iterator2.next();
+				Program onAirProgram = iterator2.next();
 				if (onAirProgram.getChannel() == program.getChannel() &&
 						onAirProgram.getStopDate().compareTo(program.getStartDate()) == 0) {
 					upComingPrograms.add(program);
@@ -37,6 +58,7 @@ public class Schedule {
 				
 			}
 		}
+		Collections.sort(upComingPrograms);
 		return upComingPrograms;
 	}
 	
@@ -52,18 +74,8 @@ public class Schedule {
 				programList.add(p);
 			}
 		}
-		return programList;
-	}
-	
-	public List<Program> getProgramsByChannel(Channel c) {
-		List <Program> programList = new ArrayList<Program>();
-		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
-			Program p = (Program) iterator.next();
-			if (p.getChannel() == c) {
-				programList.add(p);
-			}
-		}
-		return programList;
+		Collections.sort(programList);
+		return programList;	
 	}
 	
 	public List<Program> getProgramsByName(String pattern) {
@@ -74,7 +86,21 @@ public class Schedule {
 			if (program.getTitle().matches("(?i).*"+pattern+".*")) //&& d.compareTo(program.getStartDate()) <= 0)
 				matchPrograms.add(program);
 		}
+		Collections.sort(matchPrograms);
 		return matchPrograms;
 	}
+	
+	public ScheduleByChannel getChannelSchedule(Channel c) {
+		List <Program> programList = new ArrayList<Program>();
+		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
+			Program p = (Program) iterator.next();
+			if (p.getChannel() == c) {
+				programList.add(p);
+			}
+		}
+		Collections.sort(programList);
+		return new ScheduleByChannel(programList);
+	}
+	
 }
 

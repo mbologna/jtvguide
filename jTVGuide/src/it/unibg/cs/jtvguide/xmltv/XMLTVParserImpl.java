@@ -27,13 +27,10 @@ public class XMLTVParserImpl implements XMLTVParser {
 		mSchedule = new Schedule();
 		cm = new ChannelMap();
 	}
-
 	
 	public ChannelMap getChannelMap() {
 		return cm;
 	}
-
-
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -44,9 +41,9 @@ public class XMLTVParserImpl implements XMLTVParser {
 		try {
 			 doc = builder.build(UserPreferences.getXmltvOutputFile());
 		} catch (JDOMException e) {
-			throw new RuntimeException("cannot parse xml file");
+			return null;
 		} catch (IOException e) {
-			
+			return null;
 		}
 
 		if (doc != null) {
