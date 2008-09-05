@@ -1,19 +1,22 @@
 package it.unibg.cs.jtvguide.model;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 
-public class Channel {
+public class Channel implements Comparable<Channel> {
 
 	private String displayName;
-	private URL id;
+	private URI id;
 	
-	public Channel(String displayName, String id) {
-		try {
-			this.id = new URL("http://" + id);
-		} catch (MalformedURLException e) {
-			e.getMessage();
-		}
+	public Channel(String id, String displayName) {
+	
+			try {
+				this.id = new URI("http://" + id);
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		this.displayName = displayName;
 	}
 	
@@ -33,11 +36,16 @@ public class Channel {
 		this.displayName = name;
 	}
 
-	public URL getId() {
+	public URI getId() {
 		return id;
 	}
 
-	public void setId(URL id) {
+	public void setId(URI id) {
 		this.id = id;
+	}
+
+	@Override
+	public int compareTo(Channel o) {
+		return displayName.compareTo(o.getDisplayName());
 	}
 }

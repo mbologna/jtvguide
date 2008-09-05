@@ -1,5 +1,6 @@
 package it.unibg.cs.jtvguide.model;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -10,9 +11,15 @@ import java.util.List;
 public class Schedule {
 
 	protected List<Program> scheduleList;
+	protected ChannelMap channelMap = null;
+	
+	protected Schedule(List<Program> sl) {
+		this.scheduleList = sl;
+	}
 
-	public Schedule() {
+	public Schedule(ChannelMap cm) {
 		scheduleList = new ArrayList<Program>();
+		this.channelMap = cm;
 	}
 
 	public void add(Program p) {
@@ -90,7 +97,16 @@ public class Schedule {
 		return matchPrograms;
 	}
 	
-	public ScheduleByChannel getChannelSchedule(Channel c) {
+	public List<ScheduleByChannel> getSchedulesByChannel() {
+		List<ScheduleByChannel> lsc = new ArrayList<ScheduleByChannel>();
+		for (Iterator<URI> iterator = channelMap.iterator(); iterator.hasNext();) {
+			Channel c = channelMap.get(iterator.next());
+			lsc.add(getChannelSchedule(c));
+		}
+		return lsc;
+	}
+	
+	private ScheduleByChannel getChannelSchedule(Channel c) {
 		List <Program> programList = new ArrayList<Program>();
 		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
 			Program p = (Program) iterator.next();
@@ -99,8 +115,10 @@ public class Schedule {
 			}
 		}
 		Collections.sort(programList);
-		return new ScheduleByChannel(programList);
+		return new ScheduleByChannel(programList,c);
 	}
+	
+	
 	
 }
 

@@ -26,6 +26,7 @@ public class XMLTVCommander implements XMLTVConfigurator, XMLTVDownloader{
 	@Override
 	public int configureXMLTV() {
 		UserPreferences.getXmltvConfigFile().delete();
+		UserPreferences.getXmltvOutputFile().delete();
 		return RunExternalCommand.runCommand(getXMLTVCommand() + " " + CONFIG_SWITCH);
 	}
 }
