@@ -8,7 +8,7 @@ import it.unibg.cs.jtvguide.util.SystemProperties;
 
 public class XMLTVCommander implements XMLTVConfigurator, XMLTVDownloader{
 	
-	protected String getXMLTVCommand() {
+	private String getXMLTVCommand() {
 		if (SystemProperties.detectOS().equals("windows")) {
 			return "xmltv.exe " + UserPreferences.getXMLTVCommandByCountry();
 		}

@@ -1,51 +1,71 @@
 package it.unibg.cs.jtvguide.util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 public class RunExternalCommand {
+	
+	static final int BLOCK_SIZE = 256000;
+	static byte[] buf = new byte[BLOCK_SIZE];
 
-	/**
-	 * Runs external command
-	 *
-	 * @param command A string representing external command to execut
-	 * @throws IOException
-	 */
 	public static int runCommand(String command) {
-		Process p = null;
-
+		int result = -1;
 		try {
-			System.out.println("Running: " + command);
-			p = Runtime.getRuntime().exec(command);
-			StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(),
-					"OUTPUT");
-			StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(),
-					"ERROR");
-			errorGobbler.start();
-			outputGobbler.start();
-			int exitVal = p.waitFor();
-			System.out.println("Exit value: " + exitVal);
-			return exitVal;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Running: "+ command);
+			Process process = Runtime.getRuntime().exec(command);
+
+			for (boolean isRunning = true; isRunning;) {
+				Thread.sleep(400);
+				try {
+					result = process.exitValue();
+					isRunning = false;
+				} catch (IllegalThreadStateException ie) {}
+
+				try {
+					pipe(System.in, process.getOutputStream(), false);
+					pipe(process.getErrorStream(), System.err, false);
+					pipe(process.getInputStream(), System.out, false);
+				} catch(Exception e) {}
+			}
+			return result;
 		}
-		return 0;
+		catch (Exception e) {
+			System.exit(0);
+		}
+		return result;
+	}
+
+	static void pipe(InputStream in, OutputStream out, boolean isBlocking)
+	throws IOException {
+		int nread;
+		int navailable;
+		while((navailable = isBlocking ? Integer.MAX_VALUE : in.available()) > 0 &&
+				(nread = in.read(buf, 0, Math.min(buf.length, navailable))) >= 0) {
+			out.write(buf, 0, nread);
+		}
+		out.flush();
 	}
 }
 
 class StreamGobbler extends Thread {
 	InputStream is;
 	String type;
+	OutputStream os;
 
 	StreamGobbler(InputStream is, String type) {
 		this.is = is;
 		this.type = type;
+	}
+
+	StreamGobbler(InputStream is, String type, OutputStream redirect) {
+		this.is = is;
+		this.type = type;
+		this.os = redirect;
 	}
 
 	public void run() {
