@@ -31,9 +31,6 @@ public class UserPreferences implements JTVGuidePrefs {
 	 */
 	static int days = 2;
 	static boolean withCache = false;
-	static boolean withSlow = false;
-	static boolean withCacheSlow = false;
-	static boolean verbose = false;
 	static boolean quiet = false;
 
 	/*
@@ -62,10 +59,7 @@ public class UserPreferences implements JTVGuidePrefs {
 			if (doc != null) {
 				Element root = doc.getRootElement();
 				setDays(Integer.parseInt(root.getChildText("days")));
-				setWithCache(Boolean.parseBoolean(root.getChildText("withCache")));				setWithCache(Boolean.parseBoolean(root.getAttributeValue("withCache")));
-				setWithCacheSlow(Boolean.parseBoolean(root.getChildText("withCacheSlow")));
-				setWithSlow(Boolean.parseBoolean(root.getChildText("withSlow")));
-				setVerbose(Boolean.parseBoolean(root.getChildText("verbose")));
+				setWithCache(Boolean.parseBoolean(root.getChildText("withCache")));				
 				setQuiet(Boolean.parseBoolean(root.getChildText("quiet")));
 				setXmltvConfigFile(root.getChildText("xmltvConfigFile"));
 				setXmltvOutputFile(root.getChildText("xmltvOutputFile"));
@@ -83,25 +77,16 @@ public class UserPreferences implements JTVGuidePrefs {
 		root.setAttribute(new Attribute("date-generated",new Date().toString()));
 		Element daysElem = new Element("days");
 		Element withCacheElem = new Element("withCache");
-		Element withSlowElem = new Element("withSlow");
-		Element withCacheSlowElem = new Element("wichCacheSlow");
-		Element verboseElem = new Element("verbose");
 		Element quietElem = new Element("quiet");
 		Element xmltvConfigFileElem = new Element("xmltvConfigFile");
 		Element xmltvOutputFileElem = new Element("xmltvOutputFile");
 		daysElem.setText(Integer.toString(days));
 		withCacheElem.setText(Boolean.toString(withCache));
-		withSlowElem.setText(Boolean.toString(withSlow));
-		withCacheSlowElem.setText(Boolean.toString(withCacheSlow));
-		verboseElem.setText(Boolean.toString(verbose));
 		quietElem.setText(Boolean.toString(quiet));
 		xmltvConfigFileElem.setText(xmltvConfigFile.getAbsolutePath());
 		xmltvOutputFileElem.setText(xmltvOutputFile.getAbsolutePath());
 		root.addContent(daysElem);
 		root.addContent(withCacheElem);
-		root.addContent(withSlowElem);
-		root.addContent(withCacheSlowElem);
-		root.addContent(verboseElem);
 		root.addContent(quietElem);
 		root.addContent(xmltvConfigFileElem);
 		root.addContent(xmltvOutputFileElem);
@@ -120,15 +105,8 @@ public class UserPreferences implements JTVGuidePrefs {
 		}
 	}
 
-	public static void setCountry(String l) {
-		for (XMLTVGrabbersByCountry element : XMLTVGrabbersByCountry.values()) {
-			if (!element.getLOCALE().equals(l)) {
-				continue;
-			}
-			else {
-				locale = l;
-			}
-		}
+	public static void setCountry(XMLTVGrabbersByCountry c) {
+		locale = c.getLOCALE();
 	}
 
 	public static String getXMLTVCommandByCountry() {
@@ -151,15 +129,7 @@ public class UserPreferences implements JTVGuidePrefs {
 		if (isWithCache()) {
 			options += " --cache";
 		}
-		if (isWithSlow()) {
-			options += " --slow";
-		}
-		if (isWithCacheSlow()) {
-			options += " --cache-slow";
-		}
-		if (isVerbose()) {
-			options += " --verbose";
-		}
+		
 		if (isQuiet()) {
 			options += " --quiet";
 		}
@@ -190,42 +160,7 @@ public class UserPreferences implements JTVGuidePrefs {
 	public static void setWithCache(boolean wC) {
 		withCache = wC;
 	}
-	/**
-	 * @return the withSlow
-	 */
-	public static boolean isWithSlow() {
-		return withSlow;
-	}
-	/**
-	 * @param withSlow the withSlow to set
-	 */
-	public static void setWithSlow(boolean wS) {
-		withSlow = wS;
-	}
-	/**
-	 * @return the withCacheSlow
-	 */
-	public static boolean isWithCacheSlow() {
-		return withCacheSlow;
-	}
-	/**
-	 * @param withCacheSlow the withCacheSlow to set
-	 */
-	public static void setWithCacheSlow(boolean wCS) {
-		withCacheSlow = wCS;
-	}
-	/**
-	 * @return the verbose
-	 */
-	public static boolean isVerbose() {
-		return verbose;
-	}
-	/**
-	 * @param verbose the verbose to set
-	 */
-	public static void setVerbose(boolean v) {
-		verbose = v;
-	}
+
 	/**
 	 * @return the quiet
 	 */

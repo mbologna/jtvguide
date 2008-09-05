@@ -104,10 +104,6 @@ public class Program implements Comparable<Program> {
 	@Override
 	public int compareTo(Program o) {
 		Date startDateComparing = o.getStartDate();
-		if (startDate.compareTo(startDateComparing) < 0)
-			return -1;
-		else if (startDate.compareTo(startDateComparing) == 0)
-			return 0;
-		else return 1;
+		return startDate.compareTo(startDateComparing);
 	}
 }

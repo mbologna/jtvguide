@@ -20,30 +20,30 @@ import org.jdom.input.SAXBuilder;
 
 public class XMLTVParserImpl implements XMLTVParser {
 
-	private Schedule mSchedule;
+	private Schedule schedule;
 	private ChannelMap cm;
 	
 	public XMLTVParserImpl() {
-		mSchedule = new Schedule();
 		cm = new ChannelMap();
+		schedule = new Schedule(cm);
 	}
 	
-	public ChannelMap getChannelMap() {
-		return cm;
+	public Schedule getSchedule() {
+		return schedule;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Schedule parse() {
+	public boolean parse() {
 		SAXBuilder builder = new SAXBuilder(true);
 		Document doc = null;
 
 		try {
 			 doc = builder.build(UserPreferences.getXmltvOutputFile());
 		} catch (JDOMException e) {
-			return null;
+			return false;
 		} catch (IOException e) {
-			return null;
+			return false;
 		}
 
 		if (doc != null) {
@@ -61,7 +61,7 @@ public class XMLTVParserImpl implements XMLTVParser {
 
 				/* Creare un nuovo canale e aggiungerlo alla lista dei canali */
 
-				Channel c = new Channel(displayName, id);
+				Channel c = new Channel(id, displayName);
 				cm.add(id, c);
 			}
 
@@ -93,7 +93,7 @@ public class XMLTVParserImpl implements XMLTVParser {
 						 */
 						p = new Program(startDate, stopDate, cm.get(channelID),
 								title);
-						mSchedule.add(p);
+						schedule.add(p);
 					}
 				}
 				else {
@@ -101,6 +101,6 @@ public class XMLTVParserImpl implements XMLTVParser {
 				}
 			}
 		}
-		return mSchedule;
+		return true;
 	}
 }

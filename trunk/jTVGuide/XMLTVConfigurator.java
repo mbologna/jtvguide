@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Vector;
 
-public class XMLTVConfigurator /*implements XMLTVHelper*/ {
+public class XMLTVConfigurator {
 
 	private static Vector<String> channelNameVector = new Vector<String>();
 	private static Vector<Boolean> channelSelectedVector = new Vector<Boolean>();
