@@ -124,8 +124,8 @@ public class UserPreferences implements JTVGuidePrefs {
 	public static String getOptions() {
 		String options = new String();
 		options += "--days " + getDays();
-		options += " --config-file " + getXmltvConfigFile();
-		options += " --output " + getXmltvOutputFile();
+		options += " --config-file \"" + getXmltvConfigFile() + "\"";
+		options += " --output \"" + getXmltvOutputFile() + "\"";
 		if (isWithCache()) {
 			options += " --cache";
 		}
@@ -178,7 +178,7 @@ public class UserPreferences implements JTVGuidePrefs {
 	 * @return the xmltvConfigFile
 	 */
 	public static File getXmltvConfigFile() {
-		return xmltvConfigFile.getAbsoluteFile();
+		return xmltvConfigFile;
 	}
 	/**
 	 * @param xmltvConfigFile the xmltvConfigFile to set
@@ -191,7 +191,7 @@ public class UserPreferences implements JTVGuidePrefs {
 	 * @return the xmltvOutputFile
 	 */
 	public static File getXmltvOutputFile() {
-		return xmltvOutputFile.getAbsoluteFile();
+		return xmltvOutputFile;
 	}
 	/**
 	 * @param xmltvOutputFile the xmltvOutputFile to set
