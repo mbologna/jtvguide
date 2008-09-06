@@ -58,21 +58,27 @@ public class Program implements Comparable<Program> {
 		Calendar now = Calendar.getInstance();
 		stop.setTime(stopDate);
 		start.setTime(startDate);
-		return (int) ((now.getTimeInMillis() - start.getTimeInMillis()) * 100 / (stop
-				.getTimeInMillis() - start.getTimeInMillis()));
+		if (stop.getTimeInMillis() - start.getTimeInMillis() != 0)
+			return (int) ((now.getTimeInMillis() - start.getTimeInMillis()) * 100 / (stop
+					.getTimeInMillis() - start.getTimeInMillis()));
+		else
+			return 0;
 	}
 
 	public long getStartingTime() {
 		Calendar start = new GregorianCalendar();
 		start.setTime(startDate);
 		Calendar now = Calendar.getInstance();
-		return start.getTimeInMillis() - now.getTimeInMillis();
+		if (startDate != null && stopDate != null)
+			return start.getTimeInMillis() - now.getTimeInMillis();
+		else
+			return 0;
 	}
-	
+
 	public ProgramState getState() {
 		if (getCompletionPercentile() >= 0 && getCompletionPercentile() <= 100)
 			return ProgramState.ONAIR;
-		else if (getStartingTime() >= 0) 
+		else if (getStartingTime() >= 0)
 			return ProgramState.UPCOMING;
 		else
 			return ProgramState.FINISHED;
@@ -81,24 +87,31 @@ public class Program implements Comparable<Program> {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(DateFormatter.formatDate2TimeWithDay(startDate) + "-");
-		sb.append(DateFormatter.formatDate2Time(stopDate));
+		if (stopDate != null)
+			sb.append(DateFormatter.formatDate2Time(stopDate));
 		switch (getState()) {
-		case ONAIR: sb.append("   (On Air: " + getCompletionPercentile() + "%)"); break; 
-		case UPCOMING: sb.append("   (Starting in " + millisecs2Time(getStartingTime())+ ")"); break;
-		case FINISHED: sb.append("   (Finished)"); break;
+		case ONAIR:
+			sb.append("   (On Air: " + getCompletionPercentile() + "%)");
+			break;
+		case UPCOMING:
+			sb.append("   (Starting in " + millisecs2Time(getStartingTime())
+					+ ")");
+			break;
+		case FINISHED:
+			sb.append("   (Finished)");
+			break;
 		}
 		sb.append("   " + title + "   (");
 		sb.append(mChannel.getDisplayName() + ")");
 		return sb.toString();
 	}
 
-	public static String millisecs2Time(long time)
-	{
-		int minutes = (int) ((time % (1000*60*60)) / (1000*60));
-		int hours = (int) (time/(1000*60*60));
-		String minutesStr = (minutes<10 ? "0" : "")+minutes;
-		String hoursStr = (hours<10 ? "0" : "")+hours;
-		return new String(hoursStr+"h:"+minutesStr+"m");
+	public static String millisecs2Time(long time) {
+		int minutes = (int) ((time % (1000 * 60 * 60)) / (1000 * 60));
+		int hours = (int) (time / (1000 * 60 * 60));
+		String minutesStr = (minutes < 10 ? "0" : "") + minutes;
+		String hoursStr = (hours < 10 ? "0" : "") + hours;
+		return new String(hoursStr + "h:" + minutesStr + "m");
 	}
 
 	@Override
