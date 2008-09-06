@@ -8,13 +8,13 @@ public class DateFormatter {
 	private static SimpleDateFormat dateParser = null;
 	
 	public static Date formatString(String date){
-		dateParser = new SimpleDateFormat("yyyyMMddHHmmss ZZZZZ");
+		dateParser = new SimpleDateFormat("yyyyMMddHHmm ZZZZZ");
+		if (date == null) return null;
 		try {
 			return dateParser.parse(date);
 		} catch (ParseException e) {
-			System.err.println("Couldn't format date " + date);
+			return null;
 		}
-		return null;
 	}
 	public static String formatDate2Time(Date date) {
 		dateParser = new SimpleDateFormat("[HH:mm]");

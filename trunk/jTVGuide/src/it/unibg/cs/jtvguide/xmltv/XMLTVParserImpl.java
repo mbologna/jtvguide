@@ -22,12 +22,12 @@ public class XMLTVParserImpl implements XMLTVParser {
 
 	private Schedule schedule;
 	private ChannelMap cm;
-	
+
 	public XMLTVParserImpl() {
 		cm = new ChannelMap();
 		schedule = new Schedule(cm);
 	}
-	
+
 	public Schedule getSchedule() {
 		return schedule;
 	}
@@ -39,7 +39,7 @@ public class XMLTVParserImpl implements XMLTVParser {
 		Document doc = null;
 
 		try {
-			 doc = builder.build(UserPreferences.getXmltvOutputFile());
+			doc = builder.build(UserPreferences.getXmltvOutputFile());
 		} catch (JDOMException e) {
 			return false;
 		} catch (IOException e) {
@@ -48,7 +48,7 @@ public class XMLTVParserImpl implements XMLTVParser {
 
 		if (doc != null) {
 			List<Element> channels = doc.getRootElement()
-					.getChildren("channel");
+			.getChildren("channel");
 			Iterator<Element> channelsIterator = channels.iterator();
 
 			String id;
