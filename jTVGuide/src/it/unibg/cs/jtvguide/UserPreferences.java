@@ -178,7 +178,7 @@ public class UserPreferences implements JTVGuidePrefs {
 	 * @return the xmltvConfigFile
 	 */
 	public static File getXmltvConfigFile() {
-		return xmltvConfigFile;
+		return xmltvConfigFile.getAbsoluteFile();
 	}
 	/**
 	 * @param xmltvConfigFile the xmltvConfigFile to set
@@ -191,7 +191,7 @@ public class UserPreferences implements JTVGuidePrefs {
 	 * @return the xmltvOutputFile
 	 */
 	public static File getXmltvOutputFile() {
-		return xmltvOutputFile;
+		return xmltvOutputFile.getAbsoluteFile();
 	}
 	/**
 	 * @param xmltvOutputFile the xmltvOutputFile to set
