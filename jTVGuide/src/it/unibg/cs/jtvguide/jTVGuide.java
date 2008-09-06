@@ -5,7 +5,6 @@
 
 package it.unibg.cs.jtvguide;
 
-import it.unibg.cs.jtvguide.model.ChannelMap;
 import it.unibg.cs.jtvguide.model.Program;
 import it.unibg.cs.jtvguide.model.Schedule;
 import it.unibg.cs.jtvguide.model.ScheduleByChannel;
@@ -119,6 +118,7 @@ public class jTVGuide implements Runnable {
 				e.printStackTrace();
 			}
 			if(schedule != null) {
+				System.out.print( "\033[H\033[2J" );
 				System.out.println("-------------------");
 		    	List<Program> lk = schedule.getOnAirPrograms();
 		    	List<Program> lp = schedule.getUpcomingPrograms();

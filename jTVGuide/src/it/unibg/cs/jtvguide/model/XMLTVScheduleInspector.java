@@ -10,7 +10,6 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,9 +20,7 @@ public class XMLTVScheduleInspector implements XMLTVInspector {
 
 	@Override
 	public boolean isUpToDate() {
-		Calendar c = Calendar.getInstance();
-		c.add(Calendar.DATE, UserPreferences.getDays()-1); // don't sum today
-		pattern = Pattern.compile("<programme start=\"" + DateFormatter.formatDate(c.getTime()));
+		pattern = Pattern.compile("<programme start=\"" + DateFormatter.formatDate(new Date()));
 		return grep(pattern);
 	}
 
