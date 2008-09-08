@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class Schedule {
+public class Schedule{
 
 	protected List<Program> scheduleList;
 	protected ChannelMap channelMap = null;
@@ -58,7 +58,6 @@ public class Schedule {
 						onAirProgram.getStopDate().compareTo(program.getStartDate()) == 0) {
 					upComingPrograms.add(program);
 				}
-				
 			}
 		}
 		Collections.sort(upComingPrograms);
@@ -110,8 +109,5 @@ public class Schedule {
 		Collections.sort(programList);
 		return new ScheduleByChannel(programList,c);
 	}
-	
-	
-	
 }
 

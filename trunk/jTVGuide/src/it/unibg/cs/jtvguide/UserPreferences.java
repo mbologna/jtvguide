@@ -24,12 +24,12 @@ import org.jdom.output.XMLOutputter;
  * @author Michele
  *
  */
-public class UserPreferences implements JTVGuidePrefs {
+public final class UserPreferences implements JTVGuidePrefs {
 
 	/*
 	 * Defaults
 	 */
-	static int days = 3;
+	static int days = 2;
 	static boolean withCache = false;
 	static boolean quiet = false;
 
@@ -39,6 +39,7 @@ public class UserPreferences implements JTVGuidePrefs {
 	static File xmltvConfigFile = new File("tv_grab.conf");
 	static File xmltvOutputFile = new File("tv_grab.xml");
 	static String locale = SystemProperties.getSystemLanguage();
+	static XMLTVGrabbersByCountry xmltvgbc = XMLTVGrabbersByCountry.getXMLGrabbersByCountry(locale);
 
 	/*
 	 * JTVGuide defaults
@@ -63,6 +64,7 @@ public class UserPreferences implements JTVGuidePrefs {
 				setQuiet(Boolean.parseBoolean(root.getChildText("quiet")));
 				setXmltvConfigFile(root.getChildText("xmltvConfigFile"));
 				setXmltvOutputFile(root.getChildText("xmltvOutputFile"));
+				// TODO
 				return true;
 			}
 		}
@@ -80,16 +82,19 @@ public class UserPreferences implements JTVGuidePrefs {
 		Element quietElem = new Element("quiet");
 		Element xmltvConfigFileElem = new Element("xmltvConfigFile");
 		Element xmltvOutputFileElem = new Element("xmltvOutputFile");
+		Element countryElem = new Element("country");
 		daysElem.setText(Integer.toString(days));
 		withCacheElem.setText(Boolean.toString(withCache));
 		quietElem.setText(Boolean.toString(quiet));
 		xmltvConfigFileElem.setText(xmltvConfigFile.getAbsolutePath());
 		xmltvOutputFileElem.setText(xmltvOutputFile.getAbsolutePath());
+		countryElem.setText(locale);
 		root.addContent(daysElem);
 		root.addContent(withCacheElem);
 		root.addContent(quietElem);
 		root.addContent(xmltvConfigFileElem);
 		root.addContent(xmltvOutputFileElem);
+		root.addContent(countryElem);
 		XMLOutputter xmlOutputter = new XMLOutputter();
 		xmlOutputter.setFormat(Format.getPrettyFormat());
 		FileOutputStream fileOutputStream;
@@ -106,26 +111,22 @@ public class UserPreferences implements JTVGuidePrefs {
 	}
 
 	public static void setCountry(XMLTVGrabbersByCountry c) {
-		locale = c.getLOCALE();
+		xmltvgbc = c;
 	}
 
 	public static String getXMLTVCommandByCountry() {
-		for (XMLTVGrabbersByCountry element : XMLTVGrabbersByCountry.values()) {
-			if(element.getLOCALE().equals(locale)) {
-				return element.getCOMMAND();
-			}
-			else {
-				continue;
-			}
-		}
-		throw new RuntimeException("locale not found");
+		return xmltvgbc.getCOMMAND();
 	}
 
 	public static String getOptions() {
 		String options = new String();
 		options += "--days " + getDays();
-		options += " --config-file \"" + getXmltvConfigFile() + "\"";
-		options += " --output \"" + getXmltvOutputFile() + "\"";
+		options += UserPreferences.getXmltvConfigFile().toString().indexOf(' ') == -1?
+				 " --config-file " + getXmltvConfigFile()
+				 : " --config-file \"" + UserPreferences.getXmltvConfigFile() + "\"";
+		options += UserPreferences.getXmltvOutputFile().toString().indexOf(' ') == -1?
+				" --output " + getXmltvOutputFile()
+				: " --output \"" + getXmltvOutputFile() + "\"";
 		if (isWithCache()) {
 			options += " --cache";
 		}

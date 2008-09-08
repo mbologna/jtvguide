@@ -60,8 +60,8 @@ public class Program implements Comparable<Program> {
 		stop.setTime(stopDate);
 		start.setTime(startDate);
 		if (stop.getTimeInMillis() == start.getTimeInMillis()) return 0;
-		else return (int) ((now.getTimeInMillis() - start.getTimeInMillis()) * 100 / (stop
-				.getTimeInMillis() - start.getTimeInMillis()));
+		else return (int) Math.ceil(((now.getTimeInMillis() - start.getTimeInMillis()) * 100 / (stop
+				.getTimeInMillis() - start.getTimeInMillis())));
 
 	}
 
@@ -74,10 +74,10 @@ public class Program implements Comparable<Program> {
 	}
 
 	public ProgramState getState() {
+		if (getStartingTime() > 0)
+			return ProgramState.UPCOMING;
 		if (getCompletionPercentile() >= 0 && getCompletionPercentile() <= 100)
 			return ProgramState.ONAIR;
-		else if (getStartingTime() > 0)
-			return ProgramState.UPCOMING;
 		else
 			return ProgramState.FINISHED;
 	}
@@ -95,12 +95,11 @@ public class Program implements Comparable<Program> {
 	public String getInfo() {
 		switch (getState()) {
 		case ONAIR:
-			return ("   (On Air: " + getCompletionPercentile() + "%)");
+			return ("On Air: (" + getCompletionPercentile() + "%)");
 		case UPCOMING:
-			return("   (Starting in " + TimeConversions.millisecs2Time(getStartingTime())
-					+ ")");
+			return("Starting in " + TimeConversions.millisecs2Time(getStartingTime()));
 		case FINISHED:
-			return ("   (Finished)");
+			return ("Finished");
 		}
 		return null;
 	}
