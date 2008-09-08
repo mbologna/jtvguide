@@ -40,8 +40,7 @@ public class Schedule {
 	
 	public List<Program> getProgramsFromDateOn(Date d) {
 		List<Program> programList = new ArrayList<Program>();
-		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
-			Program p = (Program) iterator.next();
+		for (Program p: scheduleList) {
 			if (p.getStopDate().compareTo(d) >= 0){
 				programList.add(p);
 			}
@@ -53,11 +52,8 @@ public class Schedule {
 	public List<Program> getUpcomingPrograms() {
 		List<Program> onAirPrograms = getOnAirPrograms();
 		List<Program> upComingPrograms = new ArrayList<Program>();
-		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
-			Program program = iterator.next();
-			for (Iterator<Program> iterator2 = onAirPrograms.iterator(); iterator2
-					.hasNext();) {
-				Program onAirProgram = iterator2.next();
+		for (Program program: scheduleList) {
+			for (Program onAirProgram: onAirPrograms) {
 				if (onAirProgram.getChannel() == program.getChannel() &&
 						onAirProgram.getStopDate().compareTo(program.getStartDate()) == 0) {
 					upComingPrograms.add(program);
@@ -71,8 +67,7 @@ public class Schedule {
 	
 	public List<Program> getProgramsFromDateToDate(Date from, Date to) {
 		List<Program> programList = new ArrayList<Program>();
-		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
-			Program p = (Program) iterator.next();
+		for (Program p: scheduleList) {
 			if (
 					(p.getStartDate().compareTo(from) >= 0 && p.getStopDate().compareTo(to) <= 0 ) ||
 					(p.getStartDate().compareTo(from) <= 0 && p.getStopDate().compareTo(from) >= 0) ||
@@ -87,8 +82,7 @@ public class Schedule {
 	
 	public List<Program> getProgramsByName(String pattern) {
 		List <Program> matchPrograms = new ArrayList<Program>();
-		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
-			Program program = (Program) iterator.next();
+		for (Program program: scheduleList) {
 			/* if title contains the pattern specified, ignore case (regexp) */
 			if (program.getTitle().matches("(?i).*"+pattern+".*")) //&& d.compareTo(program.getStartDate()) <= 0)
 				matchPrograms.add(program);
@@ -108,8 +102,7 @@ public class Schedule {
 	
 	private ScheduleByChannel getChannelSchedule(Channel c) {
 		List <Program> programList = new ArrayList<Program>();
-		for (Iterator<Program> iterator = scheduleList.iterator(); iterator.hasNext();) {
-			Program p = (Program) iterator.next();
+		for (Program p: scheduleList) {
 			if (p.getChannel() == c) {
 				programList.add(p);
 			}

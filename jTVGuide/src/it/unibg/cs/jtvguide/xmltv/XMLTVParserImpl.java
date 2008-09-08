@@ -81,7 +81,7 @@ public class XMLTVParserImpl implements XMLTVParser {
 				String start = show.getAttributeValue("start");
 				startDate = DateFormatter.formatString(start);
 				String stop = show.getAttributeValue("stop");
-				stopDate = DateFormatter.formatString(stop);
+				if (stop != null) stopDate = DateFormatter.formatString(stop);
 				channelID = show.getAttributeValue("channel");
 
 				if (cm.contains(channelID)) {
