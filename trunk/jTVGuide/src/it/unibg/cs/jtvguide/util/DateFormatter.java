@@ -8,8 +8,7 @@ public class DateFormatter {
 	private static SimpleDateFormat dateParser = null;
 	
 	public static Date formatString(String date){
-		dateParser = new SimpleDateFormat("yyyyMMddHHmm ZZZZZ");
-		if (date == null) return null;
+		dateParser = new SimpleDateFormat("yyyyMMddHHmmss ZZZZZ");
 		try {
 			return dateParser.parse(date);
 		} catch (ParseException e) {
