@@ -4,8 +4,9 @@ import it.unibg.cs.jtvguide.UserPreferences;
 import it.unibg.cs.jtvguide.model.Program;
 import it.unibg.cs.jtvguide.model.Schedule;
 import it.unibg.cs.jtvguide.model.XMLTVScheduleInspector;
+import it.unibg.cs.jtvguide.util.FileUtils;
+import it.unibg.cs.jtvguide.util.MD5Checksum;
 import it.unibg.cs.jtvguide.xmltv.XMLTVCommander;
-import it.unibg.cs.jtvguide.xmltv.XMLTVGrabbersByCountry;
 import it.unibg.cs.jtvguide.xmltv.XMLTVParserImpl;
 
 import java.awt.GridLayout;
@@ -18,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.UIManager;
 
-public class jTVGuide extends JFrame implements Runnable {
+public class OnAirAndUpcoming extends JFrame implements Runnable {
 
 	/**
 	 * 
@@ -28,26 +29,24 @@ public class jTVGuide extends JFrame implements Runnable {
 	JPanel jp = new JPanel();
 	Random r = new Random();
 	Schedule schedule;
+	static int counter = FileUtils.uncommentedLinesCount(UserPreferences.getXmltvConfigFile());
 
-	public jTVGuide(String title) {
+	public OnAirAndUpcoming(String title) {
 		super(title);
 		add(jp);
 		XMLTVCommander xmltvc = new XMLTVCommander();
 		XMLTVParserImpl xmltvParser = new XMLTVParserImpl();
 		int tries = 0;
 
-		boolean loaded = UserPreferences.loadFromXMLFile();
-		while (!loaded || !UserPreferences.getXmltvConfigFile().exists()
-				|| UserPreferences.getXmltvConfigFile().length() == 0) {
+		while (!UserPreferences.loadFromXMLFile() || !UserPreferences.getXmltvConfigFile().exists() || UserPreferences.getXmltvConfigFile().length() == 0) {
 			System.out.println("Configuring jTVGuide and XMLTV...");
 			xmltvc.configureXMLTV();
 			UserPreferences.saveToXMLFile();
-			loaded = UserPreferences.loadFromXMLFile();
 		}
-		UserPreferences.setCountry(XMLTVGrabbersByCountry.ITALY);
+		
 		boolean parsed = false;
 		while (parsed == false && tries <= 3) {
-			if (!new XMLTVScheduleInspector().isUpToDate()) {
+			if (!new XMLTVScheduleInspector().isUpToDate() || !MD5Checksum.checkMD5(UserPreferences.getXmltvConfigFile().toString(), MD5Checksum.readMD5FromFile())) {
 				System.out.println("Updating schedule...");
 				xmltvc.downloadSchedule();
 			}
@@ -76,10 +75,10 @@ public class jTVGuide extends JFrame implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		jTVGuide jtv = new jTVGuide("jTVGuide v2.0");
+		OnAirAndUpcoming jtv = new OnAirAndUpcoming("jTVGuide v2.0");
 		jtv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jtv.setSize(1000, 800);
-		jtv.setVisible(true);
+		jtv.setVisible(true); 
 	}
 
 	public void run() {
@@ -88,7 +87,7 @@ public class jTVGuide extends JFrame implements Runnable {
 				jp.removeAll();	
 				List<Program> lk = schedule.getOnAirPrograms();
 				List<Program> lp = schedule.getUpcomingPrograms();
-				if (lk.size() != lp.size()) throw new RuntimeException("mismatch");
+				if (lk.size() != counter || lp.size() != counter) throw new RuntimeException("mismatch");
 				jp.setLayout(new GridLayout(lk.size() + lp.size(),2 ));
 				for (Program p : lk) {
 					JProgressBar jb = new JProgressBar();
@@ -105,7 +104,6 @@ public class jTVGuide extends JFrame implements Runnable {
 				jp.revalidate();
 			}
 			try {
-				
 				Thread.sleep(1000*r.nextInt(10));
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

@@ -34,12 +34,10 @@ public class jTVGuide implements Runnable {
 		XMLTVParserImpl xmltvParser = new XMLTVParserImpl();
 		int tries = 0;
 
-		boolean loaded = UserPreferences.loadFromXMLFile();
-		while (!loaded || !UserPreferences.getXmltvConfigFile().exists() || UserPreferences.getXmltvConfigFile().length() == 0) {
+		while (!UserPreferences.loadFromXMLFile()) {
 			System.out.println("Configuring jTVGuide and XMLTV...");
 			xmltvc.configureXMLTV();
 			UserPreferences.saveToXMLFile();
-			loaded = UserPreferences.loadFromXMLFile();
 		}
 
 		boolean parsed = false;

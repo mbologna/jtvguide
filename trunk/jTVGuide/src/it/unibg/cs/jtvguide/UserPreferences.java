@@ -32,7 +32,7 @@ public final class UserPreferences implements JTVGuidePrefs {
 	static int days = 2;
 	static boolean withCache = false;
 	static boolean quiet = false;
-
+	
 	/*
 	 * XMLTV-related defaults
 	 */
@@ -40,10 +40,6 @@ public final class UserPreferences implements JTVGuidePrefs {
 	static File xmltvOutputFile = new File("tv_grab.xml");
 	static String locale = SystemProperties.getSystemLanguage();
 	static XMLTVGrabbersByCountry xmltvgbc = XMLTVGrabbersByCountry.getXMLGrabbersByCountry(locale);
-
-	/*
-	 * JTVGuide defaults
-	 */
 
 	public static boolean loadFromXMLFile() {
 		if (PREFERENCES_FILE.exists()) {
@@ -64,7 +60,6 @@ public final class UserPreferences implements JTVGuidePrefs {
 				setQuiet(Boolean.parseBoolean(root.getChildText("quiet")));
 				setXmltvConfigFile(root.getChildText("xmltvConfigFile"));
 				setXmltvOutputFile(root.getChildText("xmltvOutputFile"));
-				// TODO
 				return true;
 			}
 		}
@@ -120,6 +115,7 @@ public final class UserPreferences implements JTVGuidePrefs {
 
 	public static String getOptions() {
 		String options = new String();
+		options += "--gui ";
 		options += "--days " + getDays();
 		options += UserPreferences.getXmltvConfigFile().toString().indexOf(' ') == -1?
 				 " --config-file " + getXmltvConfigFile()
