@@ -13,6 +13,15 @@ public class Program implements Comparable<Program> {
 	private Date startDate;
 	private Date stopDate;
 	private Channel mChannel;
+	private String desc;
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
 
 	public Program(Date startDate, Date stopDate, Channel c, String title) {
 		this.startDate = startDate;
