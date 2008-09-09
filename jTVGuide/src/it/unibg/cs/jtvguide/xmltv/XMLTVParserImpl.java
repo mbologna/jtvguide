@@ -9,7 +9,6 @@ import it.unibg.cs.jtvguide.model.Schedule;
 import it.unibg.cs.jtvguide.util.DateFormatter;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -97,15 +96,17 @@ public class XMLTVParserImpl implements XMLTVParser {
 				 * Creare un nuovo show e aggiungerlo alla lista gli show
 				 */
 				p = new Program(startDate, stopDate, cm.get(channelID), title);
+				String desc = show.getChildText("desc");
+				if (desc != null) {
+					p.setDesc(desc);
+				}
 				schedule.add(p);
 			}
-			Collections.sort(schedule.getScheduleList());
 
 			if (reverse) {
-				List<Program> s = schedule.getScheduleList();
-				for (Program program : s) {
+				for (Program program : schedule) {
 					if (program.getStopDate() == null) {
-						for (Program programUpcoming : s) {
+						for (Program programUpcoming : schedule) {
 							if (program.getStartDate().compareTo(
 									programUpcoming.getStartDate()) < 0
 									&& program.getChannel().equals(

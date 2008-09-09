@@ -28,7 +28,7 @@ public final class UserPreferences implements JTVGuidePrefs {
 	/*
 	 * Defaults
 	 */
-	static int days = 2;
+	static int days = 3;
 	static boolean withCache = false;
 	static boolean quiet = false;
 

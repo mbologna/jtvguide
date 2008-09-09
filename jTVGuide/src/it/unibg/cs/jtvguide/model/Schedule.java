@@ -7,10 +7,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class Schedule {
+public class Schedule implements Iterable<Program> {
 
 	protected List<Program> scheduleList;
-
 	protected ChannelMap channelMap = null;
 
 	public Schedule(ChannelMap cm) {
@@ -24,6 +23,7 @@ public class Schedule {
 
 	public void add(Program p) {
 		scheduleList.add(p);
+		Collections.sort(scheduleList);
 	}
 
 	public List<Program> getOnAirPrograms() {
@@ -40,14 +40,9 @@ public class Schedule {
 			if (p.getStopDate() == null)
 				continue;
 			/* if title contains the pattern specified, ignore case (regexp) */
-			if (p.getTitle().matches("(?i).*" + pattern + ".*")) // &&
-				// d.compareTo
-				// (program.
-				// getStartDate
-				// ()) <= 0)
+			if (p.getTitle().matches("(?i).*" + pattern + ".*"))
 				matchPrograms.add(p);
 		}
-		Collections.sort(matchPrograms);
 		return matchPrograms;
 	}
 
@@ -60,7 +55,6 @@ public class Schedule {
 				programList.add(p);
 			}
 		}
-		Collections.sort(programList);
 		return programList;
 	}
 
@@ -78,16 +72,11 @@ public class Schedule {
 				programList.add(p);
 			}
 		}
-		Collections.sort(programList);
 		return programList;
 	}
 
 	public List<Program> getProgramsFromNowOn() {
 		return getProgramsFromDateOn(new Date());
-	}
-
-	public List<Program> getScheduleList() {
-		return scheduleList;
 	}
 
 	public List<ScheduleByChannel> getSchedulesByChannel() {
@@ -113,7 +102,6 @@ public class Schedule {
 				}
 			}
 		}
-		Collections.sort(upComingPrograms);
 		return upComingPrograms;
 	}
 
@@ -124,7 +112,11 @@ public class Schedule {
 				programList.add(p);
 			}
 		}
-		Collections.sort(programList);
 		return new ScheduleByChannel(programList, c);
+	}
+
+	@Override
+	public Iterator<Program> iterator() {
+		return scheduleList.iterator();
 	}
 }

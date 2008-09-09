@@ -101,12 +101,23 @@ public class OnAirAndUpcoming extends JFrame implements Runnable {
 					jb.setString(p.getInfo());
 					jb.setStringPainted(true);
 					jb.setValue(p.getCompletionPercentile());
-					jp.add(new JLabel(p.toString()));
+					JLabel jl = new JLabel(p.toString());
+					if (p.getDesc() != null) {
+						jl.setToolTipText(p.getDesc());
+						jb.setToolTipText(p.getDesc());
+					}
+					jp.add(jl);
 					jp.add(jb);
 				}
 				for (Program p : lp) {
-					jp.add(new JLabel(p.toString()));
-					jp.add(new JLabel(p.getInfo()));
+					JLabel jl1 = new JLabel(p.toString());
+					JLabel jl2 = new JLabel(p.getInfo());
+					if (p.getDesc() != null) {
+						jl1.setToolTipText(p.getDesc());
+						jl2.setToolTipText(p.getDesc());
+					}
+					jp.add(jl1);
+					jp.add(jl2);
 				}
 				jp.revalidate();
 			}
