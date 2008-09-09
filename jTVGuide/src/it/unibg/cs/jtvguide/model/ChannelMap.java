@@ -1,12 +1,10 @@
 package it.unibg.cs.jtvguide.model;
 
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 
 /*
  * Attenzione: usare URI perche' l'hashCode di un URL e' basato sugli IP, e 
@@ -43,10 +41,6 @@ public class ChannelMap {
 		this.channelMap = new HashMap<URI, Channel>();
 	}
 
-	public void add(URI id, Channel e) {
-		this.channelMap.put(id, e);
-	}
-
 	public void add(String id, Channel e) {
 		try {
 			this.channelMap.put(new URI("http://" + id), e);
@@ -55,8 +49,8 @@ public class ChannelMap {
 		}
 	}
 
-	public boolean contains(URI id) {
-		return this.channelMap.containsKey(id);
+	public void add(URI id, Channel e) {
+		this.channelMap.put(id, e);
 	}
 
 	public boolean contains(String id) {
@@ -68,8 +62,8 @@ public class ChannelMap {
 		return false;
 	}
 
-	public Channel get(URI id) {
-		return this.channelMap.get(id);
+	public boolean contains(URI id) {
+		return this.channelMap.containsKey(id);
 	}
 
 	public Channel get(String id) {
@@ -79,6 +73,10 @@ public class ChannelMap {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public Channel get(URI id) {
+		return this.channelMap.get(id);
 	}
 
 	public Iterator<URI> iterator() {

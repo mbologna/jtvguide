@@ -25,21 +25,6 @@ public enum XMLTVGrabbersByCountry {
 	SWITZERLAND("ch","tv_grab_ch_search"),
 	UNITED_KINGDOM("en","tv_grab_uk_rt");
 	
-	private final String COMMAND, LOCALE;
-
-	private XMLTVGrabbersByCountry(String locale, String command) {
-		this.LOCALE = locale;
-		this.COMMAND = command;
-	}
-	
-	public String getCOMMAND() {
-		return COMMAND;
-	}
-
-	public String getLOCALE() {
-		return LOCALE;
-	}
-	
 	public static XMLTVGrabbersByCountry getXMLGrabbersByCountry(String locale) {
 		for (XMLTVGrabbersByCountry e : XMLTVGrabbersByCountry.values()) {
 			if (locale.equals(e.getLOCALE())) {
@@ -47,5 +32,20 @@ public enum XMLTVGrabbersByCountry {
 			}
 		}
 		throw new RuntimeException("locale not found");
+	}
+
+	private final String COMMAND, LOCALE;
+	
+	private XMLTVGrabbersByCountry(String locale, String command) {
+		this.LOCALE = locale;
+		this.COMMAND = command;
+	}
+
+	public String getCOMMAND() {
+		return COMMAND;
+	}
+	
+	public String getLOCALE() {
+		return LOCALE;
 	}
 }

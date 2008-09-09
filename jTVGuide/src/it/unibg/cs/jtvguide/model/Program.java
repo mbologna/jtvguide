@@ -21,36 +21,14 @@ public class Program implements Comparable<Program> {
 		this.title = title;
 	}
 
+	@Override
+	public int compareTo(Program o) {
+		Date startDateComparing = o.getStartDate();
+		return startDate.compareTo(startDateComparing);
+	}
+
 	public Channel getChannel() {
 		return mChannel;
-	}
-
-	public void setChannel(Channel val) {
-		this.mChannel = val;
-	}
-
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date val) {
-		this.startDate = val;
-	}
-
-	public Date getStopDate() {
-		return stopDate;
-	}
-
-	public void setStopDate(Date val) {
-		this.stopDate = val;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String val) {
-		this.title = val;
 	}
 
 	public int getCompletionPercentile() {
@@ -59,10 +37,32 @@ public class Program implements Comparable<Program> {
 		Calendar now = Calendar.getInstance();
 		stop.setTime(stopDate);
 		start.setTime(startDate);
-		if (stop.getTimeInMillis() == start.getTimeInMillis()) return 0;
-		else return (int) Math.ceil(((now.getTimeInMillis() - start.getTimeInMillis()) * 100 / (stop
-				.getTimeInMillis() - start.getTimeInMillis())));
+		if (stop.getTimeInMillis() == start.getTimeInMillis())
+			return 0;
+		else
+			return (int) Math.ceil(((now.getTimeInMillis() - start
+					.getTimeInMillis()) * 100 / (stop.getTimeInMillis() - start
+					.getTimeInMillis())));
 
+	}
+
+	public String getInfo() {
+		switch (getState()) {
+		case ONAIR:
+			return ("On Air: (" + getCompletionPercentile() + "%)");
+		case UPCOMING:
+			return ("Starting in " + TimeConversions
+					.millisecs2Time(getStartingTime()));
+		case FINISHED:
+			return ("Finished");
+		case UNKNOWN:
+			return ("Unknown");
+		}
+		return null;
+	}
+
+	public Date getStartDate() {
+		return startDate;
 	}
 
 	public long getStartingTime() {
@@ -74,6 +74,8 @@ public class Program implements Comparable<Program> {
 	}
 
 	public ProgramState getState() {
+		if (stopDate == null)
+			return ProgramState.UNKNOWN;
 		if (getStartingTime() > 0)
 			return ProgramState.UPCOMING;
 		if (getCompletionPercentile() >= 0 && getCompletionPercentile() <= 100)
@@ -82,31 +84,37 @@ public class Program implements Comparable<Program> {
 			return ProgramState.FINISHED;
 	}
 
+	public Date getStopDate() {
+		return stopDate;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setChannel(Channel val) {
+		this.mChannel = val;
+	}
+
+	public void setStartDate(Date val) {
+		this.startDate = val;
+	}
+
+	public void setStopDate(Date val) {
+		this.stopDate = val;
+	}
+
+	public void setTitle(String val) {
+		this.title = val;
+	}
+
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(DateFormatter.formatDate2TimeWithDay(startDate) + "-");
 		if (stopDate != null)
 			sb.append(DateFormatter.formatDate2Time(stopDate));
 		sb.append("   " + title + "   (");
-		sb.append(mChannel.getDisplayName() + ")");
+		sb.append(mChannel + ")");
 		return sb.toString();
-	}
-	
-	public String getInfo() {
-		switch (getState()) {
-		case ONAIR:
-			return ("On Air: (" + getCompletionPercentile() + "%)");
-		case UPCOMING:
-			return("Starting in " + TimeConversions.millisecs2Time(getStartingTime()));
-		case FINISHED:
-			return ("Finished");
-		}
-		return null;
-	}
-
-	@Override
-	public int compareTo(Program o) {
-		Date startDateComparing = o.getStartDate();
-		return startDate.compareTo(startDateComparing);
 	}
 }

@@ -47,15 +47,20 @@ public class SearchForProgram extends JFrame {
 		XMLTVParserImpl xmltvParser = new XMLTVParserImpl();
 		int tries = 0;
 
-		while (!UserPreferences.loadFromXMLFile() || !UserPreferences.getXmltvConfigFile().exists() || UserPreferences.getXmltvConfigFile().length() == 0) {
+		while (!UserPreferences.loadFromXMLFile()
+				|| !UserPreferences.getXmltvConfigFile().exists()
+				|| UserPreferences.getXmltvConfigFile().length() == 0) {
 			System.out.println("Configuring jTVGuide and XMLTV...");
 			xmltvc.configureXMLTV();
 			UserPreferences.saveToXMLFile();
 		}
-		
+
 		boolean parsed = false;
 		while (parsed == false && tries <= 3) {
-			if (!new XMLTVScheduleInspector().isUpToDate() || !MD5Checksum.checkMD5(UserPreferences.getXmltvConfigFile().toString(), MD5Checksum.readMD5FromFile())) {
+			if (!new XMLTVScheduleInspector().isUpToDate()
+					|| !MD5Checksum.checkMD5(UserPreferences
+							.getXmltvConfigFile().toString(), MD5Checksum
+							.readMD5FromFile())) {
 				System.out.println("Updating schedule...");
 				xmltvc.downloadSchedule();
 			}
@@ -100,7 +105,7 @@ public class SearchForProgram extends JFrame {
 		public void removeUpdate(DocumentEvent e) {
 			if (jt.getText().length() >= 2)
 				search(jt.getText());
-			else 
+			else
 				ja.setText("");
 		}
 
