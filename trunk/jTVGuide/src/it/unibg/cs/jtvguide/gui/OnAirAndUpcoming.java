@@ -29,7 +29,8 @@ public class OnAirAndUpcoming extends JFrame implements Runnable {
 	JPanel jp = new JPanel();
 	Random r = new Random();
 	Schedule schedule;
-	static int counter = FileUtils.uncommentedLinesCount(UserPreferences.getXmltvConfigFile());
+	static int counter = FileUtils.uncommentedLinesCount(UserPreferences
+			.getXmltvConfigFile());
 
 	public OnAirAndUpcoming(String title) {
 		super(title);
@@ -38,15 +39,20 @@ public class OnAirAndUpcoming extends JFrame implements Runnable {
 		XMLTVParserImpl xmltvParser = new XMLTVParserImpl();
 		int tries = 0;
 
-		while (!UserPreferences.loadFromXMLFile() || !UserPreferences.getXmltvConfigFile().exists() || UserPreferences.getXmltvConfigFile().length() == 0) {
+		while (!UserPreferences.loadFromXMLFile()
+				|| !UserPreferences.getXmltvConfigFile().exists()
+				|| UserPreferences.getXmltvConfigFile().length() == 0) {
 			System.out.println("Configuring jTVGuide and XMLTV...");
 			xmltvc.configureXMLTV();
 			UserPreferences.saveToXMLFile();
 		}
-		
+
 		boolean parsed = false;
 		while (parsed == false && tries <= 3) {
-			if (!new XMLTVScheduleInspector().isUpToDate() || !MD5Checksum.checkMD5(UserPreferences.getXmltvConfigFile().toString(), MD5Checksum.readMD5FromFile())) {
+			if (!new XMLTVScheduleInspector().isUpToDate()
+					|| !MD5Checksum.checkMD5(UserPreferences
+							.getXmltvConfigFile().toString(), MD5Checksum
+							.readMD5FromFile())) {
 				System.out.println("Updating schedule...");
 				xmltvc.downloadSchedule();
 			}
@@ -78,17 +84,18 @@ public class OnAirAndUpcoming extends JFrame implements Runnable {
 		OnAirAndUpcoming jtv = new OnAirAndUpcoming("jTVGuide v2.0");
 		jtv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jtv.setSize(1000, 800);
-		jtv.setVisible(true); 
+		jtv.setVisible(true);
 	}
 
 	public void run() {
 		while (true) {
 			if (schedule != null) {
-				jp.removeAll();	
+				jp.removeAll();
 				List<Program> lk = schedule.getOnAirPrograms();
 				List<Program> lp = schedule.getUpcomingPrograms();
-				if (lk.size() != counter || lp.size() != counter) throw new RuntimeException("mismatch");
-				jp.setLayout(new GridLayout(lk.size() + lp.size(),2 ));
+				if (lk.size() != counter || lp.size() != counter)
+					throw new RuntimeException("mismatch");
+				jp.setLayout(new GridLayout(lk.size() + lp.size(), 2));
 				for (Program p : lk) {
 					JProgressBar jb = new JProgressBar();
 					jb.setString(p.getInfo());
@@ -104,10 +111,8 @@ public class OnAirAndUpcoming extends JFrame implements Runnable {
 				jp.revalidate();
 			}
 			try {
-				Thread.sleep(1000*r.nextInt(10));
+				Thread.sleep(1000 * (r.nextInt(5) + 5));
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 	}

@@ -9,6 +9,7 @@ import it.unibg.cs.jtvguide.model.Program;
 import it.unibg.cs.jtvguide.model.Schedule;
 import it.unibg.cs.jtvguide.model.ScheduleByChannel;
 import it.unibg.cs.jtvguide.model.XMLTVScheduleInspector;
+import it.unibg.cs.jtvguide.util.MD5Checksum;
 import it.unibg.cs.jtvguide.xmltv.XMLTVCommander;
 import it.unibg.cs.jtvguide.xmltv.XMLTVParserImpl;
 
@@ -34,24 +35,32 @@ public class jTVGuide implements Runnable {
 		XMLTVParserImpl xmltvParser = new XMLTVParserImpl();
 		int tries = 0;
 
-		while (!UserPreferences.loadFromXMLFile()) {
+		while (!UserPreferences.loadFromXMLFile()
+				|| !UserPreferences.getXmltvConfigFile().exists()
+				|| UserPreferences.getXmltvConfigFile().length() == 0) {
 			System.out.println("Configuring jTVGuide and XMLTV...");
 			xmltvc.configureXMLTV();
 			UserPreferences.saveToXMLFile();
 		}
 
 		boolean parsed = false;
-		while(parsed == false && tries <= 3) {
-			if (!new XMLTVScheduleInspector().isUpToDate()) {
+		while (parsed == false && tries <= 3) {
+			if (!new XMLTVScheduleInspector().isUpToDate()
+					|| !MD5Checksum.checkMD5(UserPreferences
+							.getXmltvConfigFile().toString(), MD5Checksum
+							.readMD5FromFile())) {
 				System.out.println("Updating schedule...");
-				xmltvc.downloadSchedule();   		
+				xmltvc.downloadSchedule();
 			}
 			if (tries >= 1) {
-				System.out.println("Couldn't parsing. Downloading a new schedule.");
+				System.out
+				.println("Couldn't parsing. Downloading a new schedule.");
 				UserPreferences.getXmltvOutputFile().delete();
-				xmltvc.downloadSchedule(); 
+				xmltvc.downloadSchedule();
 			}
-			if (tries == 4) throw new RuntimeException("Couldn't download or parse schedule");
+			if (tries == 4)
+				throw new RuntimeException(
+				"Couldn't download or parse schedule");
 			System.out.println("Trying to parse schedule...");
 			parsed = xmltvParser.parse();
 			tries++;

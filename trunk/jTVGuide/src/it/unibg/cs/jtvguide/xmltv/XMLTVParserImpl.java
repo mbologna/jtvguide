@@ -9,6 +9,7 @@ import it.unibg.cs.jtvguide.model.Schedule;
 import it.unibg.cs.jtvguide.util.DateFormatter;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -48,7 +49,7 @@ public class XMLTVParserImpl implements XMLTVParser {
 
 		if (doc != null) {
 			List<Element> channels = doc.getRootElement()
-			.getChildren("channel");
+					.getChildren("channel");
 			Iterator<Element> channelsIterator = channels.iterator();
 
 			String id;
@@ -70,34 +71,51 @@ public class XMLTVParserImpl implements XMLTVParser {
 			 */
 
 			List<Element> shows = doc.getRootElement().getChildren("programme");
+
 			Iterator<Element> showsIterator = shows.iterator();
-			Date startDate = null, stopDate = null;
+			Date startDate, stopDate;
 			String channelID;
 			String title;
 			Program p;
+			boolean reverse = false;
 
 			while (showsIterator.hasNext()) {
 				Element show = showsIterator.next();
+				startDate = null;
+				stopDate = null;
 				String start = show.getAttributeValue("start");
-				startDate = DateFormatter.formatString(start);
+				startDate = DateFormatter.formatString(start.substring(0, 12));
 				String stop = show.getAttributeValue("stop");
-				if (stop != null) stopDate = DateFormatter.formatString(stop);
+				if (stop != null)
+					stopDate = DateFormatter
+							.formatString(stop.substring(0, 12));
+				else
+					reverse = true;
 				channelID = show.getAttributeValue("channel");
+				title = show.getChildText("title");
+				/*
+				 * Creare un nuovo show e aggiungerlo alla lista gli show
+				 */
+				p = new Program(startDate, stopDate, cm.get(channelID), title);
+				schedule.add(p);
+			}
+			Collections.sort(schedule.getScheduleList());
 
-				if (cm.contains(channelID)) {
-					title = show.getChildText("title");
-					if (startDate != null && stopDate != null) {
-						/*
-						 * Creare un nuovo show e aggiungerlo alla lista gli
-						 * show
-						 */
-						p = new Program(startDate, stopDate, cm.get(channelID),
-								title);
-						schedule.add(p);
+			if (reverse) {
+				List<Program> s = schedule.getScheduleList();
+				for (Program program : s) {
+					if (program.getStopDate() == null) {
+						for (Program programUpcoming : s) {
+							if (program.getStartDate().compareTo(
+									programUpcoming.getStartDate()) < 0
+									&& program.getChannel().equals(
+											programUpcoming.getChannel())) {
+								program.setStopDate(programUpcoming
+										.getStartDate());
+								break;
+							}
+						}
 					}
-				}
-				else {
-					throw new RuntimeException("Channel not found");
 				}
 			}
 		}

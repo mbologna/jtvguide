@@ -9,13 +9,11 @@ import it.unibg.cs.jtvguide.util.SystemProperties;
 
 public class XMLTVCommander implements XMLTVConfigurator, XMLTVDownloader{
 	
-	private String getXMLTVCommand() {
-		if (SystemProperties.detectOS().equals("windows")) {
-			return "xmltv.exe " + UserPreferences.getXMLTVCommandByCountry();
-		}
-		else {
-			return UserPreferences.getXMLTVCommandByCountry();
-		}
+	@Override
+	public int configureXMLTV() {
+		UserPreferences.getXmltvConfigFile().delete();
+		UserPreferences.getXmltvOutputFile().delete();
+		return RunExternalCommand.runCommand(getXMLTVCommand() + " " + CONFIG_SWITCH);
 	}
 
 	@Override
@@ -25,10 +23,12 @@ public class XMLTVCommander implements XMLTVConfigurator, XMLTVDownloader{
 		return RunExternalCommand.runCommand(getXMLTVCommand() + " " + parameters);
 	}
 
-	@Override
-	public int configureXMLTV() {
-		UserPreferences.getXmltvConfigFile().delete();
-		UserPreferences.getXmltvOutputFile().delete();
-		return RunExternalCommand.runCommand(getXMLTVCommand() + " " + CONFIG_SWITCH);
+	private String getXMLTVCommand() {
+		if (SystemProperties.detectOS().equals("windows")) {
+			return "xmltv.exe " + UserPreferences.getXMLTVCommandByCountry();
+		}
+		else {
+			return UserPreferences.getXMLTVCommandByCountry();
+		}
 	}
 }

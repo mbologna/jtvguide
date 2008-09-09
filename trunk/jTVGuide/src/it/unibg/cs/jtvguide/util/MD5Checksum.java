@@ -15,6 +15,54 @@ import java.security.MessageDigest;
 
 public class MD5Checksum {
 
+	public static boolean checkMD5(String file, String MD5) {
+		try {
+			return getMD5Checksum(file).equals(MD5);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public static String getMD5Checksum(String filename) throws Exception {
+		byte[] b = createChecksum(filename);
+		String result = "";
+		for (int i = 0; i < b.length; i++) {
+			result += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
+		}
+		return result;
+	}
+
+	public static String readMD5FromFile() {
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(
+					JTVGuidePrefs.CONFIG_FILE_MD5));
+			String MD5 = br.readLine();
+			br.close();
+			return MD5;
+		} catch (FileNotFoundException e) {
+			return null;
+		} catch (IOException e) {
+			return null;
+		}
+
+	}
+
+	public static boolean writeMD5ToFile(File f) {
+		BufferedWriter bw = null;
+		try {
+			bw = new BufferedWriter(new FileWriter(
+					JTVGuidePrefs.CONFIG_FILE_MD5));
+			bw.write(getMD5Checksum(f.toString()));
+			bw.close();
+			return true;
+		} catch (IOException e) {
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 	private static byte[] createChecksum(String filename) throws Exception {
 		InputStream fis = new FileInputStream(filename);
 
@@ -29,52 +77,5 @@ public class MD5Checksum {
 		} while (numRead != -1);
 		fis.close();
 		return complete.digest();
-	}
-
-	public static String getMD5Checksum(String filename) throws Exception {
-		byte[] b = createChecksum(filename);
-		String result = "";
-		for (int i = 0; i < b.length; i++) {
-			result += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
-		}
-		return result;
-	}
-	
-	public static boolean writeMD5ToFile(File f) {
-		BufferedWriter bw = null;
-		try {
-			bw = new BufferedWriter(new FileWriter(JTVGuidePrefs.CONFIG_FILE_MD5));
-			bw.write(getMD5Checksum(f.toString()));
-			bw.close();
-			System.out.println("write" + getMD5Checksum(f.toString()));
-			return true;
-		} catch (IOException e) {
-			return false;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-	
-	public static String readMD5FromFile() {
-		BufferedReader br = null;
-			try {
-				br = new BufferedReader(new FileReader(JTVGuidePrefs.CONFIG_FILE_MD5));
-				String MD5 = br.readLine();
-				br.close();
-				return MD5;
-			} catch (FileNotFoundException e) {
-				return null;
-			} catch (IOException e) {
-				return null;
-			}
-			
-	}
-	
-	public static boolean checkMD5(String file, String MD5) {
-		try {
-			return getMD5Checksum(file).equals(MD5);
-		} catch (Exception e) {
-			return false;
-		}
 	}
 }

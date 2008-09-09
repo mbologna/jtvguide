@@ -9,21 +9,21 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class XMLTVScheduleInspector implements XMLTVInspector {
-	
+
 	Pattern pattern;
 
 	@Override
 	public boolean isUpToDate() {
-		pattern = Pattern.compile("<programme start=\"" + DateFormatter.formatDate(new Date()));
-		return FileUtils.grep(UserPreferences.getXmltvOutputFile(),pattern);
+		pattern = Pattern.compile("<programme start=\""
+				+ DateFormatter.formatDate(new Date()));
+		return FileUtils.grep(UserPreferences.getXmltvOutputFile(), pattern);
 	}
 
 	@Override
 	public boolean isUpToDate(Date d) {
-		pattern = Pattern.compile("<programme start=\"" +DateFormatter.formatDate2Time(d));
-		return FileUtils.grep(UserPreferences.getXmltvOutputFile(),pattern);
+		pattern = Pattern.compile("<programme start=\""
+				+ DateFormatter.formatDate2Time(d));
+		return FileUtils.grep(UserPreferences.getXmltvOutputFile(), pattern);
 	}
-
-
 
 }

@@ -7,19 +7,23 @@ public class Channel implements Comparable<Channel> {
 
 	private String displayName;
 	private URI id;
-	
+
 	public Channel(String id, String displayName) {
-	
-			try {
-				this.id = new URI("http://" + id);
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
+
+		try {
+			this.id = new URI("http://" + id);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException("could not parse channel");
+		}
+
 		this.displayName = displayName;
 	}
-	
+
+	@Override
+	public int compareTo(Channel o) {
+		return displayName.compareTo(o.getDisplayName());
+	}
+
 	public boolean equals(Object o) {
 		Channel c = (Channel) o;
 		if (c.getId() == this.id)
@@ -27,25 +31,24 @@ public class Channel implements Comparable<Channel> {
 		else
 			return false;
 	}
-	
+
 	public String getDisplayName() {
 		return displayName;
-	}
-
-	public void setDisplayName(String name) {
-		this.displayName = name;
 	}
 
 	public URI getId() {
 		return id;
 	}
 
+	public void setDisplayName(String name) {
+		this.displayName = name;
+	}
+
 	public void setId(URI id) {
 		this.id = id;
 	}
 
-	@Override
-	public int compareTo(Channel o) {
-		return displayName.compareTo(o.getDisplayName());
+	public String toString() {
+		return displayName;
 	}
 }

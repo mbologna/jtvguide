@@ -7,14 +7,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 public class RunExternalCommand {
-	
+
 	static final int BLOCK_SIZE = 256000;
 	static byte[] buf = new byte[BLOCK_SIZE];
 
 	public static int runCommand(String command) {
 		int result = -1;
 		try {
-			System.out.println("Running: "+ command);
+			System.out.println("Running: " + command);
 			Process process = Runtime.getRuntime().exec(command);
 
 			for (boolean isRunning = true; isRunning;) {
@@ -22,28 +22,29 @@ public class RunExternalCommand {
 				try {
 					result = process.exitValue();
 					isRunning = false;
-				} catch (IllegalThreadStateException ie) {}
+				} catch (IllegalThreadStateException ie) {
+				}
 
 				try {
 					pipe(System.in, process.getOutputStream(), false);
 					pipe(process.getErrorStream(), System.err, false);
 					pipe(process.getInputStream(), System.out, false);
-				} catch(Exception e) {}
+				} catch (Exception e) {
+				}
 			}
 			return result;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.exit(0);
 		}
 		return result;
 	}
 
 	static void pipe(InputStream in, OutputStream out, boolean isBlocking)
-	throws IOException {
+			throws IOException {
 		int nread;
 		int navailable;
-		while((navailable = isBlocking ? Integer.MAX_VALUE : in.available()) > 0 &&
-				(nread = in.read(buf, 0, Math.min(buf.length, navailable))) >= 0) {
+		while ((navailable = isBlocking ? Integer.MAX_VALUE : in.available()) > 0
+				&& (nread = in.read(buf, 0, Math.min(buf.length, navailable))) >= 0) {
 			out.write(buf, 0, nread);
 		}
 		out.flush();
