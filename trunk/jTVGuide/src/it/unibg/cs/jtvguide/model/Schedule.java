@@ -37,7 +37,7 @@ public class Schedule implements Iterable<Program> {
 	public List<Program> getProgramsByName(String pattern) {
 		List<Program> matchPrograms = new ArrayList<Program>();
 		for (Program p : scheduleList) {
-			if (p.getStopDate() == null)
+			if (p.getState() == ProgramState.UNKNOWN)
 				continue;
 			/* if title contains the pattern specified, ignore case (regexp) */
 			if (p.getTitle().matches("(?i).*" + pattern + ".*"))
@@ -49,7 +49,7 @@ public class Schedule implements Iterable<Program> {
 	public List<Program> getProgramsFromDateOn(Date d) {
 		List<Program> programList = new ArrayList<Program>();
 		for (Program p : scheduleList) {
-			if (p.getStopDate() == null)
+			if (p.getState() == ProgramState.UNKNOWN)
 				continue;
 			if (p.getStopDate().compareTo(d) >= 0) {
 				programList.add(p);
@@ -61,7 +61,7 @@ public class Schedule implements Iterable<Program> {
 	public List<Program> getProgramsFromDateToDate(Date from, Date to) {
 		List<Program> programList = new ArrayList<Program>();
 		for (Program p : scheduleList) {
-			if (p.getStopDate() == null)
+			if (p.getState() == ProgramState.UNKNOWN)
 				continue;
 			if ((p.getStartDate().compareTo(from) >= 0 && p.getStopDate()
 					.compareTo(to) <= 0)
@@ -92,7 +92,7 @@ public class Schedule implements Iterable<Program> {
 		List<Program> onAirPrograms = getOnAirPrograms();
 		List<Program> upComingPrograms = new ArrayList<Program>();
 		for (Program p : scheduleList) {
-			if (p.getStopDate() == null)
+			if (p.getState() == ProgramState.UNKNOWN)
 				continue;
 			for (Program onAirProgram : onAirPrograms) {
 				if (onAirProgram.getChannel() == p.getChannel()
