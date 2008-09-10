@@ -86,7 +86,7 @@ public class OnAirAndUpcoming extends JFrame implements Runnable {
 		jtv.setSize(1000, 800);
 		jtv.setVisible(true);
 	}
-
+	
 	public void run() {
 		while (true) {
 			if (schedule != null) {

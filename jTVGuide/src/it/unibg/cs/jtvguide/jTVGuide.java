@@ -28,6 +28,7 @@ public class jTVGuide implements Runnable {
 
 	private static Thread thread;
 	Schedule schedule;
+	private final static String format = "%1$-75s | %2$-10s | %3$-80s\n";;
 
 	public jTVGuide() {
 		System.out.println("jTVGuide 2.0");
@@ -80,12 +81,12 @@ public class jTVGuide implements Runnable {
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.HOUR_OF_DAY, 21);
 		c.set(Calendar.MINUTE,30);
-		for (Program program: s.getPrograms(c.getTime())) {
-			System.out.println(program);
+		for (Program p: s.getPrograms(c.getTime())) {
+			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 		}
 		System.out.println("Searching for *caf*");
-		for (Program program: s.getProgramsByName("caf")) {
-			System.out.println(program);
+		for (Program p: s.getProgramsByName("caf")) {
+			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 		}
 		System.out.println("Printing sub-schedules by channel");
 		List<ScheduleByChannel> lsc = s.getSchedulesByChannel();
@@ -95,8 +96,8 @@ public class jTVGuide implements Runnable {
 			System.out.println(scheduleByChannel.getChannelName());
 			List<Program> lspbc = scheduleByChannel.getProgramsFromNowOn();
 			for (Iterator<Program> iterator2 = lspbc.iterator(); iterator2.hasNext();) {
-				Program program = iterator2.next();
-				System.out.println(program);
+				Program p = iterator2.next();
+				System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 			}
 		}
 
@@ -104,30 +105,29 @@ public class jTVGuide implements Runnable {
 		c.setTime(d);
 		c.add(Calendar.MINUTE, 30);
 		System.out.println("Slicing programs from " + d + " to " + c.getTime());
-		for (Program program:  s.getProgramsFromDateToDate(new Date(), c.getTime())) {
-			System.out.println(program);
+		for (Program p:  s.getProgramsFromDateToDate(new Date(), c.getTime())) {
+			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 		}
 	}
 
 	@Override
 	public void run() {
 		while(true) {
-			try {
-				Thread.sleep(1000*60);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			if(schedule != null) {
 				System.out.print( "\033[H\033[2J" );
 				System.out.println("-------------------");
 				System.out.println("Onair");
 				for (Program p: schedule.getOnAirPrograms())
-					System.out.println(p);
+					System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
+				System.out.println("Upcoming");
+				for (Program p: schedule.getUpcomingPrograms()) 
+					System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 			}
-			System.out.println("Upcoming");
-			for (Program p: schedule.getUpcomingPrograms()) {
-				System.out.println(p);
+			try {
+				Thread.sleep(1000*10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
