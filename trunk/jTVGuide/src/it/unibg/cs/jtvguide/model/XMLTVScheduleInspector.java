@@ -5,6 +5,7 @@ import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVInspector;
 import it.unibg.cs.jtvguide.util.DateFormatter;
 import it.unibg.cs.jtvguide.util.FileUtils;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -14,15 +15,16 @@ public class XMLTVScheduleInspector implements XMLTVInspector {
 
 	@Override
 	public boolean isUpToDate() {
-		pattern = Pattern.compile("<programme start=\""
-				+ DateFormatter.formatDate(new Date()));
-		return FileUtils.grep(UserPreferences.getXmltvOutputFile(), pattern);
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, 1);
+		System.out.println(DateFormatter.formatDate(c.getTime()));
+		return isUpToDate(new Date()) && isUpToDate(c.getTime());
 	}
 
 	@Override
 	public boolean isUpToDate(Date d) {
 		pattern = Pattern.compile("<programme start=\""
-				+ DateFormatter.formatDate2Time(d));
+				+ DateFormatter.formatDate(d));
 		return FileUtils.grep(UserPreferences.getXmltvOutputFile(), pattern);
 	}
 

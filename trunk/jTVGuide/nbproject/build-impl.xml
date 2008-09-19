@@ -633,6 +633,8 @@ is divided into following sections:
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>
         <delete dir="${dist.dir}"/>
+    	<delete file="tv_grab.conf"/>
+    	<delete file="tv_grab.xml"/>
     </target>
     <target name="-post-clean">
         <!-- Empty placeholder for easier customization. -->
