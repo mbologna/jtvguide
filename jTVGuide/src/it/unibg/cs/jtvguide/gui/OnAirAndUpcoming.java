@@ -93,8 +93,13 @@ public class OnAirAndUpcoming extends JFrame implements Runnable {
 				jp.removeAll();
 				List<Program> lk = schedule.getOnAirPrograms();
 				List<Program> lp = schedule.getUpcomingPrograms();
-				if (lk.size() != counter || lp.size() != counter)
-					throw new RuntimeException("mismatch");
+				if (lk.size() != counter || lp.size() != counter) {
+					System.out.println(counter);
+					System.out.println(lk.size());
+					System.out.println(lp.size());
+					//throw new RuntimeException("mismatch");
+				}
+					
 				jp.setLayout(new GridLayout(lk.size() + lp.size(), 2));
 				for (Program p : lk) {
 					JProgressBar jb = new JProgressBar();
