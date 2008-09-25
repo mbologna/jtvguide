@@ -17,7 +17,6 @@ public class XMLTVScheduleInspector implements XMLTVInspector {
 	public boolean isUpToDate() {
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DATE, 1);
-		System.out.println(DateFormatter.formatDate(c.getTime()));
 		return isUpToDate(new Date()) && isUpToDate(c.getTime());
 	}
 
