@@ -37,9 +37,12 @@ public final class UserPreferences implements JTVGuidePrefs {
 	 */
 	static File xmltvConfigFile = new File("tv_grab.conf");
 	static File xmltvOutputFile = new File("tv_grab.xml");
-	static String locale = SystemProperties.getSystemLanguage();
 	static XMLTVGrabbersByCountry xmltvgbc = XMLTVGrabbersByCountry
-			.getXMLGrabbersByCountry(locale);
+			.getXMLGrabbersByCountry(SystemProperties.getSystemLanguage());
+
+	public static XMLTVGrabbersByCountry getXMLTVCountry() {
+		return xmltvgbc;
+	}
 
 	/**
 	 * @return the days
@@ -121,6 +124,7 @@ public final class UserPreferences implements JTVGuidePrefs {
 				setQuiet(Boolean.parseBoolean(root.getChildText("quiet")));
 				setXmltvConfigFile(root.getChildText("xmltvConfigFile"));
 				setXmltvOutputFile(root.getChildText("xmltvOutputFile"));
+				setCountry(XMLTVGrabbersByCountry.getXMLGrabbersByCountry(root.getChildText("country")));
 				return true;
 			}
 		}
@@ -147,7 +151,7 @@ public final class UserPreferences implements JTVGuidePrefs {
 		quietElem.setText(Boolean.toString(quiet));
 		xmltvConfigFileElem.setText(xmltvConfigFile.getAbsolutePath());
 		xmltvOutputFileElem.setText(xmltvOutputFile.getAbsolutePath());
-		countryElem.setText(locale);
+		countryElem.setText(xmltvgbc.getLOCALE());
 		root.addContent(daysElem);
 		root.addContent(withCacheElem);
 		root.addContent(quietElem);
