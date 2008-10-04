@@ -11,7 +11,6 @@ import it.unibg.cs.jtvguide.model.ScheduleByChannel;
 import it.unibg.cs.jtvguide.model.XMLTVScheduleInspector;
 import it.unibg.cs.jtvguide.util.MD5Checksum;
 import it.unibg.cs.jtvguide.xmltv.XMLTVCommander;
-import it.unibg.cs.jtvguide.xmltv.XMLTVGrabbersByCountry;
 import it.unibg.cs.jtvguide.xmltv.XMLTVParserImpl;
 
 import java.util.Calendar;
