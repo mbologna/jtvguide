@@ -21,14 +21,14 @@ import org.jdom.output.XMLOutputter;
 
 /**
  * @author Michele
- * 
+ *
  */
 public final class UserPreferences implements JTVGuidePrefs {
 
 	/*
 	 * Defaults
 	 */
-	static int days = 4;
+	static int days = 6;
 	static boolean withCache = false;
 	static boolean quiet = false;
 
@@ -152,6 +152,48 @@ public final class UserPreferences implements JTVGuidePrefs {
 		xmltvConfigFileElem.setText(xmltvConfigFile.getAbsolutePath());
 		xmltvOutputFileElem.setText(xmltvOutputFile.getAbsolutePath());
 		countryElem.setText(xmltvgbc.getLOCALE());
+		root.addContent(daysElem);
+		root.addContent(withCacheElem);
+		root.addContent(quietElem);
+		root.addContent(xmltvConfigFileElem);
+		root.addContent(xmltvOutputFileElem);
+		root.addContent(countryElem);
+		XMLOutputter xmlOutputter = new XMLOutputter();
+		xmlOutputter.setFormat(Format.getPrettyFormat());
+		FileOutputStream fileOutputStream;
+		try {
+			fileOutputStream = new FileOutputStream(PREFERENCES_FILE);
+			xmlOutputter.output(mydoc, fileOutputStream);
+			fileOutputStream.close();
+			return true;
+		} catch (FileNotFoundException e) {
+			return false;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+
+	public static boolean resetXMLFile(){
+		if (PREFERENCES_FILE.exists())
+			PREFERENCES_FILE.delete();
+		Element root = new Element("preferences");
+		root.addContent(new Comment("JTVGuide preferences file"));
+		Document mydoc = new Document(root);
+		root
+				.setAttribute(new Attribute("date-generated", new Date()
+						.toString()));
+		Element daysElem = new Element("days");
+		Element withCacheElem = new Element("withCache");
+		Element quietElem = new Element("quiet");
+		Element xmltvConfigFileElem = new Element("xmltvConfigFile");
+		Element xmltvOutputFileElem = new Element("xmltvOutputFile");
+		Element countryElem = new Element("country");
+		daysElem.setText(Integer.toString(6));
+		withCacheElem.setText(Boolean.toString(false));
+		quietElem.setText(Boolean.toString(false));
+		xmltvConfigFileElem.setText(new File("tv_grab.conf").getAbsolutePath());
+		xmltvOutputFileElem.setText(new File("tv_grab.xml").getAbsolutePath());
+		countryElem.setText(SystemProperties.getSystemLanguage());
 		root.addContent(daysElem);
 		root.addContent(withCacheElem);
 		root.addContent(quietElem);
