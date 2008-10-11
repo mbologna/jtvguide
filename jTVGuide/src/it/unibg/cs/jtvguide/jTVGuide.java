@@ -43,6 +43,8 @@ public class jTVGuide implements Runnable {
 			xmltvc.configureXMLTV();
 			UserPreferences.saveToXMLFile();
 		}
+		
+		
 
 		boolean parsed = false;
 		while (parsed == false && tries <= 3) {
@@ -120,7 +122,7 @@ public class jTVGuide implements Runnable {
 				for (Program p: schedule.getOnAirPrograms())
 					System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 				System.out.println("Upcoming");
-				for (Program p: schedule.getUpcomingPrograms()) 
+				for (Program p: schedule.getUpcomingPrograms())
 					System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 			}
 			try {
