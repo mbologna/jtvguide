@@ -1,9 +1,6 @@
 package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.UserPreferences;
-import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVConfigurator;
 import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVDownloader;
-import it.unibg.cs.jtvguide.util.MD5Checksum;
 import it.unibg.cs.jtvguide.util.RunExternalCommand;
 import it.unibg.cs.jtvguide.util.SystemProperties;
 

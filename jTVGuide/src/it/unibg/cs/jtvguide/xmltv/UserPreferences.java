@@ -1,8 +1,7 @@
-package it.unibg.cs.jtvguide;
+package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.interfaces.JTVGuidePrefs;
+import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVGrabbersByCountry;
 import it.unibg.cs.jtvguide.util.SystemProperties;
-import it.unibg.cs.jtvguide.xmltv.XMLTVGrabbersByCountry;
 
 import java.io.File;
 import java.io.FileNotFoundException;

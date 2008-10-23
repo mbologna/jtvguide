@@ -1,4 +1,4 @@
-package it.unibg.cs.jtvguide.xmltv;
+package it.unibg.cs.jtvguide.interfaces.xmltv;
 
 
 public enum XMLTVGrabbersByCountry {

@@ -1,6 +1,5 @@
-package it.unibg.cs.jtvguide.interfaces.xmltv;
+package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.UserPreferences;
 
 public interface XMLTVConfigurator {
 	public String CONFIG_SWITCH = UserPreferences.getXmltvConfigFile()
