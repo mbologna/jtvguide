@@ -1,6 +1,7 @@
-package it.unibg.cs.jtvguide.util;
+package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.interfaces.JTVGuidePrefs;
+
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

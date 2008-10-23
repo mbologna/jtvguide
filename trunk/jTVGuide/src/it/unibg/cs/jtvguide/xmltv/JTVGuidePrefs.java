@@ -1,6 +1,5 @@
-package it.unibg.cs.jtvguide.interfaces;
+package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.UserPreferences;
 import it.unibg.cs.jtvguide.util.SystemProperties;
 
 import java.io.File;
