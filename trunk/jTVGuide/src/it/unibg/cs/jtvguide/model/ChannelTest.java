@@ -1,11 +1,13 @@
 package it.unibg.cs.jtvguide.model;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import junit.framework.TestCase;
 
 /**
  * Classe di test per la classe Channel
+ *
  * @author Michele Bologna, Sebastiano Rota
  *
  */
@@ -17,21 +19,21 @@ public class ChannelTest extends TestCase {
 	 * Metodo main, si occupa di eseguire la classe
 	 * @param args
 	 */
-	public static void main(String args[]){
+	public static void main(String args[]) {
 		junit.textui.TestRunner.run(ChannelTest.class);
 	}
 
 	/**
 	 * Si istanzia un nuovo Channel utilizzato nei successivi metodi
 	 */
-	public void setUp(){
+	public void setUp() throws Exception {
 		test = new Channel("www.canale5.it", "Canale5");
 	}
 
 	/**
 	 * Rimozione del Channel istanziato
 	 */
-	public void tearDown(){
+	public void tearDown() throws Exception {
 		test = null;
 	}
 
@@ -82,7 +84,7 @@ public class ChannelTest extends TestCase {
 			test.setId(new URI("http://www.italia1.it"));
 			assertEquals("http://www.italia1.it", test.getId().toString());
 		}
-		catch(Exception e){
+		catch(URISyntaxException e){
 			fail("Exception");
 		}
 	}
