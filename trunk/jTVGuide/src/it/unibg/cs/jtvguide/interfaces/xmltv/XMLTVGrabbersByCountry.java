@@ -1,6 +1,7 @@
 package it.unibg.cs.jtvguide.interfaces.xmltv;
 
 
+
 public enum XMLTVGrabbersByCountry {
 	ARGENTINA("ar","tv_grab_ar"),
 	BELGIUM("be","tv_grab_be"),
@@ -31,7 +32,7 @@ public enum XMLTVGrabbersByCountry {
 				return e;
 			}
 		}
-		throw new RuntimeException("locale not found");
+		return null;
 	}
 
 	private final String COMMAND, LOCALE;

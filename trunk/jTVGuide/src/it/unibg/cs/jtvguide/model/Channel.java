@@ -2,18 +2,19 @@ package it.unibg.cs.jtvguide.model;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 
 public class Channel implements Comparable<Channel> {
 
 	private String displayName;
 	private URI id;
 
-	public Channel(String id, String displayName) {
+	public Channel(String id, String displayName) throws ParseException {
 
 		try {
 			this.id = new URI("http://" + id);
 		} catch (URISyntaxException e) {
-			throw new RuntimeException("could not parse channel");
+			throw new ParseException("could not parse channel", 0);
 		}
 
 		this.displayName = displayName;

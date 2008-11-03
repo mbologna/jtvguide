@@ -8,6 +8,7 @@ import it.unibg.cs.jtvguide.model.Schedule;
 import it.unibg.cs.jtvguide.util.DateFormatter;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -60,7 +61,13 @@ public class XMLTVParserImpl implements XMLTVParser {
 
 				/* Creare un nuovo canale e aggiungerlo alla lista dei canali */
 
-				Channel c = new Channel(id, displayName);
+				Channel c = null;
+				try {
+					c = new Channel(id, displayName);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				cm.add(id, c);
 			}
 

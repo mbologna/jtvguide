@@ -36,6 +36,7 @@ public final class UserPreferences implements JTVGuidePrefs {
 	 */
 	static File xmltvConfigFile = new File("tv_grab.conf");
 	static File xmltvOutputFile = new File("tv_grab.xml");
+	
 	static XMLTVGrabbersByCountry xmltvgbc = XMLTVGrabbersByCountry
 			.getXMLGrabbersByCountry(SystemProperties.getSystemLanguage());
 
@@ -51,7 +52,7 @@ public final class UserPreferences implements JTVGuidePrefs {
 	}
 
 	public static String getOptions() {
-		String options = new String();
+		String options = "";
 		options += "--gui ";
 		options += "--days " + getDays();
 		options += UserPreferences.getXmltvConfigFile().toString().indexOf(' ') == -1 ? " --config-file "
@@ -103,7 +104,7 @@ public final class UserPreferences implements JTVGuidePrefs {
 		return withCache;
 	}
 
-	public static boolean loadFromXMLFile() {
+	public static boolean loadFromXMLFile() throws Exception {
 		if (PREFERENCES_FILE.exists()) {
 			SAXBuilder builder = new SAXBuilder();
 			Document doc = null;
