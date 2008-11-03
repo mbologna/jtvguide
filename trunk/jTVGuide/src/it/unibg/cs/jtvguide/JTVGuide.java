@@ -32,14 +32,14 @@ import org.apache.log4j.PropertyConfigurator;
 public class JTVGuide implements Runnable {
 
 	private static Thread thread;
-	Schedule schedule;
 	private final static String format = "%1$-75s | %2$-10s | %3$-80s\n";
-	final static Logger log = Logger.getLogger("JTVGuide");
+	protected Schedule schedule;
+	public final static Logger log = Logger.getLogger("JTVGuide");
 
 	public JTVGuide() throws ParseException {	
 		log.info("JTVGuide 2.0");	
-		XMLTVCommander xmltvc = new XMLTVCommander();
-		XMLTVParserImpl xmltvParser = new XMLTVParserImpl();
+		final XMLTVCommander xmltvc = new XMLTVCommander();
+		final XMLTVParserImpl xmltvParser = new XMLTVParserImpl();
 		int tries = 0;
 
 		try {
@@ -51,14 +51,13 @@ public class JTVGuide implements Runnable {
 				UserPreferences.saveToXMLFile();
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
 		}
 		
 		
 
 		boolean parsed = false;
-		while (parsed == false && tries <= 3) {
+		while (!parsed && tries <= 3) {
 			if (!new XMLTVScheduleInspector().isUpToDate()
 					|| !MD5Checksum.checkMD5(UserPreferences
 							.getXmltvConfigFile().toString(), MD5Checksum
@@ -71,9 +70,10 @@ public class JTVGuide implements Runnable {
 				UserPreferences.getXmltvOutputFile().delete();
 				xmltvc.downloadSchedule();
 			}
-			if (tries == 4)
+			if (tries == 4) {
 				throw new ParseException(
 				"Couldn't download or parse schedule", 0);
+			}
 			log.info("Trying to parse schedule...");
 			parsed = xmltvParser.parse();
 			tries++;
@@ -85,19 +85,18 @@ public class JTVGuide implements Runnable {
 	}
 
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		JTVGuide jtv = null;	
 		PropertyConfigurator.configure("log4j.properties");
 		
 		try {
 			jtv = new JTVGuide();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
 		}
-		Schedule s = jtv.schedule;
+		final Schedule s = jtv.schedule;
 		log.debug("Tonight");
-		Calendar c = Calendar.getInstance();
+		final Calendar c = Calendar.getInstance();
 		c.set(Calendar.HOUR_OF_DAY, 21);
 		c.set(Calendar.MINUTE,30);
 		for (Program p: s.getPrograms(c.getTime())) {
@@ -108,7 +107,7 @@ public class JTVGuide implements Runnable {
 			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 		}
 		log.debug("Printing sub-schedules by channel");
-		List<ScheduleByChannel> lsc = s.getSchedulesByChannel();
+		final List<ScheduleByChannel> lsc = s.getSchedulesByChannel();
 		for (Iterator<ScheduleByChannel> iterator = lsc.iterator(); iterator.hasNext();) {
 			ScheduleByChannel scheduleByChannel = iterator
 			.next();
@@ -145,8 +144,7 @@ public class JTVGuide implements Runnable {
 			try {
 				Thread.sleep(1000*10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error(e);
 			}
 		}
 	}

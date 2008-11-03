@@ -1,0 +1,168 @@
+Found a 16 line (117 tokens) duplication in the following files: 
+Starting at line 134 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\xmltv\UserPreferences.java
+Starting at line 176 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\xmltv\UserPreferences.java
+
+	public static boolean resetXMLFile(){
+		if (PREFERENCES_FILE.exists())
+			PREFERENCES_FILE.delete();
+		Element root = new Element("preferences");
+		root.addContent(new Comment("JTVGuide preferences file"));
+		Document mydoc = new Document(root);
+		root
+				.setAttribute(new Attribute("date-generated", new Date()
+						.toString()));
+		Element daysElem = new Element("days");
+		Element withCacheElem = new Element("withCache");
+		Element quietElem = new Element("quiet");
+		Element xmltvConfigFileElem = new Element("xmltvConfigFile");
+		Element xmltvOutputFileElem = new Element("xmltvOutputFile");
+		Element countryElem = new Element("country");
+		daysElem.setText(Integer.toString(6));
+=====================================================================
+Found a 23 line (104 tokens) duplication in the following files: 
+Starting at line 154 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\xmltv\UserPreferences.java
+Starting at line 196 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\xmltv\UserPreferences.java
+
+		countryElem.setText(SystemProperties.getSystemLanguage());
+		root.addContent(daysElem);
+		root.addContent(withCacheElem);
+		root.addContent(quietElem);
+		root.addContent(xmltvConfigFileElem);
+		root.addContent(xmltvOutputFileElem);
+		root.addContent(countryElem);
+		XMLOutputter xmlOutputter = new XMLOutputter();
+		xmlOutputter.setFormat(Format.getPrettyFormat());
+		FileOutputStream fileOutputStream;
+		try {
+			fileOutputStream = new FileOutputStream(PREFERENCES_FILE);
+			xmlOutputter.output(mydoc, fileOutputStream);
+			fileOutputStream.close();
+			return true;
+		} catch (FileNotFoundException e) {
+			return false;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+
+	public static void setCountry(XMLTVGrabbersByCountry c) {
+=====================================================================
+Found a 12 line (51 tokens) duplication in the following files: 
+Starting at line 61 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\model\ChannelMapTest.java
+Starting at line 99 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\model\ChannelMapTest.java
+
+	public void testGetURI() {
+		Channel c = null;
+		try {
+			c = new Channel("www.italia1.it", "Italia1");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try{
+			URI uri = new URI("http://www.italia1.it");
+			channelMap.add(uri, c);
+			assertTrue((channelMap.get(uri).toString()).equals("Italia1"));
+=====================================================================
+Found a 3 line (45 tokens) duplication in the following files: 
+Starting at line 102 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+Starting at line 126 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+
+		for (Program p:  s.getProgramsFromDateToDate(new Date(), c.getTime())) {
+			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
+		}
+=====================================================================
+Found a 4 line (44 tokens) duplication in the following files: 
+Starting at line 102 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+Starting at line 106 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+
+		for (Program p: s.getProgramsByName("caf")) {
+			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
+		}
+		log.debug("Printing sub-schedules by channel");
+=====================================================================
+Found a 2 line (39 tokens) duplication in the following files: 
+Starting at line 138 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+Starting at line 141 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+
+				for (Program p: schedule.getUpcomingPrograms())
+					System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
+=====================================================================
+Found a 3 line (38 tokens) duplication in the following files: 
+Starting at line 118 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+Starting at line 127 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+
+			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
+		}
+	}
+=====================================================================
+Found a 6 line (38 tokens) duplication in the following files: 
+Starting at line 49 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\model\Schedule.java
+Starting at line 61 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\model\Schedule.java
+
+	public List<Program> getProgramsFromDateToDate(Date from, Date to) {
+		List<Program> programList = new ArrayList<Program>();
+		for (Program p : scheduleList) {
+			if (p.getState() == ProgramState.UNKNOWN)
+				continue;
+			if ((p.getStartDate().compareTo(from) >= 0 && p.getStopDate()
+=====================================================================
+Found a 2 line (37 tokens) duplication in the following files: 
+Starting at line 117 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+Starting at line 138 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+
+				for (Program p: schedule.getOnAirPrograms())
+					System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
+=====================================================================
+Found a 2 line (37 tokens) duplication in the following files: 
+Starting at line 103 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+Starting at line 118 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+
+				System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
+			}
+=====================================================================
+Found a 1 line (36 tokens) duplication in the following files: 
+Starting at line 127 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+Starting at line 139 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\JTVGuide.java
+
+					System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
+=====================================================================
+Found a 5 line (33 tokens) duplication in the following files: 
+Starting at line 38 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\model\Schedule.java
+Starting at line 50 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\model\Schedule.java
+
+		List<Program> programList = new ArrayList<Program>();
+		for (Program p : scheduleList) {
+			if (p.getState() == ProgramState.UNKNOWN)
+				continue;
+			if (p.getStopDate().compareTo(d) >= 0) {
+=====================================================================
+Found a 4 line (29 tokens) duplication in the following files: 
+Starting at line 38 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\model\Schedule.java
+Starting at line 93 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\model\Schedule.java
+
+		List<Program> upComingPrograms = new ArrayList<Program>();
+		for (Program p : scheduleList) {
+			if (p.getState() == ProgramState.UNKNOWN)
+				continue;
+=====================================================================
+Found a 4 line (27 tokens) duplication in the following files: 
+Starting at line 49 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\model\Schedule.java
+Starting at line 108 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\model\Schedule.java
+
+	private ScheduleByChannel getChannelSchedule(Channel c) {
+		List<Program> programList = new ArrayList<Program>();
+		for (Program p : scheduleList) {
+			if (p.getChannel().equals(c)) {
+=====================================================================
+Found a 7 line (27 tokens) duplication in the following files: 
+Starting at line 42 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\xmltv\XMLTVParserImpl.java
+Starting at line 113 of C:\Users\Michele\workspace\JTVGuide\src\it\unibg\cs\jtvguide\xmltv\UserPreferences.java
+
+				doc = builder.build(PREFERENCES_FILE);
+			} catch (JDOMException e) {
+				return false;
+			} catch (IOException e) {
+				return false;
+			}
+			if (doc != null) {
