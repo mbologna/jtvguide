@@ -2,6 +2,7 @@ package it.unibg.cs.jtvguide.model;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 
 import junit.framework.TestCase;
 
@@ -41,7 +42,13 @@ public class ChannelMapTest extends TestCase {
 	 * Test congiunto dei metodi add(String, Channel) e contains(String) della classe ChannelMap
 	 */
 	public void testAddAndContainsStringChannel() {
-		Channel c = new Channel("www.canale5.it", "Canale5");
+		Channel c = null;
+		try {
+			c = new Channel("www.canale5.it", "Canale5");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String id = "www.canale5.it";
 		channelMap.add(id, c);
 		assertTrue(channelMap.contains(id));
@@ -52,7 +59,13 @@ public class ChannelMapTest extends TestCase {
 	 * Test congiunto dei metodi add(URI, Channel) e contains(URI) della classe ChannelMap
 	 */
 	public void testAddAndContainsURIChannel() {
-		Channel c = new Channel("www.italia1.it", "Italia1");
+		Channel c = null;
+		try {
+			c = new Channel("www.italia1.it", "Italia1");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try{
 			URI uri = new URI("http://www.italia1.it");
 			channelMap.add(uri, c);
@@ -68,7 +81,13 @@ public class ChannelMapTest extends TestCase {
 	 * Test del metodo get(String) della classe ChannelMap
 	 */
 	public void testGetString() {
-		Channel c = new Channel("www.italia1.it", "Italia1");
+		Channel c = null;
+		try {
+			c = new Channel("www.italia1.it", "Italia1");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String id = "www.italia1.it";
 		channelMap.add(id, c);
 		assertTrue((channelMap.get("www.italia1.it").toString()).equals("Italia1"));
@@ -78,7 +97,13 @@ public class ChannelMapTest extends TestCase {
 	 * Test del metodo get(URI) della classe ChannelMap
 	 */
 	public void testGetURI() {
-		Channel c = new Channel("www.italia1.it", "Italia1");
+		Channel c = null;
+		try {
+			c = new Channel("www.italia1.it", "Italia1");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try{
 			URI uri = new URI("http://www.italia1.it");
 			channelMap.add(uri, c);

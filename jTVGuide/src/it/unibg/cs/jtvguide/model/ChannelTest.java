@@ -2,6 +2,7 @@ package it.unibg.cs.jtvguide.model;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 
 import junit.framework.TestCase;
 
@@ -41,7 +42,12 @@ public class ChannelTest extends TestCase {
 	 * Test del metodo compareTo della classe Channel
 	 */
 	public void testCompareTo() {
-		assertEquals(0,test.compareTo(new Channel("www.canale5.it", "Canale5")));
+		try {
+			assertEquals(0,test.compareTo(new Channel("www.canale5.it", "Canale5")));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -49,7 +55,13 @@ public class ChannelTest extends TestCase {
 	 */
 	public void testEquals() {
 		Object o = test;
-		Object obj = new Channel("www.italia1.it", "Italia1");
+		Object obj = null;
+		try {
+			obj = new Channel("www.italia1.it", "Italia1");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue(test.equals(o));
 		assertFalse(test.equals(obj));
 	}

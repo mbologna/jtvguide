@@ -14,10 +14,14 @@ import it.unibg.cs.jtvguide.xmltv.XMLTVCommander;
 import it.unibg.cs.jtvguide.xmltv.XMLTVParserImpl;
 import it.unibg.cs.jtvguide.xmltv.XMLTVScheduleInspector;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 
 
@@ -29,20 +33,26 @@ public class JTVGuide implements Runnable {
 
 	private static Thread thread;
 	Schedule schedule;
-	private final static String format = "%1$-75s | %2$-10s | %3$-80s\n";;
+	private final static String format = "%1$-75s | %2$-10s | %3$-80s\n";
+	final static Logger log = Logger.getLogger("JTVGuide");
 
-	public JTVGuide() {
-		System.out.println("jTVGuide 2.0");
+	public JTVGuide() throws ParseException {	
+		log.info("JTVGuide 2.0");	
 		XMLTVCommander xmltvc = new XMLTVCommander();
 		XMLTVParserImpl xmltvParser = new XMLTVParserImpl();
 		int tries = 0;
 
-		while (!UserPreferences.loadFromXMLFile()
-				|| !UserPreferences.getXmltvConfigFile().exists()
-				|| UserPreferences.getXmltvConfigFile().length() == 0) {
-			System.out.println("Configuring jTVGuide and XMLTV...");
-			xmltvc.configureXMLTV();
-			UserPreferences.saveToXMLFile();
+		try {
+			while (!UserPreferences.loadFromXMLFile()
+					|| !UserPreferences.getXmltvConfigFile().exists()
+					|| UserPreferences.getXmltvConfigFile().length() == 0) {
+				log.info("Configuring jTVGuide and XMLTV...");
+				xmltvc.configureXMLTV();
+				UserPreferences.saveToXMLFile();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		
@@ -53,50 +63,56 @@ public class JTVGuide implements Runnable {
 					|| !MD5Checksum.checkMD5(UserPreferences
 							.getXmltvConfigFile().toString(), MD5Checksum
 							.readMD5FromFile())) {
-				System.out.println("Updating schedule...");
+				log.info("Updating schedule...");
 				xmltvc.downloadSchedule();
 			}
 			if (tries >= 1) {
-				System.out
-				.println("Couldn't parsing. Downloading a new schedule.");
+				log.info("Couldn't parsing. Downloading a new schedule.");
 				UserPreferences.getXmltvOutputFile().delete();
 				xmltvc.downloadSchedule();
 			}
 			if (tries == 4)
-				throw new RuntimeException(
-				"Couldn't download or parse schedule");
-			System.out.println("Trying to parse schedule...");
+				throw new ParseException(
+				"Couldn't download or parse schedule", 0);
+			log.info("Trying to parse schedule...");
 			parsed = xmltvParser.parse();
 			tries++;
 		}
 		schedule = xmltvParser.getSchedule();
-		System.out.println("Schedule parsed correctly.");
+		log.info("Schedule parsed correctly.");
 		thread = new Thread(this);
 		thread.start();
 	}
 
 
 	public static void main(String[] args) {
-		JTVGuide jtv = new JTVGuide();
+		JTVGuide jtv = null;	
+		PropertyConfigurator.configure("log4j.properties");
+		
+		try {
+			jtv = new JTVGuide();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Schedule s = jtv.schedule;
-
-		System.out.println("Tonight");
+		log.debug("Tonight");
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.HOUR_OF_DAY, 21);
 		c.set(Calendar.MINUTE,30);
 		for (Program p: s.getPrograms(c.getTime())) {
 			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 		}
-		System.out.println("Searching for *caf*");
+		log.debug("Searching for *caf*");
 		for (Program p: s.getProgramsByName("caf")) {
 			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 		}
-		System.out.println("Printing sub-schedules by channel");
+		log.debug("Printing sub-schedules by channel");
 		List<ScheduleByChannel> lsc = s.getSchedulesByChannel();
 		for (Iterator<ScheduleByChannel> iterator = lsc.iterator(); iterator.hasNext();) {
 			ScheduleByChannel scheduleByChannel = iterator
 			.next();
-			System.out.println(scheduleByChannel.getChannelName());
+			log.debug(scheduleByChannel.getChannelName());
 			List<Program> lspbc = scheduleByChannel.getProgramsFromNowOn();
 			for (Iterator<Program> iterator2 = lspbc.iterator(); iterator2.hasNext();) {
 				Program p = iterator2.next();
@@ -107,7 +123,7 @@ public class JTVGuide implements Runnable {
 		Date d = new Date();
 		c.setTime(d);
 		c.add(Calendar.MINUTE, 30);
-		System.out.println("Slicing programs from " + d + " to " + c.getTime());
+		log.debug("Slicing programs from " + d + " to " + c.getTime());
 		for (Program p:  s.getProgramsFromDateToDate(new Date(), c.getTime())) {
 			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 		}
@@ -117,12 +133,12 @@ public class JTVGuide implements Runnable {
 	public void run() {
 		while(true) {
 			if(schedule != null) {
-				System.out.print( "\033[H\033[2J" );
-				System.out.println("-------------------");
-				System.out.println("Onair");
+				log.debug( "\033[H\033[2J" );
+				log.debug("-------------------");
+				log.debug("Onair");
 				for (Program p: schedule.getOnAirPrograms())
 					System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
-				System.out.println("Upcoming");
+				log.debug("Upcoming");
 				for (Program p: schedule.getUpcomingPrograms())
 					System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 			}

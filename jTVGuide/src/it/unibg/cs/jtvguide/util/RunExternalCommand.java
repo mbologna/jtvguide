@@ -6,15 +6,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+import org.apache.log4j.Logger;
+
 public class RunExternalCommand {
 
 	static final int BLOCK_SIZE = 256000;
 	static byte[] buf = new byte[BLOCK_SIZE];
+	final static Logger log = Logger.getLogger("JTVGuide");
 
 	public static int runCommand(String command) {
-		int result = -1;
+		int result = -1;		
+		
 		try {
-			System.out.println("Running: " + command);
+			log.debug("Running: " + command);
 			Process process = Runtime.getRuntime().exec(command);
 
 			for (boolean isRunning = true; isRunning;) {
@@ -49,33 +53,35 @@ public class RunExternalCommand {
 		}
 		out.flush();
 	}
-}
+	
+	class StreamGobbler extends Thread {
+		InputStream is;
+		String type;
+		OutputStream os;
 
-class StreamGobbler extends Thread {
-	InputStream is;
-	String type;
-	OutputStream os;
+		StreamGobbler(InputStream is, String type) {
+			this.is = is;
+			this.type = type;
+		}
 
-	StreamGobbler(InputStream is, String type) {
-		this.is = is;
-		this.type = type;
-	}
+		StreamGobbler(InputStream is, String type, OutputStream redirect) {
+			this.is = is;
+			this.type = type;
+			this.os = redirect;
+		}
 
-	StreamGobbler(InputStream is, String type, OutputStream redirect) {
-		this.is = is;
-		this.type = type;
-		this.os = redirect;
-	}
-
-	public void run() {
-		try {
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(isr);
-			String line = null;
-			while ((line = br.readLine()) != null)
-				System.out.println(line);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
+		public void run() {
+			try {
+				InputStreamReader isr = new InputStreamReader(is);
+				BufferedReader br = new BufferedReader(isr);
+				String line = null;
+				while ((line = br.readLine()) != null)
+					log.debug(line);
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
 		}
 	}
 }
+
+
