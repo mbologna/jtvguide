@@ -14,7 +14,7 @@ public class TestAll extends TestSuite {
 	/**
 	 * Il metodo si occupa di aggiungere le classi di test alla suite
 	 *
-	 * @return
+	 * @return la suite di test
 	 */
 	public static Test suite(){
 

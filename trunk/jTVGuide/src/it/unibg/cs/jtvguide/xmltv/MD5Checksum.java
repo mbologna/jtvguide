@@ -13,9 +13,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
-
+/**
+ * An MD5 hash checker (used for test changes in the program's configuration file.
+ * @author Michele
+ *
+ */
 public class MD5Checksum {
 
+	/**
+	 * Check if two MD5 are equals
+	 * @param file first MD5
+	 * @param MD5 second MD5
+	 * @return hmmm... let's guess...
+	 */
 	public static boolean checkMD5(String file, String MD5) {
 		try {
 			return getMD5Checksum(file).equals(MD5);
@@ -23,6 +33,13 @@ public class MD5Checksum {
 			return false;
 		}
 	}
+	
+	/**
+	 * Returns the MD5 checksum of a file
+	 * @param filename to calculate MD5
+	 * @return the calculated MD5
+	 * @throws Exception
+	 */
 
 	public static String getMD5Checksum(String filename) throws Exception {
 		byte[] b = createChecksum(filename);
@@ -33,6 +50,10 @@ public class MD5Checksum {
 		return result;
 	}
 
+	/**
+	 * Read the md5 stored in file
+	 * @return a string containing the md5
+	 */
 	public static String readMD5FromFile() {
 		BufferedReader br = null;
 		try {
