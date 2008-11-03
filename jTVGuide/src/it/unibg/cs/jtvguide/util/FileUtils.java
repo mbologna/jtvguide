@@ -13,7 +13,18 @@ import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Various fileutils
+ * @author Michele Bologna, Sebastiano Rota
+ *
+ */
 public class FileUtils {
+	/**
+	 * search for a pattern inside a text file
+	 * @param f the file to search within
+	 * @param p the pattern to search
+	 * @return true if found something, false otherwise
+	 */
 	public static boolean grep(File f, Pattern p) {
 		Matcher m;
 		try {
@@ -23,6 +34,12 @@ public class FileUtils {
 			return false;
 		}
 	}
+	
+	/**
+	 * Count the lines uncommented
+	 * @param f the file to search within
+	 * @return the number of lines uncommented 
+	 */
 
 	public static int uncommentedLinesCount(File f) {
 		BufferedReader br = null;

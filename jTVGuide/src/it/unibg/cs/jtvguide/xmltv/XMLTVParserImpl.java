@@ -18,6 +18,11 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
+/**
+ * A parser for XMLTV output file
+ * @author Michele
+ *
+ */
 public class XMLTVParserImpl implements XMLTVParser {
 
 	private Schedule schedule;
@@ -32,6 +37,10 @@ public class XMLTVParserImpl implements XMLTVParser {
 		return schedule;
 	}
 
+	/**
+	 * Parse the output of XMLTV.
+	 * @return true if correctly parsed, false otherwise
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean parse() {
@@ -108,7 +117,8 @@ public class XMLTVParserImpl implements XMLTVParser {
 				}
 				schedule.add(p);
 			}
-
+			// this routine will be executed if some grabbers doesn't provide end-date for program
+			// using this routine we guarantee that a program always have an end date 
 			if (reverse) {
 				for (Program program : schedule) {
 					if (program.getStopDate() == null) {

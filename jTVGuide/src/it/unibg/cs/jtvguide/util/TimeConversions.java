@@ -1,9 +1,17 @@
 package it.unibg.cs.jtvguide.util;
 
-import java.util.Calendar;
 
+/**
+ * A class to calculate time conversions
+ * @author Michele
+ *
+ */
 public class TimeConversions {
-
+	/**
+	 * Convert millisec to hour, minutes
+	 * @param time in millisec
+	 * @return hours, minutes
+	 */
 	public static String millisecs2Time(long time) {
 		int minutes = (int) (Math
 				.ceil(((time % (1000 * 60 * 60.0)) / (1000 * 60))));

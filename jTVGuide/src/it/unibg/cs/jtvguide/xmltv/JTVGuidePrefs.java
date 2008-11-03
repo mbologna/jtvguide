@@ -4,6 +4,11 @@ import it.unibg.cs.jtvguide.util.SystemProperties;
 
 import java.io.File;
 
+/**
+ * An interface to group constants
+ * @author Michele
+ *
+ */
 public interface JTVGuidePrefs {
 	public final static String PREFERENCES_FILENAME = ".jtvguide.xml";
 	public final static String PREFERENCES_PATH = SystemProperties

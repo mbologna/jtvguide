@@ -4,8 +4,16 @@ import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVDownloader;
 import it.unibg.cs.jtvguide.util.RunExternalCommand;
 import it.unibg.cs.jtvguide.util.SystemProperties;
 
+/**
+ * A class to command XMLTV to configure and download schedules
+ * @author Michele
+ *
+ */
 public class XMLTVCommander implements XMLTVConfigurator, XMLTVDownloader{
 	
+	/**
+	 * Configure XMLTV 
+	 */
 	@Override
 	public int configureXMLTV() {
 		UserPreferences.getXmltvConfigFile().delete();
@@ -13,6 +21,9 @@ public class XMLTVCommander implements XMLTVConfigurator, XMLTVDownloader{
 		return RunExternalCommand.runCommand(getXMLTVCommand() + " " + CONFIG_SWITCH);
 	}
 
+	/**
+	 * Download XMLTV schedule
+	 */
 	@Override
 	public int downloadSchedule() {
 		String parameters = UserPreferences.getOptions();

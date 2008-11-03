@@ -1,6 +1,11 @@
 package it.unibg.cs.jtvguide.interfaces.xmltv;
 
-
+/**
+ * An enum to match the human-representation of a Nation (e.g. ITALY) with the corresponding
+ * XMLTV grabber (this is a command that will be used to download the schedule)
+ * @author Michele Bologna, Sebastiano Rota
+ *
+ */
 
 public enum XMLTVGrabbersByCountry {
 	ARGENTINA("ar","tv_grab_ar"),
@@ -26,6 +31,12 @@ public enum XMLTVGrabbersByCountry {
 	SWITZERLAND("ch","tv_grab_ch_search"),
 	UNITED_KINGDOM("en","tv_grab_uk_rt");
 	
+	/**
+	 * specifing a locale, return the corresponding enum
+	 * 
+	 * @param locale - the locale detected automatically by the program
+	 * @return the enum corresponding to the locale
+	 */
 	public static XMLTVGrabbersByCountry getXMLGrabbersByCountry(String locale) {
 		for (XMLTVGrabbersByCountry e : XMLTVGrabbersByCountry.values()) {
 			if (locale.equals(e.getLOCALE())) {
@@ -42,10 +53,20 @@ public enum XMLTVGrabbersByCountry {
 		this.COMMAND = command;
 	}
 
+	/**
+	 * 
+	 * @return the command to use 
+	 *
+	 */
 	public String getCOMMAND() {
 		return COMMAND;
 	}
 	
+	/**
+	 * 
+	 * @return the locale specified
+	 * 
+	 */
 	public String getLOCALE() {
 		return LOCALE;
 	}

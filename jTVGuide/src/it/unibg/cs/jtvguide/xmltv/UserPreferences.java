@@ -19,9 +19,11 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 /**
+ * A class to represent user's preferences
  * @author Michele
  *
  */
+
 public final class UserPreferences implements JTVGuidePrefs {
 
 	/*
@@ -104,6 +106,11 @@ public final class UserPreferences implements JTVGuidePrefs {
 		return withCache;
 	}
 
+	/**
+	 * Load the user's preferences from file
+	 * @return true if the preferences are correctly loaded, false otherwise
+	 * @throws Exception
+	 */
 	public static boolean loadFromXMLFile() throws Exception {
 		if (PREFERENCES_FILE.exists()) {
 			SAXBuilder builder = new SAXBuilder();
@@ -131,6 +138,11 @@ public final class UserPreferences implements JTVGuidePrefs {
 		return false;
 	}
 
+	/**
+	 * Save the user's preferences to file
+	 * @return true if the preferences are correctly saved, false otherwise
+	 * @throws Exception
+	 */
 	public static boolean saveToXMLFile() {
 		if (PREFERENCES_FILE.exists())
 			PREFERENCES_FILE.delete();
@@ -220,32 +232,31 @@ public final class UserPreferences implements JTVGuidePrefs {
 	}
 
 	/**
-	 * @param days
-	 *            the days to set
+	 * @param d the n. of tv-programs days that will be in the schedule
+	 *           
 	 */
 	public static void setDays(int d) {
 		days = d;
 	}
 
 	/**
-	 * @param quiet
-	 *            the quiet to set
+	 * @param q if xmltv has to be quiet when downloading schedule (= verbose)
+	 * 
 	 */
 	public static void setQuiet(boolean q) {
 		quiet = q;
 	}
 
 	/**
-	 * @param withCache
-	 *            the withCache to set
+	 * @param wC if xmltv has to use a cache to speed up schedule downloading
+	 * 
 	 */
 	public static void setWithCache(boolean wC) {
 		withCache = wC;
 	}
 
 	/**
-	 * @param xmltvConfigFile
-	 *            the xmltvConfigFile to set
+	 * @param string xmltvConfigFile xmltv config file path
 	 */
 	public static void setXmltvConfigFile(String string) {
 		File f = new File(string);
@@ -253,8 +264,8 @@ public final class UserPreferences implements JTVGuidePrefs {
 	}
 
 	/**
-	 * @param xmltvOutputFile
-	 *            the xmltvOutputFile to set
+	 * @param xmltvOF xmltv output file path
+	 *  
 	 */
 	public static void setXmltvOutputFile(String xmltvOF) {
 		xmltvOutputFile = new File(xmltvOF);

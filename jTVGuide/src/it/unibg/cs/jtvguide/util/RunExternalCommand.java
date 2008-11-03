@@ -8,12 +8,22 @@ import java.io.OutputStream;
 
 import org.apache.log4j.Logger;
 
+/**
+ * A class to run external programs
+ * @author Michele
+ *
+ */
 public class RunExternalCommand {
 
 	static final int BLOCK_SIZE = 256000;
 	static byte[] buf = new byte[BLOCK_SIZE];
 	final static Logger log = Logger.getLogger("JTVGuide");
 
+	/**
+	 * Run an command
+	 * @param command to execute
+	 * @return the exit-status of the command
+	 */
 	public static int runCommand(String command) {
 		int result = -1;		
 		

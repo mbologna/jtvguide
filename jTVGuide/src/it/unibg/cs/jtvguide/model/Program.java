@@ -7,6 +7,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * A class to contain tv program data
+ * @author Michele Bologna, Sebastiano Rota
+ *
+ */
+
 public class Program implements Comparable<Program> {
 
 	private String title;
@@ -22,7 +28,13 @@ public class Program implements Comparable<Program> {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-
+	/**
+	 * Construct a new program objet
+	 * @param startDate program's starting date
+	 * @param stopDate program's ending date
+	 * @param c program's airing channel
+	 * @param title program's title
+	 */
 	public Program(Date startDate, Date stopDate, Channel c, String title) {
 		this.startDate = startDate;
 		this.stopDate = stopDate;
@@ -39,7 +51,10 @@ public class Program implements Comparable<Program> {
 	public Channel getChannel() {
 		return mChannel;
 	}
-
+	/**
+	 * 
+	 * @return the program completion %
+	 */
 	public int getCompletionPercentile() {
 		Calendar start = new GregorianCalendar();
 		Calendar stop = new GregorianCalendar();
@@ -54,7 +69,10 @@ public class Program implements Comparable<Program> {
 					.getTimeInMillis())));
 
 	}
-
+	/**
+	 * 
+	 * @return the state of the program [ONAIR, UPCOMING, FINISHED, UNKNOWN]
+	 */
 	public String getInfo() {
 		switch (getState()) {
 		case ONAIR:
@@ -74,6 +92,10 @@ public class Program implements Comparable<Program> {
 		return startDate;
 	}
 
+	/**
+	 * 
+	 * @return how much time we have to wait before the program starts
+	 */
 	public long getStartingTime() {
 		Calendar start = new GregorianCalendar();
 		start.setTime(startDate);
