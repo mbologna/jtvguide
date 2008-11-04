@@ -1,5 +1,7 @@
 package it.unibg.cs.jtvguide.model;
 
+import it.unibg.cs.jtvguide.log.PublicLogger;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -24,6 +26,7 @@ public class Channel implements Comparable<Channel> {
 		try {
 			this.id = new URI("http://" + id);
 		} catch (URISyntaxException e) {
+			PublicLogger.getLogger().error(e);
 			throw new ParseException("could not parse channel", 0);
 		}
 
@@ -42,10 +45,19 @@ public class Channel implements Comparable<Channel> {
 	 */
 	public boolean equals(Object o) {
 		Channel c = (Channel) o;
-		if (c.getId() == this.id)
-			return true;
-		else
+		if (c != null) {
+			if (c.getId() == this.id)
+				return true;
+			else
+				return false;
+		}
+		else {
 			return false;
+		}
+	}
+
+	public int hashCode() {
+		return super.hashCode();
 	}
 
 	public String getDisplayName() {

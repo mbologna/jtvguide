@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 /**
  * A class to inspect xmltv schedule
- * @author Michele
+ * @author Michele Bologna, Sebastiano Rota
  *
  */
 public class XMLTVScheduleInspector implements XMLTVInspector {

@@ -1,16 +1,16 @@
 package it.unibg.cs.jtvguide.util;
 
-import java.io.BufferedReader;
+import it.unibg.cs.jtvguide.log.PublicLogger;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import org.apache.log4j.Logger;
 
 /**
  * A class to run external programs
- * @author Michele
+ * @author Michele Bologna, Sebastiano Rota
  *
  */
 public class RunExternalCommand {
@@ -44,11 +44,12 @@ public class RunExternalCommand {
 					pipe(process.getErrorStream(), System.err, false);
 					pipe(process.getInputStream(), System.out, false);
 				} catch (Exception e) {
+					PublicLogger.getLogger().error(e);
 				}
 			}
 			return result;
 		} catch (Exception e) {
-			System.exit(0);
+			PublicLogger.getLogger().error(e);
 		}
 		return result;
 	}
@@ -62,36 +63,7 @@ public class RunExternalCommand {
 			out.write(buf, 0, nread);
 		}
 		out.flush();
-	}
-	
-	class StreamGobbler extends Thread {
-		InputStream is;
-		String type;
-		OutputStream os;
-
-		StreamGobbler(InputStream is, String type) {
-			this.is = is;
-			this.type = type;
-		}
-
-		StreamGobbler(InputStream is, String type, OutputStream redirect) {
-			this.is = is;
-			this.type = type;
-			this.os = redirect;
-		}
-
-		public void run() {
-			try {
-				InputStreamReader isr = new InputStreamReader(is);
-				BufferedReader br = new BufferedReader(isr);
-				String line = null;
-				while ((line = br.readLine()) != null)
-					log.debug(line);
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
-		}
-	}
+	}	
 }
 
 

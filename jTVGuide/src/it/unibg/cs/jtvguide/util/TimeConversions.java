@@ -3,7 +3,7 @@ package it.unibg.cs.jtvguide.util;
 
 /**
  * A class to calculate time conversions
- * @author Michele
+ * @author Michele Bologna, Sebastiano Rota
  *
  */
 public class TimeConversions {

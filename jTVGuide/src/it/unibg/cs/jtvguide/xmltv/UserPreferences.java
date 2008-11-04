@@ -1,6 +1,7 @@
 package it.unibg.cs.jtvguide.xmltv;
 
 import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVGrabbersByCountry;
+import it.unibg.cs.jtvguide.log.PublicLogger;
 import it.unibg.cs.jtvguide.util.SystemProperties;
 
 import java.io.File;
@@ -20,7 +21,7 @@ import org.jdom.output.XMLOutputter;
 
 /**
  * A class to represent user's preferences
- * @author Michele
+ * @author Michele Bologna, Sebastiano Rota
  *
  */
 
@@ -119,8 +120,10 @@ public final class UserPreferences implements JTVGuidePrefs {
 			try {
 				doc = builder.build(PREFERENCES_FILE);
 			} catch (JDOMException e) {
+				PublicLogger.getLogger().error(e);
 				return false;
 			} catch (IOException e) {
+				PublicLogger.getLogger().error(e);
 				return false;
 			}
 			if (doc != null) {
@@ -141,9 +144,10 @@ public final class UserPreferences implements JTVGuidePrefs {
 	/**
 	 * Save the user's preferences to file
 	 * @return true if the preferences are correctly saved, false otherwise
+	 * @throws IOException 
 	 * @throws Exception
 	 */
-	public static boolean saveToXMLFile() {
+	public static boolean saveToXMLFile() throws IOException {
 		if (PREFERENCES_FILE.exists())
 			PREFERENCES_FILE.delete();
 		Element root = new Element("preferences");
@@ -172,20 +176,24 @@ public final class UserPreferences implements JTVGuidePrefs {
 		root.addContent(countryElem);
 		XMLOutputter xmlOutputter = new XMLOutputter();
 		xmlOutputter.setFormat(Format.getPrettyFormat());
-		FileOutputStream fileOutputStream;
+		FileOutputStream fileOutputStream = null;
 		try {
 			fileOutputStream = new FileOutputStream(PREFERENCES_FILE);
 			xmlOutputter.output(mydoc, fileOutputStream);
-			fileOutputStream.close();
 			return true;
 		} catch (FileNotFoundException e) {
+			PublicLogger.getLogger().error(e);
 			return false;
 		} catch (IOException e) {
+			PublicLogger.getLogger().error(e);
 			return false;
+		}
+		finally {
+			fileOutputStream.close();
 		}
 	}
 
-	public static boolean resetXMLFile(){
+	public static boolean resetXMLFile() throws IOException{
 		if (PREFERENCES_FILE.exists())
 			PREFERENCES_FILE.delete();
 		Element root = new Element("preferences");
@@ -214,16 +222,20 @@ public final class UserPreferences implements JTVGuidePrefs {
 		root.addContent(countryElem);
 		XMLOutputter xmlOutputter = new XMLOutputter();
 		xmlOutputter.setFormat(Format.getPrettyFormat());
-		FileOutputStream fileOutputStream;
+		FileOutputStream fileOutputStream = null;
 		try {
 			fileOutputStream = new FileOutputStream(PREFERENCES_FILE);
 			xmlOutputter.output(mydoc, fileOutputStream);
-			fileOutputStream.close();
 			return true;
 		} catch (FileNotFoundException e) {
+			PublicLogger.getLogger().error(e);
 			return false;
 		} catch (IOException e) {
+			PublicLogger.getLogger().error(e);
 			return false;
+		}
+		finally {
+			fileOutputStream.close();
 		}
 	}
 

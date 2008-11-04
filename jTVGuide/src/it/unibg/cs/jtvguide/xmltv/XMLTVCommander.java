@@ -6,7 +6,7 @@ import it.unibg.cs.jtvguide.util.SystemProperties;
 
 /**
  * A class to command XMLTV to configure and download schedules
- * @author Michele
+ * @author Michele Bologna, Sebastiano Rota
  *
  */
 public class XMLTVCommander implements XMLTVConfigurator, XMLTVDownloader{

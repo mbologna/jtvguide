@@ -1,5 +1,7 @@
 package it.unibg.cs.jtvguide.util;
 
+import it.unibg.cs.jtvguide.log.PublicLogger;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +33,7 @@ public class FileUtils {
 			m = p.matcher(fromFile(f.toString()));
 			return m.find();
 		} catch (IOException e) {
+			PublicLogger.getLogger().error(e);
 			return false;
 		}
 	}
@@ -54,8 +57,10 @@ public class FileUtils {
 			br.close();
 			return counter;
 		} catch (FileNotFoundException e) {
+			PublicLogger.getLogger().error(e);
 			return -1;
 		} catch (IOException e) {
+			PublicLogger.getLogger().error(e);
 			return -1;
 		}
 	}

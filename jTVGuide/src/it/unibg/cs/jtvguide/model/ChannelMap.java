@@ -1,5 +1,7 @@
 package it.unibg.cs.jtvguide.model;
 
+import it.unibg.cs.jtvguide.log.PublicLogger;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -54,7 +56,7 @@ public class ChannelMap {
 		try {
 			this.channelMap.put(new URI("http://" + id), e);
 		} catch (URISyntaxException e1) {
-			e1.printStackTrace();
+			PublicLogger.getLogger().error(e1);
 		}
 	}
 	
@@ -76,7 +78,7 @@ public class ChannelMap {
 		try {
 			return this.channelMap.containsKey(new URI("http://" + id));
 		} catch (URISyntaxException e) {
-			e.printStackTrace();
+			PublicLogger.getLogger().error(e);
 		}
 		return false;
 	}
@@ -99,7 +101,7 @@ public class ChannelMap {
 		try {
 			return this.channelMap.get(new URI("http://" + id));
 		} catch (URISyntaxException e) {
-			e.printStackTrace();
+			PublicLogger.getLogger().error(e);
 		}
 		return null;
 	}

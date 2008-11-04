@@ -1,11 +1,9 @@
 package it.unibg.cs.jtvguide.model;
 
-import junit.framework.TestCase;
-
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
+import junit.framework.TestCase;
 
 /**
  * Classe di test per la classe Program
@@ -135,7 +133,6 @@ public class ProgramTest extends TestCase {
 	 * Test del metodo getStopDate della classe Program
 	 */
 	public void testGetStopDate() {
-		Calendar today = Calendar.getInstance();
 		Calendar tomorrow = Calendar.getInstance();
 		tomorrow.add(Calendar.DATE, 1);
 		assertEquals(tomorrow.getTime(), programTest.getStopDate());

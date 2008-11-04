@@ -1,6 +1,7 @@
 package it.unibg.cs.jtvguide.xmltv;
 
 import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVParser;
+import it.unibg.cs.jtvguide.log.PublicLogger;
 import it.unibg.cs.jtvguide.model.Channel;
 import it.unibg.cs.jtvguide.model.ChannelMap;
 import it.unibg.cs.jtvguide.model.Program;
@@ -20,7 +21,7 @@ import org.jdom.input.SAXBuilder;
 
 /**
  * A parser for XMLTV output file
- * @author Michele
+ * @author Michele Bologna, Sebastiano Rota
  *
  */
 public class XMLTVParserImpl implements XMLTVParser {
@@ -50,8 +51,10 @@ public class XMLTVParserImpl implements XMLTVParser {
 		try {
 			doc = builder.build(UserPreferences.getXmltvOutputFile());
 		} catch (JDOMException e) {
+			PublicLogger.getLogger().error(e);
 			return false;
 		} catch (IOException e) {
+			PublicLogger.getLogger().error(e);
 			return false;
 		}
 
@@ -74,8 +77,7 @@ public class XMLTVParserImpl implements XMLTVParser {
 				try {
 					c = new Channel(id, displayName);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					PublicLogger.getLogger().error(e);
 				}
 				cm.add(id, c);
 			}
