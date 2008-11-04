@@ -14,7 +14,7 @@ import junit.framework.TestCase;
  */
 public class ChannelMapTest extends TestCase {
 
-	private ChannelMap channelMap;
+	private ChannelMap channelMapTest;
 
 	/**
 	 * Metodo main, si occupa di eseguire la classe
@@ -28,14 +28,14 @@ public class ChannelMapTest extends TestCase {
 	 * Si istanzia un nuovo ChannelMap utilizzato nei successivi metodi
 	 */
 	public void setUp() throws Exception {
-		channelMap = new ChannelMap();
+		channelMapTest = new ChannelMap();
 	}
 
 	/**
 	 * Rimozione del Channel istanziato
 	 */
 	public void tearDown() throws Exception {
-		channelMap = null;
+		channelMapTest = null;
 	}
 
 	/**
@@ -50,9 +50,9 @@ public class ChannelMapTest extends TestCase {
 			e.printStackTrace();
 		}
 		String id = "www.canale5.it";
-		channelMap.add(id, c);
-		assertTrue(channelMap.contains(id));
-		assertFalse(channelMap.contains("Rete4"));
+		channelMapTest.add(id, c);
+		assertTrue(channelMapTest.contains(id));
+		assertFalse(channelMapTest.contains("Rete4"));
 	}
 
 	/**
@@ -68,9 +68,9 @@ public class ChannelMapTest extends TestCase {
 		}
 		try{
 			URI uri = new URI("http://www.italia1.it");
-			channelMap.add(uri, c);
-			assertTrue(channelMap.contains(uri));
-			assertFalse(channelMap.contains(new URI("http://www.rete4.it")));
+			channelMapTest.add(uri, c);
+			assertTrue(channelMapTest.contains(uri));
+			assertFalse(channelMapTest.contains(new URI("http://www.rete4.it")));
 		}
 		catch (URISyntaxException e) {
 			fail("Exception");
@@ -89,8 +89,8 @@ public class ChannelMapTest extends TestCase {
 			e.printStackTrace();
 		}
 		String id = "www.italia1.it";
-		channelMap.add(id, c);
-		assertTrue((channelMap.get("www.italia1.it").toString()).equals("Italia1"));
+		channelMapTest.add(id, c);
+		assertTrue((channelMapTest.get("www.italia1.it").toString()).equals("Italia1"));
 	}
 
 	/**
@@ -106,8 +106,8 @@ public class ChannelMapTest extends TestCase {
 		}
 		try{
 			URI uri = new URI("http://www.italia1.it");
-			channelMap.add(uri, c);
-			assertTrue((channelMap.get(uri).toString()).equals("Italia1"));
+			channelMapTest.add(uri, c);
+			assertTrue((channelMapTest.get(uri).toString()).equals("Italia1"));
 		}
 		catch (URISyntaxException e) {
 			fail("Exception");

@@ -24,6 +24,8 @@ public class TestAll extends TestSuite {
 
 		suite.addTestSuite(ChannelMapTest.class);
 
+		suite.addTestSuite(ProgramTest.class);
+
 		return suite;
 	}
 
