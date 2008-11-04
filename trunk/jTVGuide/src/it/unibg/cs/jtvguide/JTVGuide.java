@@ -5,6 +5,7 @@
 
 package it.unibg.cs.jtvguide;
 
+import it.unibg.cs.jtvguide.log.PublicLogger;
 import it.unibg.cs.jtvguide.model.Program;
 import it.unibg.cs.jtvguide.model.Schedule;
 import it.unibg.cs.jtvguide.model.ScheduleByChannel;
@@ -88,7 +89,7 @@ public class JTVGuide implements Runnable {
 	public static void main(final String[] args) {
 		JTVGuide jtv = null;	
 		PropertyConfigurator.configure("log4j.properties");
-		
+		Logger log = PublicLogger.getLogger();
 		try {
 			jtv = new JTVGuide();
 		} catch (ParseException e) {

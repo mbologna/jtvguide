@@ -1,5 +1,7 @@
 package it.unibg.cs.jtvguide.model;
 
+import it.unibg.cs.jtvguide.log.PublicLogger;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -46,8 +48,7 @@ public class ChannelMapTest extends TestCase {
 		try {
 			c = new Channel("www.canale5.it", "Canale5");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			PublicLogger.getLogger().error(e);
 		}
 		String id = "www.canale5.it";
 		channelMapTest.add(id, c);
@@ -63,8 +64,7 @@ public class ChannelMapTest extends TestCase {
 		try {
 			c = new Channel("www.italia1.it", "Italia1");
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			PublicLogger.getLogger().error(e1);
 		}
 		try{
 			URI uri = new URI("http://www.italia1.it");
@@ -85,8 +85,7 @@ public class ChannelMapTest extends TestCase {
 		try {
 			c = new Channel("www.italia1.it", "Italia1");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			PublicLogger.getLogger().error(e);
 		}
 		String id = "www.italia1.it";
 		channelMapTest.add(id, c);
@@ -101,8 +100,7 @@ public class ChannelMapTest extends TestCase {
 		try {
 			c = new Channel("www.italia1.it", "Italia1");
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			PublicLogger.getLogger().error(e1);
 		}
 		try{
 			URI uri = new URI("http://www.italia1.it");

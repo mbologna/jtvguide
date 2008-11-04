@@ -3,7 +3,7 @@ package it.unibg.cs.jtvguide.xmltv;
 /**
  * 
  * An interface for configurign XMLTV
- * @author Michele
+ * @author Michele Bologna, Sebastiano Rota
  *
  */
 public interface XMLTVConfigurator {

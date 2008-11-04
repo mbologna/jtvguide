@@ -6,7 +6,7 @@ import java.io.File;
 
 /**
  * An interface to group constants
- * @author Michele
+ * @author Michele Bologna, Sebastiano Rota
  *
  */
 public interface JTVGuidePrefs {

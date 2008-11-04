@@ -65,7 +65,7 @@ public class Program implements Comparable<Program> {
 			return 0;
 		else
 			return (int) Math.ceil(((now.getTimeInMillis() - start
-					.getTimeInMillis()) * 100 / (stop.getTimeInMillis() - start
+					.getTimeInMillis()) * 100.0 / (stop.getTimeInMillis() - start
 					.getTimeInMillis())));
 
 	}

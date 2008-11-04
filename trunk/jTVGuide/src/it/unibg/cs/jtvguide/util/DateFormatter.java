@@ -1,5 +1,7 @@
 package it.unibg.cs.jtvguide.util;
 
+import it.unibg.cs.jtvguide.log.PublicLogger;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,6 +55,7 @@ public class DateFormatter {
 		try {
 			return dateParser.parse(date);
 		} catch (ParseException e) {
+			PublicLogger.getLogger().error(e);
 			return null;
 		}
 	}

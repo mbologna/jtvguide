@@ -1,5 +1,7 @@
 package it.unibg.cs.jtvguide.model;
 
+import it.unibg.cs.jtvguide.log.PublicLogger;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -45,8 +47,7 @@ public class ChannelTest extends TestCase {
 		try {
 			assertEquals(0,channelTest.compareTo(new Channel("www.canale5.it", "Canale5")));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			PublicLogger.getLogger().error(e);
 		}
 	}
 
@@ -59,8 +60,7 @@ public class ChannelTest extends TestCase {
 		try {
 			obj = new Channel("www.italia1.it", "Italia1");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			PublicLogger.getLogger().error(e);
 		}
 		assertTrue(channelTest.equals(o));
 		assertFalse(channelTest.equals(obj));

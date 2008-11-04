@@ -1,7 +1,6 @@
 package it.unibg.cs.jtvguide.xmltv;
 
-
-
+import it.unibg.cs.jtvguide.log.PublicLogger;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -30,6 +29,7 @@ public class MD5Checksum {
 		try {
 			return getMD5Checksum(file).equals(MD5);
 		} catch (Exception e) {
+			PublicLogger.getLogger().error(e);
 			return false;
 		}
 	}
@@ -63,8 +63,10 @@ public class MD5Checksum {
 			br.close();
 			return MD5;
 		} catch (FileNotFoundException e) {
+			PublicLogger.getLogger().error(e);
 			return null;
 		} catch (IOException e) {
+			PublicLogger.getLogger().error(e);
 			return null;
 		}
 
@@ -79,8 +81,10 @@ public class MD5Checksum {
 			bw.close();
 			return true;
 		} catch (IOException e) {
+			PublicLogger.getLogger().error(e);
 			return false;
 		} catch (Exception e) {
+			PublicLogger.getLogger().error(e);
 			return false;
 		}
 	}

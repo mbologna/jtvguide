@@ -5,7 +5,7 @@ package it.unibg.cs.jtvguide.util;
 
 /**
  * Detect OS property and version
- * @author Michele
+ * @author Michele Bologna, Sebastiano Rota
  * 
  */
 public class SystemProperties {
