@@ -1,8 +1,8 @@
 package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.interfaces.XMLTVDownloader;
 import it.unibg.cs.jtvguide.util.RunExternalCommand;
 import it.unibg.cs.jtvguide.util.SystemProperties;
+import it.unibg.cs.jtvguide.xmltv.interfaces.XMLTVDownloader;
 
 /**
  * A class to command XMLTV to configure and download schedules

@@ -30,9 +30,4 @@ public class AlarmClock {
             }
         }, new DailyIterator(hourOfDay, minute, second));
     }
-
-    public static void main(String[] args) {
-        AlarmClock alarmClock = new AlarmClock(7, 0, 0);
-        alarmClock.start();
-    }
 }

@@ -1,12 +1,12 @@
 package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.interfaces.XMLTVParser;
 import it.unibg.cs.jtvguide.log.PublicLogger;
 import it.unibg.cs.jtvguide.model.Channel;
 import it.unibg.cs.jtvguide.model.ChannelMap;
 import it.unibg.cs.jtvguide.model.Program;
 import it.unibg.cs.jtvguide.model.Schedule;
 import it.unibg.cs.jtvguide.util.DateFormatter;
+import it.unibg.cs.jtvguide.xmltv.interfaces.XMLTVParser;
 
 import java.io.IOException;
 import java.text.ParseException;

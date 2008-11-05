@@ -1,4 +1,4 @@
-package it.unibg.cs.jtvguide.interfaces;
+package it.unibg.cs.jtvguide.xmltv.interfaces;
 
 import java.util.Date;
 /**
