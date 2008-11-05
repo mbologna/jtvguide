@@ -24,7 +24,6 @@ public class MD5ChecksumTest extends TestCase{
 	}
 	
 	public void testGetMD5Checksum() {
-		System.out.println(MD5Checksum.getMD5Checksum("examples/tv_grab.conf"));
 		assertEquals("7d5d3c1f65a4662db21723bc2c34892a", MD5Checksum.getMD5Checksum("examples/tv_grab.conf"));
 	}
 	
