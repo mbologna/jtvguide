@@ -1,4 +1,10 @@
-package it.unibg.cs.jtvguide.model;
+package it.unibg.cs.jtvguide.test;
+
+import it.unibg.cs.jtvguide.model.Channel;
+import it.unibg.cs.jtvguide.model.ChannelMap;
+import it.unibg.cs.jtvguide.model.Program;
+import it.unibg.cs.jtvguide.model.Schedule;
+import it.unibg.cs.jtvguide.model.ScheduleByChannel;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -16,7 +22,6 @@ import junit.framework.TestCase;
 public class ScheduleTest extends TestCase {
 
 	private Schedule scheduleTest;
-	private Schedule scheduleTest2;
 
 	/**
 	 * Metodo main, si occupa di eseguire la classe
@@ -27,14 +32,11 @@ public class ScheduleTest extends TestCase {
 	}
 
 	/**
-	 * Si istanziano due nuovi Schedule utilizzati nei successivi metodi
+	 * Si istanzia il nuovo Schedule utilizzato nei successivi metodi
 	 */
 	protected void setUp() throws Exception {
 		ChannelMap channelMap = new ChannelMap();
 		scheduleTest = new Schedule(channelMap);
-		List<Program> scheduleList = new ArrayList<Program>();
-		scheduleTest2 = new Schedule(scheduleList);
-
 	}
 
 	/**
@@ -42,11 +44,10 @@ public class ScheduleTest extends TestCase {
 	 */
 	protected void tearDown() throws Exception {
 		scheduleTest = null;
-		scheduleTest2 = null;
 	}
 
 	/**
-	 * Test del metodo add della classe Schedule
+	 * Test congiunto dei metodi add e getPrograms della classe Schedule
 	 */
 	public void testAdd() {
 		try {
@@ -56,9 +57,7 @@ public class ScheduleTest extends TestCase {
 			Channel channel = new Channel("www.canale5.it", "Canale5");
 			Program programTest = new Program(today.getTime(), tomorrow.getTime(), channel, "Striscia");
 			scheduleTest.add(programTest);
-			scheduleTest2.add(programTest);
-			assertTrue(scheduleTest.scheduleList.contains(programTest));
-			assertTrue(scheduleTest2.scheduleList.contains(programTest));
+			assertTrue(scheduleTest.getPrograms(today.getTime()).contains(programTest));
 		}
 		catch (ParseException e) {
 			fail("Exception");
@@ -133,17 +132,23 @@ public class ScheduleTest extends TestCase {
 	 */
 	public void testGetSchedulesByChannel() {
 		try {
+			ChannelMap channelMapTest = new ChannelMap();
+
 			Calendar scheduleDay = Calendar.getInstance();
 			Channel channel = new Channel("www.rai1.it", "Rai1");
+			channelMapTest.add("www.rai1.it", channel);
+			scheduleTest = new Schedule(channelMapTest);
 			Program programTest = new Program(scheduleDay.getTime(), scheduleDay.getTime(), channel, "La Domenica Sportiva");
 			scheduleDay.add(Calendar.HOUR, 1);
 			Program programTest2 = new Program(scheduleDay.getTime(), scheduleDay.getTime(), channel, "Uno Mattina");
 			scheduleTest.add(programTest);
 			scheduleTest.add(programTest2);
-			scheduleTest.channelMap.add("www.rai1.it", channel);
-			ScheduleByChannel scheduleByChannelTest = new ScheduleByChannel(scheduleTest.scheduleList, channel);
-			assertEquals(scheduleTest.getSchedulesByChannel().get(0).getChannelName(), scheduleByChannelTest.getChannelName());
-			assertEquals(scheduleTest.getSchedulesByChannel().get(0).scheduleList, scheduleByChannelTest.scheduleList);
+			List<Program> scheduleList = new ArrayList<Program>();
+			scheduleList.add(programTest);
+			scheduleList.add(programTest2);
+			ScheduleByChannel scheduleByChannelTest = new ScheduleByChannel(scheduleList, channel);
+            assertEquals(scheduleTest.getSchedulesByChannel().get(0).getChannelName(), scheduleByChannelTest.getChannelName());
+            assertEquals(scheduleTest.getSchedulesByChannel().get(0).getProgramsFromNowOn(), scheduleByChannelTest.getProgramsFromNowOn());
 		}
 		catch (ParseException e) {
 			fail("Exception");
