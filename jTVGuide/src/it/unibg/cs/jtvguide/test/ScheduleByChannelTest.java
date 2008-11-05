@@ -20,13 +20,6 @@ public class ScheduleByChannelTest extends TestCase {
 
 	private ScheduleByChannel scheduleByChannelTest;
 	private Channel channel;
-	/**
-	 * Metodo main, si occupa di eseguire la classe
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		junit.textui.TestRunner.run(ChannelTest.class);
-	}
 
 	/**
 	 * Si istanzia un nuovo ScheduleByChannel utilizzato nei successivi metodi

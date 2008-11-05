@@ -24,14 +24,6 @@ public class ScheduleTest extends TestCase {
 	private Schedule scheduleTest;
 
 	/**
-	 * Metodo main, si occupa di eseguire la classe
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		junit.textui.TestRunner.run(ScheduleTest.class);
-	}
-
-	/**
 	 * Si istanzia il nuovo Schedule utilizzato nei successivi metodi
 	 */
 	protected void setUp() throws Exception {

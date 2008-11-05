@@ -7,10 +7,6 @@ import junit.framework.TestCase;
 public class XMLTVParserImplTest extends TestCase {
 XMLTVParserImpl xmltvpi;
 	
-	public static void main(String args[]) {
-		junit.textui.TestRunner.run(XMLTVScheduleInspectorTest.class);
-	}
-	
 	public void setUp() throws Exception {
 		UserPreferences.setXmltvOutputFile("examples/tv_grab.xml");
 		xmltvpi = new XMLTVParserImpl();

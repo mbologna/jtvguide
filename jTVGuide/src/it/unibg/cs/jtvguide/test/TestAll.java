@@ -1,5 +1,8 @@
 package it.unibg.cs.jtvguide.test;
 
+import java.io.IOException;
+
+import it.unibg.cs.jtvguide.xmltv.UserPreferences;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -15,8 +18,9 @@ public class TestAll extends TestSuite {
 	 * Il metodo si occupa di aggiungere le classi di test alla suite
 	 *
 	 * @return la suite di test
+	 * @throws IOException 
 	 */
-	public static Test suite(){
+	public static Test suite() throws IOException{
 
 		TestSuite suite = new TestSuite();
 
@@ -36,14 +40,28 @@ public class TestAll extends TestSuite {
 
 		suite.addTestSuite(ScheduleByChannelTest.class);
 		
+		suite.addTestSuite(RunExternalCommandTest.class);
+		
+		suite.addTestSuite(SystemPropertiesTest.class);
+		
 		suite.addTestSuite(TimeConversionsTest.class);
+		
+		suite.addTestSuite(XMLTVCommanderTest.class);
+
+		UserPreferences.resetXMLFile();
 		
 		suite.addTestSuite(UserPreferencesTest.class);
 		
+		UserPreferences.resetXMLFile();
+		
 		suite.addTestSuite(XMLTVScheduleInspectorTest.class);
 		
+		UserPreferences.resetXMLFile();
+		
 		suite.addTestSuite(XMLTVParserImplTest.class);
-
+		
+		UserPreferences.resetXMLFile();
+	
 		return suite;
 	}
 
@@ -51,8 +69,9 @@ public class TestAll extends TestSuite {
 	 * Il metodo si occupa di eseguire la suite di test
 	 *
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String args[])
+	public static void main(String args[]) throws IOException
 	{
 		suite();
 	}

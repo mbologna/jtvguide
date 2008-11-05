@@ -20,14 +20,6 @@ public class ChannelMapTest extends TestCase {
 	private ChannelMap channelMapTest;
 
     /**
-     * Metodo main, si occupa di eseguire la classe
-     * @param args
-     */
-    public static void main(String args[]) {
-    	junit.textui.TestRunner.run(ChannelMapTest.class);
-    }
-
-    /**
      * Si istanzia un nuovo ChannelMap utilizzato nei successivi metodi
      */
     public void setUp() throws Exception {

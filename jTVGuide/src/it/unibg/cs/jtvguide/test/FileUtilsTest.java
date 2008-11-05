@@ -14,10 +14,6 @@ import junit.framework.TestCase;
  */
 public class FileUtilsTest extends TestCase{
 	
-	public static void main(String args[]) {
-		junit.textui.TestRunner.run(FileUtilsTest.class);
-	}
-	
 	public void setUp() throws Exception {
 	}
 
@@ -28,7 +24,7 @@ public class FileUtilsTest extends TestCase{
 	 * Test for count the uncommented lines in a file, either if the file exists or not
 	 */
 	public void testUncommentedLinesCount() {
-		assertEquals(2, FileUtils.uncommentedLinesCount(new File("examples/tv_grab.conf")));
+		assertEquals(3, FileUtils.uncommentedLinesCount(new File("examples/tv_grab.conf")));
 		assertEquals(0, FileUtils.uncommentedLinesCount(new File("examples/tv_grab2.conf")));
 		assertEquals(-1, FileUtils.uncommentedLinesCount(new File("examples/NON_EXIST")));
 	}

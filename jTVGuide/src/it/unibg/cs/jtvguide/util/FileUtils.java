@@ -6,8 +6,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
@@ -65,6 +68,48 @@ public final class FileUtils {
 			return -1;
 		}
 	}
+	/**
+	 * Copy of two files
+	 * @param src file 
+	 * @param dst file
+	 * @throws IOException
+	 */
+    public static void copy(File src, File dst) {
+        InputStream in = null;
+		try {
+			in = new FileInputStream(src);
+		} catch (FileNotFoundException e) {
+			PublicLogger.getLogger().error(e);
+		}
+        OutputStream out = null;
+		try {
+			out = new FileOutputStream(dst);
+		} catch (FileNotFoundException e) {
+			PublicLogger.getLogger().error(e);
+		}
+    
+        // Transfer bytes from in to out
+        byte[] buf = new byte[1024];
+        int len;
+        try {
+			while ((len = in.read(buf)) > 0) {
+			    out.write(buf, 0, len);
+			}
+		} catch (IOException e) {
+			PublicLogger.getLogger().error(e);
+		}
+        try {
+			in.close();
+		} catch (IOException e) {
+			PublicLogger.getLogger().error(e);
+		}
+        try {
+			out.close();
+		} catch (IOException e) {
+			PublicLogger.getLogger().error(e);
+		}
+    }
+
 
 	private static CharSequence fromFile(String filename) throws IOException {
 		FileInputStream input = new FileInputStream(filename);
