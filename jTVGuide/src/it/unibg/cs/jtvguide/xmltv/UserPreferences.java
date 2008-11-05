@@ -114,7 +114,7 @@ public final class UserPreferences implements DefaultPrefs {
 	 * @return true if the preferences are correctly loaded, false otherwise
 	 * @throws Exception
 	 */
-	public static boolean loadFromXMLFile() throws Exception {
+	public static boolean loadFromXMLFile() {
 		if (PREFERENCES_FILE.exists()) {
 			SAXBuilder builder = new SAXBuilder();
 			Document doc = null;
@@ -149,7 +149,7 @@ public final class UserPreferences implements DefaultPrefs {
 	 * @throws IOException 
 	 * @throws Exception
 	 */
-	public static boolean saveToXMLFile() throws IOException {
+	public static boolean saveToXMLFile(){
 		if (PREFERENCES_FILE.exists())
 			PREFERENCES_FILE.delete();
 		Element root = new Element("preferences");
@@ -191,11 +191,15 @@ public final class UserPreferences implements DefaultPrefs {
 			return false;
 		}
 		finally {
-			fileOutputStream.close();
+			try {
+				fileOutputStream.close();
+			} catch (IOException e) {
+				PublicLogger.getLogger().error(e);
+			}
 		}
 	}
 
-	public static boolean resetXMLFile() throws IOException{
+	public static boolean resetXMLFile(){
 		if (PREFERENCES_FILE.exists())
 			PREFERENCES_FILE.delete();
 		Element root = new Element("preferences");
@@ -237,7 +241,11 @@ public final class UserPreferences implements DefaultPrefs {
 			return false;
 		}
 		finally {
-			fileOutputStream.close();
+			try {
+				fileOutputStream.close();
+			} catch (IOException e) {
+				PublicLogger.getLogger().error(e);
+			}
 		}
 	}
 

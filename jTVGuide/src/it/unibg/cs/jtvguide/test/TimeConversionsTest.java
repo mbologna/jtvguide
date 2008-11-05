@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 public class TimeConversionsTest extends TestCase {
 	
 	public static void main(String args[]) {
-		junit.textui.TestRunner.run(FileUtilsTest.class);
+		junit.textui.TestRunner.run(TimeConversionsTest.class);
 	}
 	
 	public void setUp() throws Exception {

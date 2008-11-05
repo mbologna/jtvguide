@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences date-generated="Wed Nov 05 16:06:11 CET 2008">
+  <!--JTVGuide preferences file-->
+  <days>4</days>
+  <withCache>false</withCache>
+  <quiet>false</quiet>
+  <xmltvConfigFile>C:\Users\Michele\workspace\jTVGuide\tv_grab.conf</xmltvConfigFile>
+  <xmltvOutputFile>C:\Users\Michele\workspace\jTVGuide\tv_grab.xml</xmltvOutputFile>
+  <country>it</country>
+</preferences>
+
