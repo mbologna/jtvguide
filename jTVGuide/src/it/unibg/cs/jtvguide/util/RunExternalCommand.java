@@ -13,7 +13,9 @@ import org.apache.log4j.Logger;
  * @author Michele Bologna, Sebastiano Rota
  *
  */
-public class RunExternalCommand {
+public final class RunExternalCommand {
+	
+	private RunExternalCommand() { }
 
 	static final int BLOCK_SIZE = 256000;
 	static byte[] buf = new byte[BLOCK_SIZE];

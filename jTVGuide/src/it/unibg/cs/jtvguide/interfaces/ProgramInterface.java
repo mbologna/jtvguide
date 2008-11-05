@@ -3,31 +3,31 @@ package it.unibg.cs.jtvguide.interfaces;
 import java.util.Date;
 
 public interface ProgramInterface extends Comparable<ProgramInterface> {
-	public String getDesc();
+	String getDesc();
 
-	public void setDesc(String desc);
+	void setDesc(String desc);
 	
-	public int compareTo(ProgramInterface o);
+	int compareTo(ProgramInterface o);
 		
-	public ChannelInterface getChannel();
+	ChannelInterface getChannel();
 	
-	public int getCompletionPercentile();
+	int getCompletionPercentile();
 
-	public String getInfo();
+	String getInfo();
 
-	public Date getStartDate();
+	Date getStartDate();
 
-	public long getStartingTime();
+	long getStartingTime();
 
-	public Date getStopDate();
+	Date getStopDate();
 
-	public String getTitle();
+	String getTitle();
 
-	public void setChannel(ChannelInterface val);
+	void setChannel(ChannelInterface val);
 
-	public void setStartDate(Date val);
+	void setStartDate(Date val);
 
-	public void setStopDate(Date val);
+	void setStopDate(Date val);
 
-	public void setTitle(String val);
+	void setTitle(String val);
 }

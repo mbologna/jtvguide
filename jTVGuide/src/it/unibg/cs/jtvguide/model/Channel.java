@@ -45,7 +45,7 @@ public class Channel implements ChannelInterface {
 	 * Compare two channels
 	 */
 	public boolean equals(Object o) {
-		Channel c = (Channel) o;
+		final Channel c = (Channel) o;
 		if (c != null) {
 			if (c.getId() == this.id)
 				return true;

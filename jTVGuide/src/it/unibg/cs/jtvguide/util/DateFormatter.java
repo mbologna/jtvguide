@@ -12,7 +12,8 @@ import java.util.Date;
  *
  */
 
-public class DateFormatter {
+public final class DateFormatter {
+	private DateFormatter() { }
 	private static SimpleDateFormat dateParser = null;
 
 	/**

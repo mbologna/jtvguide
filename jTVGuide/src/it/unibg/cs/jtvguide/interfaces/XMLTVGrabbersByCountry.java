@@ -37,7 +37,7 @@ public enum XMLTVGrabbersByCountry {
 	 * @param locale - the locale detected automatically by the program
 	 * @return the enum corresponding to the locale
 	 */
-	public static XMLTVGrabbersByCountry getXMLGrabbersByCountry(String locale) {
+	public static XMLTVGrabbersByCountry getXMLGrabbersByCountry(final String locale) {
 		for (XMLTVGrabbersByCountry e : XMLTVGrabbersByCountry.values()) {
 			if (locale.equals(e.getLOCALE())) {
 				return e;
@@ -48,7 +48,7 @@ public enum XMLTVGrabbersByCountry {
 
 	private final String COMMAND, LOCALE;
 	
-	private XMLTVGrabbersByCountry(String locale, String command) {
+	private XMLTVGrabbersByCountry(final String locale, final String command) {
 		this.LOCALE = locale;
 		this.COMMAND = command;
 	}

@@ -11,5 +11,5 @@ public interface XMLTVDownloader {
 	 * Download the XMLTV schedule
 	 * @return 0 if the schedule is downloaded correctly, -1 otherwise.
 	 */
-	public int downloadSchedule();
+	int downloadSchedule();
 }

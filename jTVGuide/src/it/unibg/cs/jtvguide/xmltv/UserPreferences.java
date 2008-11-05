@@ -26,6 +26,8 @@ import org.jdom.output.XMLOutputter;
  */
 
 public final class UserPreferences implements DefaultPrefs {
+	
+	private UserPreferences() { }
 
 	/*
 	 * Defaults

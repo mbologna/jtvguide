@@ -20,7 +20,8 @@ import java.util.regex.Pattern;
  * @author Michele Bologna, Sebastiano Rota
  *
  */
-public class FileUtils {
+public final class FileUtils {
+	private FileUtils() { }
 	/**
 	 * search for a pattern inside a text file
 	 * @param f the file to search within
