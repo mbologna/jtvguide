@@ -13,7 +13,7 @@ import junit.framework.TestCase;
  */
 public class MD5ChecksumTest extends TestCase{
 	public static void main(String args[]) {
-		junit.textui.TestRunner.run(FileUtilsTest.class);
+		junit.textui.TestRunner.run(MD5ChecksumTest.class);
 	}
 	
 	public void setUp() throws Exception {
