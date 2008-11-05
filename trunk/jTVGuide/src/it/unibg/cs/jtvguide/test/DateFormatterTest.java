@@ -14,7 +14,7 @@ import junit.framework.TestCase;
 public class DateFormatterTest extends TestCase{
 	
 	public static void main(String args[]) {
-		junit.textui.TestRunner.run(MD5ChecksumTest.class);
+		junit.textui.TestRunner.run(DateFormatterTest.class);
 	}
 	
 	public void setUp() throws Exception {
