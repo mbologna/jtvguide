@@ -1,13 +1,13 @@
 package it.unibg.cs.jtvguide.test;
 
-import java.text.ParseException;
+import it.unibg.cs.jtvguide.model.Channel;
+import it.unibg.cs.jtvguide.model.Program;
+import it.unibg.cs.jtvguide.model.ScheduleByChannel;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import it.unibg.cs.jtvguide.model.Channel;
-import it.unibg.cs.jtvguide.model.Program;
-import it.unibg.cs.jtvguide.model.ScheduleByChannel;
 import junit.framework.TestCase;
 
 /**
