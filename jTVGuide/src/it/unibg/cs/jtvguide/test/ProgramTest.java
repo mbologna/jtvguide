@@ -137,7 +137,6 @@ public class ProgramTest extends TestCase {
 	 * Test del metodo getStopDate della classe Program
 	 */
 	public void testGetStopDate() {
-		Calendar today = Calendar.getInstance();
 		Calendar tomorrow = Calendar.getInstance();
 		tomorrow.add(Calendar.DATE, 1);
 		assertEquals(tomorrow.getTime(), programTest.getStopDate());
