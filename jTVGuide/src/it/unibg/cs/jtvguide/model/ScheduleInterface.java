@@ -1,6 +1,5 @@
-package it.unibg.cs.jtvguide.model.interfaces;
+package it.unibg.cs.jtvguide.model;
 
-import it.unibg.cs.jtvguide.model.Program;
 
 import java.util.Date;
 import java.util.Iterator;

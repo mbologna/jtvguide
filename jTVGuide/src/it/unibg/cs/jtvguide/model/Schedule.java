@@ -1,7 +1,6 @@
 package it.unibg.cs.jtvguide.model;
 
-import it.unibg.cs.jtvguide.model.interfaces.ProgramInterface;
-import it.unibg.cs.jtvguide.model.interfaces.ScheduleInterface;
+import it.unibg.cs.jtvguide.interfaces.ProgramInterface;
 
 import java.net.URI;
 import java.util.ArrayList;

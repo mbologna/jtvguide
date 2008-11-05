@@ -1,7 +1,7 @@
 package it.unibg.cs.jtvguide.model;
 
-import it.unibg.cs.jtvguide.model.interfaces.ChannelInterface;
-import it.unibg.cs.jtvguide.model.interfaces.ProgramInterface;
+import it.unibg.cs.jtvguide.interfaces.ChannelInterface;
+import it.unibg.cs.jtvguide.interfaces.ProgramInterface;
 import it.unibg.cs.jtvguide.util.DateFormatter;
 import it.unibg.cs.jtvguide.util.TimeConversions;
 
