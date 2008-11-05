@@ -1,6 +1,5 @@
 package it.unibg.cs.jtvguide.test;
 
-import it.unibg.cs.jtvguide.log.PublicLogger;
 import it.unibg.cs.jtvguide.model.Channel;
 import it.unibg.cs.jtvguide.model.ChannelMap;
 
@@ -20,97 +19,101 @@ public class ChannelMapTest extends TestCase {
 
 	private ChannelMap channelMapTest;
 
-	/**
-	 * Metodo main, si occupa di eseguire la classe
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		junit.textui.TestRunner.run(ChannelMapTest.class);
-	}
+    /**
+     * Metodo main, si occupa di eseguire la classe
+     * @param args
+     */
+    public static void main(String args[]) {
+    	junit.textui.TestRunner.run(ChannelMapTest.class);
+    }
 
-	/**
-	 * Si istanzia un nuovo ChannelMap utilizzato nei successivi metodi
-	 */
-	public void setUp() throws Exception {
-		channelMapTest = new ChannelMap();
-	}
+    /**
+     * Si istanzia un nuovo ChannelMap utilizzato nei successivi metodi
+     */
+    public void setUp() throws Exception {
+    	channelMapTest = new ChannelMap();
+    }
 
-	/**
-	 * Rimozione del Channel istanziato
-	 */
-	public void tearDown() throws Exception {
-		channelMapTest = null;
-	}
+    /**
+     * Rimozione del Channel istanziato
+     */
+    public void tearDown() throws Exception {
+    	channelMapTest = null;
+    }
 
-	/**
-	 * Test congiunto dei metodi add(String, Channel) e contains(String) della classe ChannelMap
-	 */
-	public void testAddAndContainsStringChannel() {
-		Channel c = null;
-		try {
-			c = new Channel("www.canale5.it", "Canale5");
-		} catch (ParseException e) {
-			PublicLogger.getLogger().error(e);
-		}
-		String id = "www.canale5.it";
-		channelMapTest.add(id, c);
-		assertTrue(channelMapTest.contains(id));
-		assertFalse(channelMapTest.contains("Rete4"));
-	}
+    /**
+     * Test congiunto dei metodi add(String, Channel) e contains(String) della classe ChannelMap
+     */
+    public void testAddAndContainsStringChannel() {
+    	try {
+    		Channel c = new Channel("www.canale5.it", "Canale5");
+        	String id = "www.canale5.it";
+            channelMapTest.add(id, c);
+            assertTrue(channelMapTest.contains(id));
+            assertFalse(channelMapTest.contains("Rete4"));
+        }
+    	catch (ParseException e) {
+    		fail("Exception");
+        }
 
-	/**
-	 * Test congiunto dei metodi add(URI, Channel) e contains(URI) della classe ChannelMap
-	 */
-	public void testAddAndContainsURIChannel() {
-		Channel c = null;
-		try {
-			c = new Channel("www.italia1.it", "Italia1");
-		} catch (ParseException e1) {
-			PublicLogger.getLogger().error(e1);
-		}
-		try{
-			URI uri = new URI("http://www.italia1.it");
-			channelMapTest.add(uri, c);
-			assertTrue(channelMapTest.contains(uri));
-			assertFalse(channelMapTest.contains(new URI("http://www.rete4.it")));
-		}
-		catch (URISyntaxException e) {
-			fail("Exception");
-		}
-	}
+    }
 
-	/**
-	 * Test del metodo get(String) della classe ChannelMap
-	 */
-	public void testGetString() {
-		Channel c = null;
-		try {
-			c = new Channel("www.italia1.it", "Italia1");
-		} catch (ParseException e) {
-			PublicLogger.getLogger().error(e);
-		}
-		String id = "www.italia1.it";
-		channelMapTest.add(id, c);
-		assertTrue((channelMapTest.get("www.italia1.it").toString()).equals("Italia1"));
-	}
+    /**
+     * Test congiunto dei metodi add(URI, Channel) e contains(URI) della classe ChannelMap
+     */
+    public void testAddAndContainsURIChannel() {
+    	try {
+    		Channel c = new Channel("www.italia1.it", "Italia1");
+    		try{
+                URI uri = new URI("http://www.italia1.it");
+                channelMapTest.add(uri, c);
+                assertTrue(channelMapTest.contains(uri));
+                assertFalse(channelMapTest.contains(new URI("http://www.rete4.it")));
+    		}
+    		catch (URISyntaxException e) {
+                fail("Exception");
+    		}
 
-	/**
-	 * Test del metodo get(URI) della classe ChannelMap
-	 */
-	public void testGetURI() {
-		Channel c = null;
-		try {
-			c = new Channel("www.italia1.it", "Italia1");
-		} catch (ParseException e1) {
-			PublicLogger.getLogger().error(e1);
-		}
-		try{
-			URI uri = new URI("http://www.italia1.it");
-			channelMapTest.add(uri, c);
-			assertTrue((channelMapTest.get(uri).toString()).equals("Italia1"));
-		}
-		catch (URISyntaxException e) {
-			fail("Exception");
-		}
-	}
+        }
+    	catch (ParseException e1) {
+    		fail("Exception");
+        }
+    }
+
+    /**
+     * Test del metodo get(String) della classe ChannelMap
+     */
+    public void testGetString() {
+    	try {
+    		Channel c = new Channel("www.italia1.it", "Italia1");
+    		String id = "www.italia1.it";
+            channelMapTest.add(id, c);
+            assertTrue((channelMapTest.get("www.italia1.it").toString()).equals("Italia1"));
+
+    	}
+    	catch (ParseException e) {
+    		fail("Exception");
+    	}
+    }
+
+    /**
+     * Test del metodo get(URI) della classe ChannelMap
+     */
+    public void testGetURI() {
+    	try {
+    		Channel c = new Channel("www.italia1.it", "Italia1");
+    		try{
+    			URI uri = new URI("http://www.italia1.it");
+                channelMapTest.add(uri, c);
+                assertTrue((channelMapTest.get(uri).toString()).equals("Italia1"));
+    		}
+    		catch (URISyntaxException e) {
+                fail("Exception");
+    		}
+        }
+    	catch (ParseException e1) {
+    		fail("Exception");
+        }
+    }
 }
+
