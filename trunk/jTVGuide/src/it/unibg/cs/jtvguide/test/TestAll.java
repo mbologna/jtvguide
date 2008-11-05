@@ -25,14 +25,16 @@ public class TestAll extends TestSuite {
 		suite.addTestSuite(ChannelMapTest.class);
 
 		suite.addTestSuite(ProgramTest.class);
-		
+
 		suite.addTestSuite(DateFormatterTest.class);
-		
+
 		suite.addTestSuite(FileUtilsTest.class);
-		
+
 		suite.addTestSuite(MD5ChecksumTest.class);
-		
+
 		suite.addTestSuite(ScheduleTest.class);
+
+		suite.addTestSuite(ScheduleByChannelTest.class);
 
 		return suite;
 	}

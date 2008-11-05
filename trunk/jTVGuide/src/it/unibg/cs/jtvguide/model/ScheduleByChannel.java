@@ -1,5 +1,6 @@
 package it.unibg.cs.jtvguide.model;
 
+
 import java.util.List;
 
 /**
