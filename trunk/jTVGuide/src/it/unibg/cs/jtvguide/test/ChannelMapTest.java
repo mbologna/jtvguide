@@ -1,6 +1,8 @@
-package it.unibg.cs.jtvguide.model;
+package it.unibg.cs.jtvguide.test;
 
 import it.unibg.cs.jtvguide.log.PublicLogger;
+import it.unibg.cs.jtvguide.model.Channel;
+import it.unibg.cs.jtvguide.model.ChannelMap;
 
 import java.net.URI;
 import java.net.URISyntaxException;

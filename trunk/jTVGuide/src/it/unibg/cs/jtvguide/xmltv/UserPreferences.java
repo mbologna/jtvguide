@@ -1,6 +1,6 @@
 package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVGrabbersByCountry;
+import it.unibg.cs.jtvguide.interfaces.XMLTVGrabbersByCountry;
 import it.unibg.cs.jtvguide.log.PublicLogger;
 import it.unibg.cs.jtvguide.util.SystemProperties;
 
@@ -25,7 +25,7 @@ import org.jdom.output.XMLOutputter;
  *
  */
 
-public final class UserPreferences implements JTVGuidePrefs {
+public final class UserPreferences implements DefaultPrefs {
 
 	/*
 	 * Defaults

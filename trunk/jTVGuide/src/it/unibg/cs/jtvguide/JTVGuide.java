@@ -89,30 +89,29 @@ public class JTVGuide implements Runnable {
 	public static void main(final String[] args) {
 		JTVGuide jtv = null;	
 		PropertyConfigurator.configure("properties/log4j.properties");
-		Logger log = PublicLogger.getLogger();
 		try {
 			jtv = new JTVGuide();
 		} catch (ParseException e) {
-			log.error(e);
+			PublicLogger.getLogger().error(e);
 		}
 		final Schedule s = jtv.schedule;
-		log.debug("Tonight");
+		PublicLogger.getLogger().debug("Tonight");
 		final Calendar c = Calendar.getInstance();
 		c.set(Calendar.HOUR_OF_DAY, 21);
 		c.set(Calendar.MINUTE,30);
 		for (Program p: s.getPrograms(c.getTime())) {
 			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 		}
-		log.debug("Searching for *caf*");
+		PublicLogger.getLogger().debug("Searching for *caf*");
 		for (Program p: s.getProgramsByName("caf")) {
 			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 		}
-		log.debug("Printing sub-schedules by channel");
+		PublicLogger.getLogger().debug("Printing sub-schedules by channel");
 		final List<ScheduleByChannel> lsc = s.getSchedulesByChannel();
 		for (Iterator<ScheduleByChannel> iterator = lsc.iterator(); iterator.hasNext();) {
 			ScheduleByChannel scheduleByChannel = iterator
 			.next();
-			log.debug(scheduleByChannel.getChannelName());
+			PublicLogger.getLogger().debug(scheduleByChannel.getChannelName());
 			List<Program> lspbc = scheduleByChannel.getProgramsFromNowOn();
 			for (Iterator<Program> iterator2 = lspbc.iterator(); iterator2.hasNext();) {
 				Program p = iterator2.next();
@@ -123,7 +122,7 @@ public class JTVGuide implements Runnable {
 		Date d = new Date();
 		c.setTime(d);
 		c.add(Calendar.MINUTE, 30);
-		log.debug("Slicing programs from " + d + " to " + c.getTime());
+		PublicLogger.getLogger().debug("Slicing programs from " + d + " to " + c.getTime());
 		for (Program p:  s.getProgramsFromDateToDate(new Date(), c.getTime())) {
 			System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 		}
@@ -133,19 +132,19 @@ public class JTVGuide implements Runnable {
 	public void run() {
 		while(true) {
 			if(schedule != null) {
-				log.debug( "\033[H\033[2J" );
-				log.debug("-------------------");
-				log.debug("Onair");
+				PublicLogger.getLogger().debug( "\033[H\033[2J" );
+				PublicLogger.getLogger().debug("-------------------");
+				PublicLogger.getLogger().debug("Onair");
 				for (Program p: schedule.getOnAirPrograms())
 					System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
-				log.debug("Upcoming");
+				PublicLogger.getLogger().debug("Upcoming");
 				for (Program p: schedule.getUpcomingPrograms())
 					System.out.format(format, p.toString(), p.getInfo(), p.getDesc() == null? "" : p.getDesc());
 			}
 			try {
 				Thread.sleep(1000*10);
 			} catch (InterruptedException e) {
-				log.error(e);
+				PublicLogger.getLogger().error(e);
 			}
 		}
 	}

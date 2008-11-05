@@ -1,6 +1,6 @@
 package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVParser;
+import it.unibg.cs.jtvguide.interfaces.XMLTVParser;
 import it.unibg.cs.jtvguide.log.PublicLogger;
 import it.unibg.cs.jtvguide.model.Channel;
 import it.unibg.cs.jtvguide.model.ChannelMap;

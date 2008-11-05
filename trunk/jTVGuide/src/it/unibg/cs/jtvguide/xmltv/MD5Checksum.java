@@ -58,7 +58,7 @@ public class MD5Checksum {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(
-					JTVGuidePrefs.CONFIG_FILE_MD5));
+					DefaultPrefs.CONFIG_FILE_MD5));
 			String MD5 = br.readLine();
 			br.close();
 			return MD5;
@@ -76,7 +76,7 @@ public class MD5Checksum {
 		BufferedWriter bw = null;
 		try {
 			bw = new BufferedWriter(new FileWriter(
-					JTVGuidePrefs.CONFIG_FILE_MD5));
+					DefaultPrefs.CONFIG_FILE_MD5));
 			bw.write(getMD5Checksum(f.toString()));
 			bw.close();
 			return true;
