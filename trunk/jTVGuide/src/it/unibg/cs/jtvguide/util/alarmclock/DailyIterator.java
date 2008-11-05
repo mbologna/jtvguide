@@ -8,7 +8,8 @@ import java.util.Date;
  * representing the same time each day.
  */
 public class DailyIterator implements ScheduleIterator {
-    private final int hourOfDay, minute, second;
+    @SuppressWarnings("unused")
+	private final int hourOfDay, minute, second;
     private final Calendar calendar = Calendar.getInstance();
 
     public DailyIterator(int hourOfDay, int minute, int second) {
