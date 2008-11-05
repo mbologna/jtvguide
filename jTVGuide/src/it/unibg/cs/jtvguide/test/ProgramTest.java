@@ -3,6 +3,8 @@ package it.unibg.cs.jtvguide.test;
 import it.unibg.cs.jtvguide.model.Channel;
 import it.unibg.cs.jtvguide.model.Program;
 import it.unibg.cs.jtvguide.model.ProgramState;
+import it.unibg.cs.jtvguide.util.DateFormatter;
+import it.unibg.cs.jtvguide.util.TimeConversions;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -94,6 +96,12 @@ public class ProgramTest extends TestCase {
 		past.add(Calendar.HOUR, -1);
 		programTest.setStartDate(past.getTime());
 		assertEquals("Finished",programTest.getInfo());
+		Calendar afterFiveMinutes = Calendar.getInstance();
+		afterFiveMinutes.add(Calendar.MINUTE, 5);
+		programTest.setStartDate(afterFiveMinutes.getTime());
+		assertEquals("Starting in " + TimeConversions.millisecs2Time(programTest.getStartingTime()),programTest.getInfo());
+		programTest.setStopDate(null);
+		assertEquals("Unknown", programTest.getInfo());
 	}
 
 	/**
@@ -191,5 +199,16 @@ public class ProgramTest extends TestCase {
 		String title = "Telegiornale";
 		programTest.setTitle(title);
 		assertEquals(title, programTest.getTitle());
+	}
+
+	/**
+	 * Test del metodo toString della classe Program
+	 */
+	public void testToString() {
+		String programString = DateFormatter.formatDate2TimeWithDay(programTest.getStartDate()) + "-" +
+			DateFormatter.formatDate2Time(programTest.getStopDate()) + "   " + programTest.getTitle() + "   ("
+			+ programTest.getChannel() + ")";
+		assertEquals(programString, programTest.toString());
+
 	}
 }
