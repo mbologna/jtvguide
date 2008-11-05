@@ -35,6 +35,14 @@ public class TestAll extends TestSuite {
 		suite.addTestSuite(ScheduleTest.class);
 
 		suite.addTestSuite(ScheduleByChannelTest.class);
+		
+		suite.addTestSuite(TimeConversionsTest.class);
+		
+		suite.addTestSuite(UserPreferencesTest.class);
+		
+		suite.addTestSuite(XMLTVScheduleInspectorTest.class);
+		
+		suite.addTestSuite(XMLTVParserImplTest.class);
 
 		return suite;
 	}
