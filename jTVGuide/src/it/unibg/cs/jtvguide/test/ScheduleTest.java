@@ -40,7 +40,7 @@ public class ScheduleTest extends TestCase {
 	}
 
 	/**
-	 * Rimozione degli Schedule istanziati
+	 * Rimozione dello Schedule istanziato
 	 */
 	protected void tearDown() throws Exception {
 		scheduleTest = null;
@@ -133,7 +133,6 @@ public class ScheduleTest extends TestCase {
 	public void testGetSchedulesByChannel() {
 		try {
 			ChannelMap channelMapTest = new ChannelMap();
-
 			Calendar scheduleDay = Calendar.getInstance();
 			Channel channel = new Channel("www.rai1.it", "Rai1");
 			channelMapTest.add("www.rai1.it", channel);
