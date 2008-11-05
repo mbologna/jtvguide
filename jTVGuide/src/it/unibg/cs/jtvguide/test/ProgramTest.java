@@ -1,4 +1,8 @@
-package it.unibg.cs.jtvguide.model;
+package it.unibg.cs.jtvguide.test;
+
+import it.unibg.cs.jtvguide.model.Channel;
+import it.unibg.cs.jtvguide.model.Program;
+import it.unibg.cs.jtvguide.model.ProgramState;
 
 import java.text.ParseException;
 import java.util.Calendar;

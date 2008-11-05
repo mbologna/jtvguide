@@ -1,4 +1,4 @@
-package it.unibg.cs.jtvguide.interfaces.xmltv;
+package it.unibg.cs.jtvguide.interfaces;
 
 /**
  * An enum to match the human-representation of a Nation (e.g. ITALY) with the corresponding

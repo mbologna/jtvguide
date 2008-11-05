@@ -1,5 +1,6 @@
 package it.unibg.cs.jtvguide.xmltv;
 
+
 /**
  * 
  * An interface for configurign XMLTV

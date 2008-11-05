@@ -1,4 +1,4 @@
-package it.unibg.cs.jtvguide.model;
+package it.unibg.cs.jtvguide.test;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

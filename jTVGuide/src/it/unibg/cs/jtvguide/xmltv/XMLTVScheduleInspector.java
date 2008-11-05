@@ -1,6 +1,6 @@
 package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.interfaces.xmltv.XMLTVInspector;
+import it.unibg.cs.jtvguide.interfaces.XMLTVInspector;
 import it.unibg.cs.jtvguide.util.DateFormatter;
 import it.unibg.cs.jtvguide.util.FileUtils;
 

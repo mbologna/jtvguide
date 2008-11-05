@@ -9,7 +9,7 @@ import java.io.File;
  * @author Michele Bologna, Sebastiano Rota
  *
  */
-public interface JTVGuidePrefs {
+public interface DefaultPrefs {
 	public final static String PREFERENCES_FILENAME = ".jtvguide.xml";
 	public final static String PREFERENCES_PATH = SystemProperties
 			.getHomeDirectory()

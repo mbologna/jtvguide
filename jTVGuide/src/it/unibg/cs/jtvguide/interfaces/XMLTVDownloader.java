@@ -1,4 +1,4 @@
-package it.unibg.cs.jtvguide.interfaces.xmltv;
+package it.unibg.cs.jtvguide.interfaces;
 
 /**
  * An interface for download XMLTV schedules.
