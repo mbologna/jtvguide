@@ -1,5 +1,8 @@
 package it.unibg.cs.jtvguide.model;
 
+import it.unibg.cs.jtvguide.model.interfaces.ProgramInterface;
+import it.unibg.cs.jtvguide.model.interfaces.ScheduleInterface;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +15,7 @@ import java.util.List;
  * @author Michele Bologna, Sebastiano Rota
  *
  */
-public class Schedule implements Iterable<Program> {
+public class Schedule implements ScheduleInterface {
 
 	protected List<Program> scheduleList;
 	protected ChannelMap channelMap = null;
@@ -146,7 +149,7 @@ public class Schedule implements Iterable<Program> {
 		for (Program p : scheduleList) {
 			if (p.getState() == ProgramState.UNKNOWN)
 				continue;
-			for (Program onAirProgram : onAirPrograms) {
+			for (ProgramInterface onAirProgram : onAirPrograms) {
 				if (onAirProgram.getChannel() == p.getChannel()
 						&& onAirProgram.getStopDate().compareTo(
 								p.getStartDate()) == 0) {

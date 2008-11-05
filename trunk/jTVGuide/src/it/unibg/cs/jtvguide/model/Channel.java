@@ -1,6 +1,7 @@
 package it.unibg.cs.jtvguide.model;
 
 import it.unibg.cs.jtvguide.log.PublicLogger;
+import it.unibg.cs.jtvguide.model.interfaces.ChannelInterface;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,7 +11,7 @@ import java.text.ParseException;
  * @author Michele Bologna, Sebastiano Rota
  *
  */
-public class Channel implements Comparable<Channel> {
+public class Channel implements ChannelInterface {
 
 	private String displayName;
 	private URI id;
@@ -37,7 +38,7 @@ public class Channel implements Comparable<Channel> {
 	 * Compare two channels
 	 */
 	@Override
-	public int compareTo(Channel o) {
+	public int compareTo(ChannelInterface o) {
 		return displayName.compareTo(o.getDisplayName());
 	}
 	/**

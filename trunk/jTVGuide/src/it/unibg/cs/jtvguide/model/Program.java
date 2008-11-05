@@ -1,5 +1,7 @@
 package it.unibg.cs.jtvguide.model;
 
+import it.unibg.cs.jtvguide.model.interfaces.ChannelInterface;
+import it.unibg.cs.jtvguide.model.interfaces.ProgramInterface;
 import it.unibg.cs.jtvguide.util.DateFormatter;
 import it.unibg.cs.jtvguide.util.TimeConversions;
 
@@ -13,7 +15,7 @@ import java.util.GregorianCalendar;
  *
  */
 
-public class Program implements Comparable<Program> {
+public class Program implements ProgramInterface {
 
 	private String title;
 	private Date startDate;
@@ -29,7 +31,7 @@ public class Program implements Comparable<Program> {
 		this.desc = desc;
 	}
 	/**
-	 * Construct a new program objet
+	 * Construct a new program object
 	 * @param startDate program's starting date
 	 * @param stopDate program's ending date
 	 * @param c program's airing channel
@@ -43,7 +45,7 @@ public class Program implements Comparable<Program> {
 	}
 
 	@Override
-	public int compareTo(Program o) {
+	public int compareTo(ProgramInterface o) {
 		Date startDateComparing = o.getStartDate();
 		return startDate.compareTo(startDateComparing);
 	}
@@ -123,8 +125,8 @@ public class Program implements Comparable<Program> {
 		return title;
 	}
 
-	public void setChannel(Channel val) {
-		this.mChannel = val;
+	public void setChannel(ChannelInterface val) {
+		this.mChannel = (Channel) val;
 	}
 
 	public void setStartDate(Date val) {

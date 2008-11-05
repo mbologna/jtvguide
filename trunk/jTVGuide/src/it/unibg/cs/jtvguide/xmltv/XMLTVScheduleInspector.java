@@ -1,8 +1,8 @@
 package it.unibg.cs.jtvguide.xmltv;
 
-import it.unibg.cs.jtvguide.interfaces.XMLTVInspector;
 import it.unibg.cs.jtvguide.util.DateFormatter;
 import it.unibg.cs.jtvguide.util.FileUtils;
+import it.unibg.cs.jtvguide.xmltv.interfaces.XMLTVInspector;
 
 import java.util.Calendar;
 import java.util.Date;
