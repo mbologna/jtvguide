@@ -88,7 +88,7 @@ public class JTVGuide implements Runnable {
 
 	public static void main(final String[] args) {
 		JTVGuide jtv = null;	
-		PropertyConfigurator.configure("log4j.properties");
+		PropertyConfigurator.configure("properties/log4j.properties");
 		Logger log = PublicLogger.getLogger();
 		try {
 			jtv = new JTVGuide();
