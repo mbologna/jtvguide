@@ -8,7 +8,9 @@ package it.unibg.cs.jtvguide.util;
  * @author Michele Bologna, Sebastiano Rota
  * 
  */
-public class SystemProperties {
+public final class SystemProperties {
+	
+	private SystemProperties() { }
 	/**
 	 * Detect the OS we're running in
 	 * @return a string matching the OS

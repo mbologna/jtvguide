@@ -4,19 +4,19 @@ import java.net.URI;
 
 public interface ChannelInterface extends Comparable<ChannelInterface>{
 
-	public int compareTo(ChannelInterface o);
+	int compareTo(ChannelInterface o);
 
-	public boolean equals(Object o);
+	boolean equals(Object o);
 
-	public int hashCode();
+	int hashCode();
 
-	public String getDisplayName();
+	String getDisplayName();
 
-	public URI getId();
+	URI getId();
 
-	public void setDisplayName(String name);
+	void setDisplayName(String name);
 
-	public void setId(URI id);
+	void setId(URI id);
 
-	public String toString();
+	String toString();
 }

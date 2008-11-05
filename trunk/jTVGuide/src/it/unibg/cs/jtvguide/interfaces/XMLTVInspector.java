@@ -12,11 +12,11 @@ public interface XMLTVInspector {
 	 * test if the specified schedule is up to date.
 	 * @return true if the schedule is updated, false otherwise
 	 */
-	public boolean isUpToDate();
+	boolean isUpToDate();
 	/**
 	 * test if the specified schedule is up to date and contains programs for the specified date
 	 * @param d the date to test
 	 * @return true if the schedule is updated and contains the specified date, false otherwise
 	 */
-	public boolean isUpToDate(Date d);
+	boolean isUpToDate(Date d);
 }

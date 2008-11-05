@@ -6,5 +6,5 @@ package it.unibg.cs.jtvguide.interfaces;
  *
  */
 public interface XMLTVParser {
-	public boolean parse();
+	boolean parse();
 }

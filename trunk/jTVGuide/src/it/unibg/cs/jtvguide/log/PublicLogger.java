@@ -8,7 +8,8 @@ import org.apache.log4j.Logger;
  *
  */
 
-public class PublicLogger {
+public final class PublicLogger {
+	private PublicLogger() { }
 	public final static Logger log = Logger.getLogger("JTVGuide");
 	public static Logger getLogger() {
 		return log;

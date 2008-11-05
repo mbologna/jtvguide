@@ -6,7 +6,9 @@ package it.unibg.cs.jtvguide.util;
  * @author Michele Bologna, Sebastiano Rota
  *
  */
-public class TimeConversions {
+public final class TimeConversions {
+	
+	private TimeConversions() { }
 	/**
 	 * Convert millisec to hour, minutes
 	 * @param time in millisec
