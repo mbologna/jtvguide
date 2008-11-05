@@ -21,8 +21,8 @@ public class MD5Checksum {
 
 	/**
 	 * Check if two MD5 are equals
-	 * @param file first MD5
-	 * @param MD5 second MD5
+	 * @param file a file to calculate its md5
+	 * @param MD5 md5 value to compare
 	 * @return hmmm... let's guess...
 	 */
 	public static boolean checkMD5(String file, String MD5) {
@@ -41,8 +41,13 @@ public class MD5Checksum {
 	 * @throws Exception
 	 */
 
-	public static String getMD5Checksum(String filename) throws Exception {
-		byte[] b = createChecksum(filename);
+	public static String getMD5Checksum(String filename) {
+		byte[] b = null;
+		try {
+			b = createChecksum(filename);
+		} catch (Exception e) {
+			PublicLogger.getLogger().error(e);
+		}
 		String result = "";
 		for (int i = 0; i < b.length; i++) {
 			result += Integer.toString((b[i] & 0xff) + 0x100, 16).substring(1);
