@@ -1,7 +1,7 @@
 package it.unibg.cs.jtvguide.model;
 
+import it.unibg.cs.jtvguide.interfaces.ChannelInterface;
 import it.unibg.cs.jtvguide.log.PublicLogger;
-import it.unibg.cs.jtvguide.model.interfaces.ChannelInterface;
 
 import java.net.URI;
 import java.net.URISyntaxException;
