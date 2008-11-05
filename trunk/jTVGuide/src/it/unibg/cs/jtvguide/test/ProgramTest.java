@@ -101,7 +101,7 @@ public class ProgramTest extends TestCase {
 	 */
 	public void testGetStartDate() {
 		Calendar today = Calendar.getInstance();
-		assertEquals(today.getTime(), programTest.getStartDate());
+		assertTrue(today.getTime().equals(programTest.getStartDate()));
 	}
 
 	/**
