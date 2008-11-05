@@ -26,7 +26,7 @@ import org.jdom.output.XMLOutputter;
  */
 
 public final class UserPreferences implements DefaultPrefs {
-	
+
 	private UserPreferences() { }
 
 	/*
@@ -41,9 +41,9 @@ public final class UserPreferences implements DefaultPrefs {
 	 */
 	static File xmltvConfigFile = new File("tv_grab.conf");
 	static File xmltvOutputFile = new File("tv_grab.xml");
-	
+
 	static XMLTVGrabbersByCountry xmltvgbc = XMLTVGrabbersByCountry
-			.getXMLGrabbersByCountry(SystemProperties.getSystemLanguage());
+	.getXMLGrabbersByCountry(SystemProperties.getSystemLanguage());
 
 	public static XMLTVGrabbersByCountry getXMLTVCountry() {
 		return xmltvgbc;
@@ -63,18 +63,18 @@ public final class UserPreferences implements DefaultPrefs {
 		options += UserPreferences.getXmltvConfigFile().toString().indexOf(' ') == -1 ? " --config-file "
 				+ getXmltvConfigFile()
 				: " --config-file \"" + UserPreferences.getXmltvConfigFile()
-						+ "\"";
-		options += UserPreferences.getXmltvOutputFile().toString().indexOf(' ') == -1 ? " --output "
-				+ getXmltvOutputFile()
-				: " --output \"" + getXmltvOutputFile() + "\"";
-		if (isWithCache()) {
-			options += " --cache";
-		}
+				+ "\"";
+				options += UserPreferences.getXmltvOutputFile().toString().indexOf(' ') == -1 ? " --output "
+						+ getXmltvOutputFile()
+						: " --output \"" + getXmltvOutputFile() + "\"";
+						if (isWithCache()) {
+							options += " --cache";
+						}
 
-		if (isQuiet()) {
-			options += " --quiet";
-		}
-		return options;
+						if (isQuiet()) {
+							options += " --quiet";
+						}
+						return options;
 	}
 
 	public static String getXMLTVCommandByCountry() {
@@ -147,17 +147,18 @@ public final class UserPreferences implements DefaultPrefs {
 	 * Save the user's preferences to file
 	 * @return true if the preferences are correctly saved, false otherwise
 	 * @throws IOException 
+	 * @throws IOException 
 	 * @throws Exception
 	 */
-	public static boolean saveToXMLFile(){
+	public static boolean saveToXMLFile() throws IOException{
 		if (PREFERENCES_FILE.exists())
 			PREFERENCES_FILE.delete();
 		Element root = new Element("preferences");
 		root.addContent(new Comment("JTVGuide preferences file"));
 		Document mydoc = new Document(root);
 		root
-				.setAttribute(new Attribute("date-generated", new Date()
-						.toString()));
+		.setAttribute(new Attribute("date-generated", new Date()
+		.toString()));
 		Element daysElem = new Element("days");
 		Element withCacheElem = new Element("withCache");
 		Element quietElem = new Element("quiet");
@@ -182,32 +183,26 @@ public final class UserPreferences implements DefaultPrefs {
 		try {
 			fileOutputStream = new FileOutputStream(PREFERENCES_FILE);
 			xmlOutputter.output(mydoc, fileOutputStream);
-			return true;
 		} catch (FileNotFoundException e) {
 			PublicLogger.getLogger().error(e);
-			return false;
 		} catch (IOException e) {
 			PublicLogger.getLogger().error(e);
-			return false;
 		}
 		finally {
-			try {
-				fileOutputStream.close();
-			} catch (IOException e) {
-				PublicLogger.getLogger().error(e);
-			}
+			fileOutputStream.close();
 		}
+		return true;
 	}
 
-	public static boolean resetXMLFile(){
+	public static boolean resetXMLFile() throws IOException{
 		if (PREFERENCES_FILE.exists())
 			PREFERENCES_FILE.delete();
 		Element root = new Element("preferences");
 		root.addContent(new Comment("JTVGuide preferences file"));
 		Document mydoc = new Document(root);
 		root
-				.setAttribute(new Attribute("date-generated", new Date()
-						.toString()));
+		.setAttribute(new Attribute("date-generated", new Date()
+		.toString()));
 		Element daysElem = new Element("days");
 		Element withCacheElem = new Element("withCache");
 		Element quietElem = new Element("quiet");
@@ -232,21 +227,15 @@ public final class UserPreferences implements DefaultPrefs {
 		try {
 			fileOutputStream = new FileOutputStream(PREFERENCES_FILE);
 			xmlOutputter.output(mydoc, fileOutputStream);
-			return true;
 		} catch (FileNotFoundException e) {
 			PublicLogger.getLogger().error(e);
-			return false;
 		} catch (IOException e) {
 			PublicLogger.getLogger().error(e);
-			return false;
 		}
 		finally {
-			try {
-				fileOutputStream.close();
-			} catch (IOException e) {
-				PublicLogger.getLogger().error(e);
-			}
+			fileOutputStream.close();
 		}
+		return true;
 	}
 
 	public static void setCountry(XMLTVGrabbersByCountry c) {

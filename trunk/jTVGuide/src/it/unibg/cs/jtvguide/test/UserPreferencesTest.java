@@ -1,7 +1,9 @@
 package it.unibg.cs.jtvguide.test;
 
 import it.unibg.cs.jtvguide.interfaces.XMLTVGrabbersByCountry;
+import it.unibg.cs.jtvguide.util.FileUtils;
 import it.unibg.cs.jtvguide.util.SystemProperties;
+import it.unibg.cs.jtvguide.xmltv.DefaultPrefs;
 import it.unibg.cs.jtvguide.xmltv.UserPreferences;
 
 import java.io.File;
@@ -10,27 +12,25 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 public class UserPreferencesTest extends TestCase {
-	public static void main(String args[]) {
-		junit.textui.TestRunner.run(UserPreferencesTest.class);
-	}
 	
 	public void setUp() {
-		File f = new File(SystemProperties.getHomeDirectory()+"/.jtvguide.xml");
-		if (f.exists()) {
-			UserPreferences.resetXMLFile();
-			f.renameTo(new File(SystemProperties.getHomeDirectory()+"/.jtvguide.xml.old"));
+		if (DefaultPrefs.PREFERENCES_FILE.exists()) {
+			DefaultPrefs.PREFERENCES_FILE.renameTo(new File(DefaultPrefs.PREFERENCES_FILE.toString()+".old"));
 		}
+		FileUtils.copy(new File("examples/.jtvguide.xml"),DefaultPrefs.PREFERENCES_FILE);
 	}
 
 	public void tearDown() {
-		UserPreferences.setQuiet(false);
-		UserPreferences.setWithCache(false);
-		UserPreferences.setDays(6);
-		File f = new File(SystemProperties.getHomeDirectory()+"/.jtvguide.xml.old");
-		if (f.exists()) f.delete();
+		File f = new File(DefaultPrefs.PREFERENCES_FILE.toString()+".old");
+		if (f.exists()) {
+			f.renameTo(DefaultPrefs.PREFERENCES_FILE);
+		}
 	}
 	
 	public void testOptions() {
+		UserPreferences.setDays(6);
+		UserPreferences.setWithCache(false);
+		UserPreferences.setQuiet(false);
 		assertEquals(false, UserPreferences.isQuiet());
 		assertEquals(false, UserPreferences.isWithCache());
 		assertEquals(6, UserPreferences.getDays());
@@ -46,11 +46,9 @@ public class UserPreferencesTest extends TestCase {
 	}
 	
 	public void testIO() throws IOException {
-		assertEquals(false, UserPreferences.loadFromXMLFile());
-		assertEquals(true, UserPreferences.saveToXMLFile());
-		File f = new File(SystemProperties.getHomeDirectory()+"/.jtvguide.xml.old");
-		if (f.exists()) 
-			f.renameTo(new File(SystemProperties.getHomeDirectory()+"/.jtvguide.xml"));
 		assertEquals(true, UserPreferences.loadFromXMLFile());
+		assertEquals(true, UserPreferences.saveToXMLFile());
+		DefaultPrefs.PREFERENCES_FILE.delete();
+		assertEquals(false, UserPreferences.loadFromXMLFile());
 	}
 }

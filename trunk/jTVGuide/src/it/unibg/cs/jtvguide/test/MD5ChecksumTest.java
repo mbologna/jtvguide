@@ -12,9 +12,6 @@ import junit.framework.TestCase;
  *
  */
 public class MD5ChecksumTest extends TestCase{
-	public static void main(String args[]) {
-		junit.textui.TestRunner.run(MD5ChecksumTest.class);
-	}
 	
 	public void setUp() throws Exception {
 	}
@@ -27,7 +24,7 @@ public class MD5ChecksumTest extends TestCase{
 	 */
 	public void testCheckMD5() {
 		assertEquals(false, MD5Checksum.checkMD5("examples/tv_grab.conf.md5", "foo"));
-		assertEquals(true, MD5Checksum.checkMD5("examples/tv_grab.conf", "7d5d3c1f65a4662db21723bc2c34892a"));
+		assertEquals(true, MD5Checksum.checkMD5("examples/tv_grab.conf", "69fdca9d7184eb0fa9c229ca8a911940"));
 		assertEquals(false, MD5Checksum.checkMD5("NON_EXIST", "7d5d3c1f65a4662db21723bc2c34892a"));
 	}
 	
@@ -35,14 +32,7 @@ public class MD5ChecksumTest extends TestCase{
 	 * Calculate the md5sum of a file
 	 */
 	public void testGetMD5Checksum() {
-		assertEquals("7d5d3c1f65a4662db21723bc2c34892a", MD5Checksum.getMD5Checksum("examples/tv_grab.conf"));
-	}
-	
-	/**
-	 * Read a md5 stored in a file
-	 */
-	public void testReadMD5FromFile() {
-		assertEquals("7d5d3c1f65a4662db21723bc2c34892a", MD5Checksum.readMD5FromFile());
+		assertEquals("69fdca9d7184eb0fa9c229ca8a911940", MD5Checksum.getMD5Checksum("examples/tv_grab.conf"));
 	}
 	
 	/**

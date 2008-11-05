@@ -20,14 +20,6 @@ public class ChannelTest extends TestCase {
 	private Channel channelTest;
 
 	/**
-	 * Metodo main, si occupa di eseguire la classe
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		junit.textui.TestRunner.run(ChannelTest.class);
-	}
-
-	/**
 	 * Si istanzia un nuovo Channel utilizzato nei successivi metodi
 	 */
 	public void setUp() throws Exception {

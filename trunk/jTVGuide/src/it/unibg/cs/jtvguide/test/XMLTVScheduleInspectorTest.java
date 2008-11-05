@@ -14,10 +14,6 @@ import junit.framework.TestCase;
 public class XMLTVScheduleInspectorTest extends TestCase {
 	XMLTVScheduleInspector xmltvsi;
 	
-	public static void main(String args[]) {
-		junit.textui.TestRunner.run(XMLTVScheduleInspectorTest.class);
-	}
-	
 	public void setUp() throws Exception {
 		xmltvsi = new XMLTVScheduleInspector();
 		File f1 = new File("examples/tv_grab_update.xml");
@@ -27,12 +23,12 @@ public class XMLTVScheduleInspectorTest extends TestCase {
 		fw.write("<programme start=\"" + DateFormatter.formatDate(new Date()));
 		fw.write("<programme start=\"" + DateFormatter.formatDate(c.getTime()));
 		fw.close();
+		UserPreferences.setXmltvConfigFile("examples/tv_grab.conf");
 		UserPreferences.setXmltvOutputFile(f1.toString());	
 	}
 
 	public void tearDown() throws Exception {
 		xmltvsi = null;
-		UserPreferences.setXmltvOutputFile("tv_grab.xml");
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -42,7 +38,7 @@ public class XMLTVScheduleInspectorTest extends TestCase {
 		UserPreferences.setXmltvOutputFile("NON_EXIST");
 		assertEquals(false, xmltvsi.isUpToDate());
 		assertEquals(false, xmltvsi.isUpToDate(new Date(111,9,19)));
-		UserPreferences.setXmltvOutputFile("tv_grab.xml");
+		UserPreferences.setXmltvOutputFile("examples/tv_grab.xml");
 		assertEquals(false, xmltvsi.isUpToDate());
 		assertEquals(false, xmltvsi.isUpToDate(new Date(111,9,19)));
 	}
