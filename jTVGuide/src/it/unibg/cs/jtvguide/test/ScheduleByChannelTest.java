@@ -55,7 +55,7 @@ public class ScheduleByChannelTest extends TestCase {
 	}
 
 	/**
-	 * Test del metodo add della classe ScheduleByChannel
+	 * Test del metodo getChannelName della classe ScheduleByChannel
 	 */
 	public void testGetChannelName() {
 		assertTrue(scheduleByChannelTest.getChannelName().equals("Rai2"));
