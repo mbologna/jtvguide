@@ -15,6 +15,7 @@ import junit.framework.TestCase;
 public class MD5ChecksumTest extends TestCase{
 	
 	public void setUp() throws Exception {
+		UserPreferences.setXmltvConfigFile("examples/tv_grab.conf");
 	}
 
 	public void tearDown() throws Exception {
@@ -34,7 +35,6 @@ public class MD5ChecksumTest extends TestCase{
 	 */
 	public void testGetMD5Checksum() {
 		assertEquals("69fdca9d7184eb0fa9c229ca8a911940", MD5Checksum.getMD5Checksum("examples/tv_grab.conf"));
-		UserPreferences.setXmltvConfigFile("examples/tv_grab.conf");
 		assertEquals("69fdca9d7184eb0fa9c229ca8a911940", MD5Checksum.readMD5FromFile());
 	}
 	
