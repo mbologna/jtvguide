@@ -33,8 +33,12 @@ public class TestAll extends TestSuite {
 		suite.addTestSuite(DateFormatterTest.class);
 
 		suite.addTestSuite(FileUtilsTest.class);
+		
+		UserPreferences.resetXMLFile();
 
 		suite.addTestSuite(MD5ChecksumTest.class);
+		
+		UserPreferences.resetXMLFile();
 
 		suite.addTestSuite(ScheduleTest.class);
 
