@@ -47,9 +47,9 @@ public class TestAll extends TestSuite {
 		suite.addTestSuite(TimeConversionsTest.class);
 		
 		suite.addTestSuite(XMLTVCommanderTest.class);
-
-		UserPreferences.resetXMLFile();
 		
+		UserPreferences.resetXMLFile();
+	
 		suite.addTestSuite(UserPreferencesTest.class);
 		
 		UserPreferences.resetXMLFile();
