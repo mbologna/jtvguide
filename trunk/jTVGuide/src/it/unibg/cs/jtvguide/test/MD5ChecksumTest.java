@@ -1,6 +1,7 @@
 package it.unibg.cs.jtvguide.test;
 
 import it.unibg.cs.jtvguide.xmltv.MD5Checksum;
+import it.unibg.cs.jtvguide.xmltv.UserPreferences;
 
 import java.io.File;
 
@@ -33,6 +34,9 @@ public class MD5ChecksumTest extends TestCase{
 	 */
 	public void testGetMD5Checksum() {
 		assertEquals("69fdca9d7184eb0fa9c229ca8a911940", MD5Checksum.getMD5Checksum("examples/tv_grab.conf"));
+		UserPreferences.setXmltvConfigFile("examples/tv_grab.conf");
+		System.out.println(MD5Checksum.readMD5FromFile());
+		assertEquals("69fdca9d7184eb0fa9c229ca8a911940", MD5Checksum.readMD5FromFile());
 	}
 	
 	/**
