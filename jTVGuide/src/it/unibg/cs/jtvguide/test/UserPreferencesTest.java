@@ -34,8 +34,10 @@ public class UserPreferencesTest extends TestCase {
 		assertEquals(false, UserPreferences.isQuiet());
 		assertEquals(false, UserPreferences.isWithCache());
 		assertEquals(6, UserPreferences.getDays());
-		assertEquals(new File("tv_grab.conf").getAbsolutePath(), UserPreferences.getXmltvConfigFile().toString());
-		assertEquals(new File("tv_grab.xml").getAbsolutePath(), UserPreferences.getXmltvOutputFile().toString());
+		UserPreferences.setXmltvConfigFile(new File("examples/tv_grab.conf").getAbsolutePath());
+		UserPreferences.setXmltvOutputFile(new File("examples/tv_grab.xml").getAbsolutePath());
+		assertEquals(new File("examples/tv_grab.conf").getAbsolutePath(), UserPreferences.getXmltvConfigFile().toString());
+		assertEquals(new File("examples/tv_grab.xml").getAbsolutePath(), UserPreferences.getXmltvOutputFile().toString());
 		assertEquals(XMLTVGrabbersByCountry.getXMLGrabbersByCountry(SystemProperties.getSystemLanguage()), UserPreferences.getXMLTVCountry());
 		UserPreferences.setQuiet(true);
 		UserPreferences.setWithCache(true);

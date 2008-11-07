@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 
 
@@ -36,7 +37,8 @@ public class JTVGuide implements Runnable {
 	protected Schedule schedule;
 	public final static Logger log = Logger.getLogger("JTVGuide");
 
-	public JTVGuide() throws ParseException {	
+	public JTVGuide() throws ParseException {
+		PropertyConfigurator.configure("properties/log4j.properties");
 		log.info("JTVGuide 2.0");	
 		final XMLTVCommander xmltvc = new XMLTVCommander();
 		final XMLTVParserImpl xmltvParser = new XMLTVParserImpl();

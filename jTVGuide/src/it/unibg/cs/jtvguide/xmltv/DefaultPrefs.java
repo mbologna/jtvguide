@@ -17,7 +17,7 @@ public interface DefaultPrefs {
 	public final static File PREFERENCES_FILE = new File(PREFERENCES_PATH
 			+ PREFERENCES_FILENAME);
 	public final static File CONFIG_FILE_MD5 = new File(UserPreferences
-			.getXmltvConfigFile().toString()
+			.getXmltvConfigFile().getAbsolutePath()
 			+ ".md5");
 
 }

@@ -1,5 +1,7 @@
 package it.unibg.cs.jtvguide.test;
 
+import it.unibg.cs.jtvguide.util.FileUtils;
+import it.unibg.cs.jtvguide.xmltv.DefaultPrefs;
 import it.unibg.cs.jtvguide.xmltv.MD5Checksum;
 import it.unibg.cs.jtvguide.xmltv.UserPreferences;
 
@@ -15,10 +17,17 @@ import junit.framework.TestCase;
 public class MD5ChecksumTest extends TestCase{
 	
 	public void setUp() throws Exception {
-		UserPreferences.setXmltvConfigFile("examples/tv_grab.conf");
+		if (DefaultPrefs.CONFIG_FILE_MD5.exists()) {
+			DefaultPrefs.CONFIG_FILE_MD5.renameTo(new File(DefaultPrefs.CONFIG_FILE_MD5.toString()+".old"));
+		}
+		FileUtils.copy(new File("examples/tv_grab.conf.md5"),DefaultPrefs.CONFIG_FILE_MD5);
 	}
 
 	public void tearDown() throws Exception {
+		File f = new File(DefaultPrefs.CONFIG_FILE_MD5.toString()+".old");
+		if (f.exists()) {
+			f.renameTo(DefaultPrefs.CONFIG_FILE_MD5);
+		}
 	}
 	
 	/**
@@ -34,6 +43,7 @@ public class MD5ChecksumTest extends TestCase{
 	 * Calculate the md5sum of a file
 	 */
 	public void testGetMD5Checksum() {
+		UserPreferences.setXmltvConfigFile("examples/tv_grab.conf");
 		assertEquals("69fdca9d7184eb0fa9c229ca8a911940", MD5Checksum.getMD5Checksum("examples/tv_grab.conf"));
 		assertEquals("69fdca9d7184eb0fa9c229ca8a911940", MD5Checksum.readMD5FromFile());
 	}
@@ -42,6 +52,7 @@ public class MD5ChecksumTest extends TestCase{
 	 * Calculate an md5 and store it in a file
 	 */
 	public void testWriteMD5ToFile() {
+		UserPreferences.setXmltvConfigFile("examples/tv_grab.conf");
 		assertEquals(true, MD5Checksum.writeMD5ToFile(new File("examples/tv_grab.conf")));
 	}
 	
