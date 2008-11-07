@@ -41,7 +41,7 @@ public class ScheduleTest extends TestCase {
 	/**
 	 * Test congiunto dei metodi add e getPrograms della classe Schedule
 	 */
-	public void testAdd() {
+	public void testAddAndGetPrograms() {
 		try {
 			Calendar today = Calendar.getInstance();
 			Calendar tomorrow = Calendar.getInstance();
