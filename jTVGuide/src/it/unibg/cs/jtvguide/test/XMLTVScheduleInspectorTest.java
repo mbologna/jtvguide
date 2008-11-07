@@ -11,9 +11,17 @@ import java.util.Date;
 
 import junit.framework.TestCase;
 
+/**
+ * A testclass to inspect xmltv schedule against updates, etc.
+ * @author Michele Bologna, Sebastiano Rota
+ *
+ */
 public class XMLTVScheduleInspectorTest extends TestCase {
 	XMLTVScheduleInspector xmltvsi;
 	
+	/**
+	 * Prepare an updated and a non-updated schedule to test the class
+	 */
 	public void setUp() throws Exception {
 		xmltvsi = new XMLTVScheduleInspector();
 		File f1 = new File("examples/tv_grab_update.xml");
@@ -32,6 +40,10 @@ public class XMLTVScheduleInspectorTest extends TestCase {
 	}
 	
 	@SuppressWarnings("deprecation")
+	/**
+	 * test if the prepared the schedule is updated or not
+	 * try also to test a non existant file
+	 */
 	public void testIsUpdate() {	
 		assertEquals(true, xmltvsi.isUpToDate());
 		assertEquals(false, xmltvsi.isUpToDate(new Date(111,9,19)));
