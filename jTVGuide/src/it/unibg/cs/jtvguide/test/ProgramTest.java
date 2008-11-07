@@ -125,7 +125,7 @@ public class ProgramTest extends TestCase {
 		Calendar today = Calendar.getInstance();
 		today.add(Calendar.MILLISECOND, 100);
 		programTest.setStartDate(today.getTime());
-		assertEquals(100,programTest.getStartingTime());
+		assertTrue(programTest.getStartingTime() <= 100);
 	}
 
 	/**
