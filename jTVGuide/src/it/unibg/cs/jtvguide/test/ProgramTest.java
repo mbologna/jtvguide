@@ -146,11 +146,11 @@ public class ProgramTest extends TestCase {
 	public void testGetStopDate() {
 		Calendar tomorrow = Calendar.getInstance();
 		tomorrow.add(Calendar.DATE, 1);
-		assertTrue(tomorrow.getTime().getYear() == programTest.getStartDate().getYear());
-		assertTrue(tomorrow.getTime().getMonth() == programTest.getStartDate().getMonth());
-		assertTrue(tomorrow.getTime().getDay() == programTest.getStartDate().getDay()+1);
-		assertTrue(tomorrow.getTime().getHours() == programTest.getStartDate().getHours());
-		assertTrue(tomorrow.getTime().getMinutes() == programTest.getStartDate().getMinutes());
+		assertTrue(tomorrow.getTime().getYear() == programTest.getStopDate().getYear());
+		assertTrue(tomorrow.getTime().getMonth() == programTest.getStopDate().getMonth());
+		assertTrue(tomorrow.getTime().getDay() == programTest.getStopDate().getDay());
+		assertTrue(tomorrow.getTime().getHours() == programTest.getStopDate().getHours());
+		assertTrue(tomorrow.getTime().getMinutes() == programTest.getStopDate().getMinutes());
 	}
 
 	/**
